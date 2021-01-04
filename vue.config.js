@@ -6,6 +6,9 @@ module.exports = {
   outputDir: process.env.NODE_ENV === "production" ? "dist" : "devDist",
   // 关闭语法的自动检测
   lintOnSave: true,
+  configureWebpack: {
+    devtool: "source-map"
+  },
   chainWebpack: config => {
     config.module.rules.delete("svg"); //重点:删除默认配置中处理svg,
     config.module
