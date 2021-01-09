@@ -1,5 +1,4 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import LoginLayout from "@/components/Layouts/LoginLayout";
 
 const routes = [
   {
@@ -10,17 +9,8 @@ const routes = [
   },
   {
     path: "/login",
-    component: LoginLayout,
-    name: "LoginLayout",
-    redirect: { name: "login" },
-    children: [
-      {
-        path: "/account/login",
-        name: "login",
-        component: () => import("../views/account/Login.vue"),
-        hidden: true
-      }
-    ]
+    name: "login",
+    component: () => import("../views/account/Login.vue"),
   }
 ];
 

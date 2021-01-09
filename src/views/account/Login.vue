@@ -1,120 +1,102 @@
 <template>
-  <div class="main">
-    <div class="login-title">登录管理后台</div>
-    <a-form
-      :rules="rules"
-      id="formLogin"
-      class="user-layout-login"
-      ref="formLogin"
-    >
-      <a-form-item required style="padding: 30px 0 0 0">
-        <a-input
-          size="large"
-          type="text"
-          autocomplete="on"
-          placeholder="账户: admin"
-          :value="loginForm.username"
-        >
-          <UserOutlined />
-        </a-input>
-      </a-form-item>
+  <div class="container" :class="{ 'sign-up-mode': signUpMode }">
+    <!-- form表单容器 -->
+    <div class="forms-container">
+      <div class="signin-signup">
+        <!-- 登录 -->
+        <div class="signin">
+          <a-card :title="signUpMode? $t('login.loading') : $t('login.title')"
+                  bordered hoverable
+                  style="border-radius: 20px 20px 20px 20px;
+    background: rgba(250, 250, 250, 0.7);
+        box-shadow: 0px 2px 14px 6px rgba(24, 144, 255, 0.2), -11px -4px 9px -16px rgba(24, 144, 255, 0.2);
+    background: transparent;"
+                  headStyle="text-align: center;font-size: 24px;color: #1890ff;"
+                  :loading="signUpMode"
+          >
+            <a-form
+              name="custom-validation"
+              class="sign-in-form"
+            >
+              <a-form-item>
+                   <a-input
+              size="large"
+              type="text"
+              autocomplete="on"
+              placeholder="账户: admin"
+            >
+            </a-input>
+              </a-form-item>
+              <a-form-item>
+                     <a-input-password
+              size="large"
+              autocomplete="on"
+              placeholder="密码: admin or ant.design"
+            >
+            </a-input-password>
+              </a-form-item>
+            </a-form>
+          </a-card>
+        </div>
+      </div>
+    </div>
+    <!-- 左右切换动画 -->
+    <div class="panels-container">
+      <div class="panel left-panel">
+        <div class="content">
+          <h3>学习是为了有更多的选择,让生活变的更美好!</h3>
+          <p>何以解忧,唯有米修</p>
+          <button @click="signUpMode = !signUpMode" class="btn transparent">
+            注册
+          </button>
+        </div>
+        <img src="@/assets/login/table_bg.png" class="image" alt="" />
+      </div>
 
-      <a-form-item>
-        <a-input-password
-          size="large"
-          autocomplete="on"
-          placeholder="密码: admin or ant.design"
-          :value="loginForm.password"
-        >
-          <LockOutlined />
-        </a-input-password>
-      </a-form-item>
-
-      <a-form-item name="rememberMe">
-        <a-radio :value="loginForm.rememberMe">
-          自动登录
-        </a-radio>
-      </a-form-item>
-
-      <a-form-item style="margin-top:50px">
-        <a-button
-          size="large"
-          type="primary"
-          class="login-button"
-          @click="loginSubmit"
-          >登陆</a-button
-        >
-      </a-form-item>
-    </a-form>
+      <div class="panel right-panel">
+        <div class="content">
+          <h3>以人为镜,可明得失, 以代码为镜,可通逻辑!</h3>
+          <p>学习编程,让你的生活更有趣</p>
+          <button @click="signUpMode = !signUpMode" class="btn transparent">
+            取消
+          </button>
+        </div>
+        <img src="@/assets/svg/register.svg" class="image" alt="" />
+      </div>
+    </div>
   </div>
 </template>
-
 <script>
-import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
-import { Form, Input, Button, Radio } from "ant-design-vue";
+import { ref } from "vue";
+import { Form, Input, Card } from "ant-design-vue"
+
 export default {
   name: "Login",
   components: {
-    UserOutlined,
-    LockOutlined,
     AForm: Form,
     AFormItem: Form.Item,
     AInput: Input,
     AInputPassword: Input.Password,
-    AButton: Button,
-    ARadio: Radio
+    ACard: Card
   },
-  data() {
-    let validatePass = async (rule, value) => {
-      if (value === "") {
-        return Promise.reject("Please input the password");
-      } else {
-        return Promise.resolve();
-      }
-    };
-    return {
-      classLoginChecking: "", // 登陆样式
-      // login type: 0 email, 1 username, 2 telephone
-      loginType: 0,
-      isLoginError: false,
-      loginForm: {
-        username: "admin",
-        password: "admin",
-        rememberMe: "checked"
-      },
-      rules: {
-        username: [{ message: "Please input Activity name", trigger: "blur" }],
-        password: [{ validator: validatePass, trigger: "change" }]
-      },
-      loading: false
-    };
-  },
-  methods: {
-    loginSubmit() {
-      this.$refs.formLogin
-        .validate()
-        .then(() => {
-          console.log("values", this.form);
-        })
-        .catch(error => {
-          console.log("error", error);
-        });
-    },
-    resetForm() {
-      this.$refs.formLogin.resetFields();
-    }
+  setup() {
+    const signUpMode = ref(false);
+
+    return { signUpMode };
   }
 };
 </script>
 
 <style lang="scss" scoped>
-//.main
-//  height: 500px
-//  padding-top: 50px
-//.login-title
-//  width: 100%
-//  text-align: center
-//  font-size: 24px
-//  color: #1890ff
-//  margin-bottom: 30px
+@import "../../styles/login";
+.ant-input,.ant-input-password{
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #1890ff !important;
+  box-shadow: none;
+  background: transparent;
+}
+.ant-row {
+  display: block;
+}
 </style>
