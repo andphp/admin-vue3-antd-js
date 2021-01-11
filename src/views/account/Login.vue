@@ -5,35 +5,31 @@
       <div class="signin-signup">
         <!-- 登录 -->
         <div class="signin">
-          <a-card :title="signUpMode? $t('login.loading') : $t('login.title')"
-                  bordered hoverable
-                  style="border-radius: 20px 20px 20px 20px;
-    background: rgba(250, 250, 250, 0.7);
-        box-shadow: 0px 2px 14px 6px rgba(24, 144, 255, 0.2), -11px -4px 9px -16px rgba(24, 144, 255, 0.2);
-    background: transparent;"
-                  headStyle="text-align: center;font-size: 24px;color: #1890ff;"
-                  :loading="signUpMode"
+          <a-card
+            :title="signUpMode ? $t('login.loading') : $t('login.title')"
+            bordered
+            hoverable
+            class="a-card"
+            headStyle="text-align: center;font-size: 24px;color: #1890ff;"
+            :loading="signUpMode"
           >
-            <a-form
-              name="custom-validation"
-              class="sign-in-form"
-            >
+            <a-form name="custom-validation" class="sign-in-form">
               <a-form-item>
-                   <a-input
-              size="large"
-              type="text"
-              autocomplete="on"
-              placeholder="账户: admin"
-            >
-            </a-input>
+                <a-input
+                  size="large"
+                  type="text"
+                  autocomplete="on"
+                  placeholder="账户: admin"
+                >
+                </a-input>
               </a-form-item>
               <a-form-item>
-                     <a-input-password
-              size="large"
-              autocomplete="on"
-              placeholder="密码: admin or ant.design"
-            >
-            </a-input-password>
+                <a-input-password
+                  size="large"
+                  autocomplete="on"
+                  placeholder="密码: admin or ant.design"
+                >
+                </a-input-password>
               </a-form-item>
             </a-form>
           </a-card>
@@ -68,7 +64,7 @@
 </template>
 <script>
 import { ref } from "vue";
-import { Form, Input, Card } from "ant-design-vue"
+import { Form, Input, Card } from "ant-design-vue";
 
 export default {
   name: "Login",
@@ -89,7 +85,8 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../styles/login";
-.ant-input,.ant-input-password{
+.ant-input,
+.ant-input-password {
   border: none;
   outline: none;
   border-bottom: 1px solid #1890ff !important;
@@ -98,5 +95,12 @@ export default {
 }
 .ant-row {
   display: block;
+}
+.a-card {
+  border-radius: 20px 20px 20px 20px;
+  background: rgba(250, 250, 250, 0.7);
+  box-shadow: 0px 2px 14px 6px rgba(24, 144, 255, 0.2),
+    -11px -4px 9px -16px rgba(24, 144, 255, 0.2);
+  background: transparent;
 }
 </style>
