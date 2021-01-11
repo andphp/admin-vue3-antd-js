@@ -13,23 +13,33 @@
             headStyle="text-align: center;font-size: 24px;color: #1890ff;"
             :loading="signUpMode"
           >
-            <a-form name="custom-validation" class="sign-in-form">
+            <a-form name="custom-validation" class="sign-in-form" @submit="loginSubmit">
               <a-form-item>
                 <a-input
                   size="large"
-                  type="text"
                   autocomplete="on"
                   placeholder="账户: admin"
+                  v-model:value="user.username"
                 >
+                  <svg-icon icon-name="user" style="width:20px; height:20px;" />
                 </a-input>
               </a-form-item>
               <a-form-item>
-                <a-input-password
-                  size="large"
-                  autocomplete="on"
-                  placeholder="密码: admin or ant.design"
-                >
-                </a-input-password>
+                <div style="border-radius: 8px 8px;">
+                  <a-input-password
+                    size="large"
+                    autocomplete="on"
+                    placeholder="密码: admin or ant.design"
+                    v-model:value="user.password"
+                  >
+                    <svg-icon icon-name="locked"></svg-icon>
+                  </a-input-password>
+                </div>
+              </a-form-item>
+              <a-form-item :wrapper-col="{ span: 24 }">
+                <a-button type="primary" html-type="submit" class="login-button" block>
+                  {{ $t("login.btn_title") }}
+                </a-button>
               </a-form-item>
             </a-form>
           </a-card>
@@ -40,11 +50,8 @@
     <div class="panels-container">
       <div class="panel left-panel">
         <div class="content">
-          <h3>学习是为了有更多的选择,让生活变的更美好!</h3>
-          <p>何以解忧,唯有米修</p>
-          <button @click="signUpMode = !signUpMode" class="btn transparent">
-            注册
-          </button>
+          <h3>admin-vue3-antd</h3>
+          <p>牛逼plus 江北区最具影响力的 Web 后台管理系统</p>
         </div>
         <img src="@/assets/login/table_bg.png" class="image" alt="" />
       </div>
@@ -57,14 +64,15 @@
             取消
           </button>
         </div>
-        <img src="@/assets/svg/register.svg" class="image" alt="" />
+        <img src="@/assets/login/register.png" class="image" alt="" />
       </div>
     </div>
   </div>
 </template>
 <script>
-import { ref } from "vue";
-import { Form, Input, Card } from "ant-design-vue";
+import { ref, reactive } from "vue";
+import { Form, Input, Card, Button } from "ant-design-vue";
+import SvgIcon from "../../components/Svgicon";
 
 export default {
   name: "Login",
@@ -73,34 +81,54 @@ export default {
     AFormItem: Form.Item,
     AInput: Input,
     AInputPassword: Input.Password,
-    ACard: Card
+    ACard: Card,
+    AButton: Button,
+    SvgIcon: SvgIcon
   },
   setup() {
-    const signUpMode = ref(false);
+    let signUpMode = ref(false);
+    let user = reactive({
+      username: "admin",
+      password: "123456"
+    });
 
-    return { signUpMode };
+    function loginSubmit() {
+      console.log(signUpMode);
+      signUpMode.value = !signUpMode.value;
+    }
+
+    return { signUpMode, loginSubmit, user };
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 @import "../../styles/login";
+
 .ant-input,
 .ant-input-password {
   border: none;
+  border-radius: 5px 5px;
   outline: none;
   border-bottom: 1px solid #1890ff !important;
   box-shadow: none;
   background: transparent;
 }
+
 .ant-row {
   display: block;
 }
+
 .a-card {
   border-radius: 20px 20px 20px 20px;
   background: rgba(250, 250, 250, 0.7);
   box-shadow: 0px 2px 14px 6px rgba(24, 144, 255, 0.2),
-    -11px -4px 9px -16px rgba(24, 144, 255, 0.2);
+  -11px -4px 9px -16px rgba(24, 144, 255, 0.2);
   background: transparent;
+}
+
+.login-button {
+  margin-top: 30px;
+  border-radius: 5px 5px;
 }
 </style>
