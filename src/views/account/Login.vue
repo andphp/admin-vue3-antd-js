@@ -13,33 +13,45 @@
             headStyle="text-align: center;font-size: 24px;color: #1890ff;"
             :loading="signUpMode"
           >
-            <a-form name="custom-validation" class="sign-in-form" :model="user" :rules="formRule" ref="formRef"
-                    @submit="loginSubmit">
-              <a-form-item>
+            <a-form class="sign-in-form" :model="account" :rules="rules" @finish="loginSubmit">
+              <a-form-item name="username">
                 <a-input
                   size="large"
                   autocomplete="on"
                   placeholder="账户: admin"
-                  v-model:value="user.username"
+                  v-model:value="account.username"
                 >
                   <template #prefix>
                     <UserOutlined style="color:#1890ff" />
                   </template>
                 </a-input>
               </a-form-item>
-              <a-form-item>
+              <a-form-item name="password">
                 <div style="border-radius: 8px 8px;">
                   <a-input-password
                     size="large"
                     autocomplete="on"
                     placeholder="密码: admin or ant.design"
-                    v-model:value="user.password"
+                    v-model:value="account.password"
                   >
                     <template #prefix>
                       <LockOutlined style="color:#1890ff" />
                     </template>
                   </a-input-password>
                 </div>
+              </a-form-item>
+              <!-- 登录验证码 -->
+              <a-form-item>
+                <slider-verify-code
+                  class="v-base"
+                  @onVerify="success"
+                  :options="sliderVerifyCodeOptions"
+                >
+                  <template #icon>
+                    <svg-icon v-if="sliderVerifyCodeOptions.icon && isSuccess" icon-class="slider-success" class-name="v-success v-large"></svg-icon>
+                    <svg-icon v-else icon-class="slider" class-name="v-black v-large"></svg-icon>
+                  </template>
+                </slider-verify-code>
               </a-form-item>
               <a-form-item :wrapper-col="{ span: 24 }">
                 <a-button size="large" type="primary" html-type="submit" class="login-button" block>
@@ -75,10 +87,12 @@
   </div>
 </template>
 <script>
-import { ref, reactive } from "vue";
+import { toRefs, reactive } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
-import { Form, Input, Card, Button, Message } from "ant-design-vue";
-import { useRouter } from "vue-router";
+import { Form, Input, Card, Button } from "ant-design-vue";
+import SliderVerifyCode from "@/components/SliderVerifyCode/SliderVerifyCode.vue";
+import SvgIcon from "@/components/Icons/SvgIcon";
+// import { useRouter } from "vue-router";
 
 export default {
   name: "Login",
@@ -90,43 +104,54 @@ export default {
     ACard: Card,
     AButton: Button,
     UserOutlined: UserOutlined,
-    LockOutlined: LockOutlined
+    LockOutlined: LockOutlined,
+    SliderVerifyCode: SliderVerifyCode,
+    SvgIcon: SvgIcon
   },
   setup() {
-    const router = useRouter();
-    const formRef = ref(null);
-    let signUpMode = ref(false);
-    let user = reactive({
-      username: "admin",
-      password: "123456"
+    // const router = useRouter();
+
+    const formData = reactive({
+      account: {
+        username: "admin",
+        password: "123456"
+      },
+      signUpMode: false,
+      sliderVerifyCodeOptions: {
+        text: "请向右滑动验证",
+        successText: "验证成功", // 验证成功文字
+        sliderTextColor: "#54e346", // 滑块验证成功的文本颜色
+        sliderBackground: "#54e346", // 滑块滑动时背景颜色
+        sliderColor: "#fff", // 滑块颜色
+        height: 40, // 高度默认40
+        color: "#fff", // 初始化的字体颜色
+        backgroud: "#cfd3ce", // 背景颜色
+        fontSize: 12, // 字体大小
+        icon: true // 是否使用自定义的图标文件
+      },
+      isSuccess: false
     });
 
     //验证规则
     let rules = reactive({
-      formRule: {
-        username: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
-        ],
-        password: [
-          { required: true, min: 6, message: "密码最少六位", trigger: "blur" }
-        ]
-      }
+      username: [
+        { required: true, message: "请输入用户名", trigger: "blur" }
+      ],
+      password: [
+        { required: true, min: 6, message: "密码最少六位", trigger: "blur" }
+      ]
     });
-    const loginSubmit = () => {
-      formRef.value.validate().then(() => {
-        console.log(signUpMode);
-        signUpMode.value = !signUpMode.value;
-        setTimeout(function() {
-          router.push({ path: "/" });
-        }, 3000);
-      })
-        .catch(() => {
-          //验证失败提示错误信息
-          Message.error("用户名或密码未填");
-        });
-    };
 
-    return { signUpMode, loginSubmit, user, formRef };
+    function loginSubmit() {
+      formData.signUpMode = !formData.signUpMode;
+    }
+
+    const success = (e) => {
+      formData.isSuccess = e;
+    };
+    const data = toRefs(formData);
+
+    return { loginSubmit, ...data, success, rules };
   }
 };
 </script>
@@ -135,6 +160,7 @@ export default {
 @import "../../styles/login";
 
 .ant-input,
+.ant-input-affix-wrapper,
 .ant-input-password {
   border: none;
   border-radius: 5px 5px;
