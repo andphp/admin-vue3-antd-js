@@ -8,12 +8,15 @@ import "ant-design-vue/dist/antd.css";
 // 语言
 import VueI18n from "./language";
 // 引入icons
-import { registerGlobalSvgIconComponent } from "./assets/icons"; // icon
+import SvgIcon from "@/components/Icons/SvgIcon.vue";
 
-const app = createApp(App)
+createApp(App)
   .use(store)
   .use(router)
   .use(VueI18n)
+  .component("svg-icon", SvgIcon)
   .mount("#app");
-// 注册SvgIcon全局组件
-registerGlobalSvgIconComponent(app);
+// 扫描后缀名为SVG的文件。
+const req = require.context("./assets/icons/svg", false, /\.svg$/);
+const requireAll = requireContext => requireContext.keys().map(requireContext);
+requireAll(req);

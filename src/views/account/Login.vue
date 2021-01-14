@@ -183,7 +183,6 @@ export default {
 }
 
 .login-button {
-  margin-top: 30px;
   border-radius: 5px 5px;
 }
 </style>
