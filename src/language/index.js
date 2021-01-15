@@ -5,6 +5,7 @@ const i18n = createI18n({
   messages: {
     ch: require("./ch.js"),
     en: require("./en.js")
-  }
+  },
+  silentTranslationWarn: true
 });
 export default i18n;

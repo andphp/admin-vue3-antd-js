@@ -54,7 +54,7 @@
                 </slider-verify-code>
               </a-form-item>
               <a-form-item :wrapper-col="{ span: 24 }">
-                <a-button size="large" type="primary" html-type="submit" class="login-button" block>
+                <a-button size="large" type="primary" class="login-button" @click="loginSubmit" block>
                   {{ $t("login.btn_title") }}
                 </a-button>
               </a-form-item>
@@ -92,7 +92,7 @@ import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import { Form, Input, Card, Button } from "ant-design-vue";
 import SliderVerifyCode from "@/components/SliderVerifyCode/SliderVerifyCode.vue";
 import SvgIcon from "@/components/Icons/SvgIcon";
-// import { useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 
 export default {
   name: "Login",
@@ -109,7 +109,7 @@ export default {
     SvgIcon: SvgIcon
   },
   setup() {
-    // const router = useRouter();
+    const router = useRouter();
 
     const formData = reactive({
       account: {
@@ -131,27 +131,28 @@ export default {
       },
       isSuccess: false
     });
-
     //验证规则
     let rules = reactive({
       username: [
         { required: true, message: "请输入用户名", trigger: "blur" }
       ],
       password: [
-        { required: true, min: 6, message: "密码最少六位", trigger: "blur" }
+        { required: true, min: 6, message: "密码最少六位", trigger: "change" }
       ]
     });
 
     function loginSubmit() {
       formData.signUpMode = !formData.signUpMode;
+      setTimeout(function(){
+        router.push("/");
+      },3000);
     }
 
     const success = (e) => {
       formData.isSuccess = e;
     };
     const data = toRefs(formData);
-
-    return { loginSubmit, ...data, success, rules };
+    return { loginSubmit, ...data, success, rules, router };
   }
 };
 </script>

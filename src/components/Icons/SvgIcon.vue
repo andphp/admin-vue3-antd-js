@@ -11,16 +11,16 @@ export default {
   name: "SvgIcon",
   props: {
     iconClass: { type: String, required: true }, // icon名称
-    className: { type: String, default: '' } // 自定义class类名
+    className: { type: String, default: "" } // 自定义class类名
   },
   setup(props){
 
     // 判断是否为外部连接 https: mailto: tel:
     const isExternal = (path) => {
       return /^(https?:|mailto:|tel:)/.test(path);
-    }
+    };
 
-    const data  = toRefs(reactive({
+    const data = toRefs( reactive({
       // 监听是否外链
       isExternal: computed(()=> {
         return isExternal(props.iconClass);

@@ -2,7 +2,7 @@
   <div class="slider_verify_code" ref="slider_wrap">
     <div class="backgroud" ref="slider_background"></div>
     <div class="content" ref="slider_content"></div>
-    <div class="icon" ref="slider_icon">
+    <div class="icon" ref="slider_icon"  @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend">
       <slot name="icon"></slot>
     </div>
   </div>
@@ -24,15 +24,15 @@ export default {
           sliderBackground: "#54e346", // 滑块滑动时背景颜色
           sliderColor: "#fff", // 滑块颜色
           height: 40, // 高度默认40
-          width: 400, // 默认宽度
+          width: "100%", // 默认宽度
           color: "#fff", // 初始化的字体颜色
           backgroud: "#cfd3ce", // 背景颜色
           fontSize: 12, // 字体大小
           icon: false, // 是否自定义图标，如果自定义需要自己配置成功图标
-          delay: 0, // 延迟回调函数时间
+          delay: 0 // 延迟回调函数时间
         };
-      },
-    },
+      }
+    }
   },
   setup(props, { emit }) {
     // 取出配置的参数
@@ -74,9 +74,9 @@ export default {
       !options.icon ? slider.innerHTML = "&gt;&gt;" : ''; // 滑块文字
 
       slider.style.transition = null;
-      slider.style.height = options.height - 2 + "px"; // 滑块高度
+      slider.style.height = options.height + "px"; // 滑块高度
       slider.style.width = options.height + "px"; // 滑块宽度
-      slider.style.lineHeight = options.height - 2 + "px"; // 滑块行高
+      slider.style.lineHeight = options.height + "px"; // 滑块行高
       slider.style.left = 0 + "px"; // 滑块初始偏移值
 
       // 设置滑块条文字
@@ -90,7 +90,7 @@ export default {
       // 5、定义滑动的最大距离
       distance =
         wrap.offsetWidth && slider.offsetWidth
-          ? wrap.offsetWidth - slider.offsetWidth + 2
+          ? wrap.offsetWidth - slider.offsetWidth
           : 0;
 
       slider.onmousedown = (event) => {
@@ -148,11 +148,65 @@ export default {
       };
     });
 
+    let downX;
+    let moveX;
+    function touchstart(ev){
+      downX = ev.touches[0].clientX;
+    }
+    function touchmove(ev){
+      if(ev.touches.length === 1){
+        moveX = ev.touches[0].clientX;
+        // 获取偏移值
+        let offsetX = moveX - downX;
+        // 鼠标水平移动的距离 与 滑动成功的距离 之间的关系
+        if (offsetX > distance) {
+          // 如果滑过了终点，就将它停留在终点位置
+          offsetX = distance;
+        } else if (offsetX < 0) {
+          // 滑到了起点的左侧，就将它重置为起点位置
+          offsetX = 0;
+        }
+        // 根据鼠标移动的距离来动态设置滑块的偏移量和背景颜色的宽度
+        slider.style.left = offsetX + "px";
+        background.style.width = offsetX + "px";
+        background.style.background = options.sliderBackground;
+
+        // 如果鼠标的水平移动距离 = 滑动成功的宽度
+        if (offsetX === distance) {
+          // 1、设置滑动成功后的样式
+          content.innerHTML = options.successText; // 成功文本
+          slider.style.color = options.sliderTextColor; // 滑块文本颜色
+
+          !options.icon ? slider.innerHTML = "✔" : ''; // 滑块图标
+          isSuccess = true;
+          // 2、成功后，清除掉鼠标按下事件和移动事件
+          slider.onmousedown = null;
+          document.onmousemove = null;
+
+          setTimeout(() => {
+            // 回调函数
+            emit("on-verify", isSuccess);
+          }, options.delay);
+        }
+      }
+    }
+    function touchend(){
+      // 如果鼠标松开时，滑到了终点，则验证通过
+      if (isSuccess) {
+        return;
+      }
+      // 反之，则将滑块复位（设置了1s的属性过渡效果）
+      slider.style.left = 0 + "px";
+      background.style.width = 0 + "px";
+    }
     return {
       slider_icon,
       slider_wrap,
       slider_content,
-      slider_background
+      slider_background,
+      touchstart,
+      touchmove,
+      touchend
     };
   }
 };
