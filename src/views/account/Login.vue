@@ -171,13 +171,6 @@ export default {
     });
 
     function loginSubmit() {
-      if (getLang() === "en_US") {
-        setLang("zh_CN");
-      } else {
-        setLang("en_US");
-      }
-
-      console.log(getLang());
       formData.signUpMode = !formData.signUpMode;
       setTimeout(function() {
         // router.push("/");
