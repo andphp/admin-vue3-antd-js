@@ -13,7 +13,12 @@
             headStyle="text-align: center;font-size: 24px;color: #1890ff;"
             :loading="signUpMode"
           >
-            <a-form class="sign-in-form" :model="account" :rules="rules" @finish="loginSubmit">
+            <a-form
+              class="sign-in-form"
+              :model="account"
+              :rules="rules"
+              @finish="loginSubmit"
+            >
               <a-form-item name="username">
                 <a-input
                   size="large"
@@ -48,13 +53,27 @@
                   :options="sliderVerifyCodeOptions"
                 >
                   <template #icon>
-                    <svg-icon v-if="sliderVerifyCodeOptions.icon && isSuccess" icon-class="slider-success" class-name="v-success v-large"></svg-icon>
-                    <svg-icon v-else icon-class="slider" class-name="v-black v-large"></svg-icon>
+                    <svg-icon
+                      v-if="sliderVerifyCodeOptions.icon && isSuccess"
+                      icon-class="slider-success"
+                      class-name="v-success v-large"
+                    ></svg-icon>
+                    <svg-icon
+                      v-else
+                      icon-class="slider"
+                      class-name="v-black v-large"
+                    ></svg-icon>
                   </template>
                 </slider-verify-code>
               </a-form-item>
               <a-form-item :wrapper-col="{ span: 24 }">
-                <a-button size="large" type="primary" class="login-button" @click="loginSubmit" block>
+                <a-button
+                  size="large"
+                  type="primary"
+                  class="login-button"
+                  @click="loginSubmit"
+                  block
+                >
                   {{ $t("login.btn_title") }}
                 </a-button>
               </a-form-item>
@@ -62,6 +81,12 @@
           </a-card>
         </div>
       </div>
+    </div>
+    <div style="width: 319px; border: 1px solid #d9d9d9; border-radius: 4px">
+      <a-calendar :fullscreen="false" />
+    </div>
+    <div class="example">
+      <a-table :data-source="[]" :columns="columns" />
     </div>
     <!-- 左右切换动画 -->
     <div class="panels-container">
@@ -89,10 +114,12 @@
 <script>
 import { toRefs, reactive } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
-import { Form, Input, Card, Button } from "ant-design-vue";
+import { Form, Input, Card, Button, Calendar, Table } from "ant-design-vue";
 import SliderVerifyCode from "@/components/SliderVerifyCode/SliderVerifyCode.vue";
 import SvgIcon from "@/components/Icons/SvgIcon";
 import { useRouter } from "vue-router";
+// import { useI18n } from "vue-i18n";
+import { setLang, getLang } from "@/language";
 
 export default {
   name: "Login",
@@ -106,11 +133,15 @@ export default {
     UserOutlined: UserOutlined,
     LockOutlined: LockOutlined,
     SliderVerifyCode: SliderVerifyCode,
-    SvgIcon: SvgIcon
+    SvgIcon: SvgIcon,
+    ACalendar: Calendar,
+    ATable: Table
   },
   setup() {
-    const router = useRouter();
+    // const { t } = useI18n({ useScope: "global" });
 
+    const router = useRouter();
+    // setLang("en_US");
     const formData = reactive({
       account: {
         username: "admin",
@@ -133,26 +164,32 @@ export default {
     });
     //验证规则
     let rules = reactive({
-      username: [
-        { required: true, message: "请输入用户名", trigger: "blur" }
-      ],
+      username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
       password: [
         { required: true, min: 6, message: "密码最少六位", trigger: "change" }
       ]
     });
 
     function loginSubmit() {
+      if (getLang() === "en_US") {
+        setLang("zh_CN");
+      } else {
+        setLang("en_US");
+      }
+
+      console.log(getLang());
       formData.signUpMode = !formData.signUpMode;
-      setTimeout(function(){
-        router.push("/");
-      },3000);
+      setTimeout(function() {
+        // router.push("/");
+      }, 3000);
     }
 
-    const success = (e) => {
+    const success = e => {
       formData.isSuccess = e;
     };
     const data = toRefs(formData);
-    return { loginSubmit, ...data, success, rules, router };
+    const columns = [];
+    return { columns, loginSubmit, ...data, success, rules, router };
   }
 };
 </script>

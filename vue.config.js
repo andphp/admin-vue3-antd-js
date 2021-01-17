@@ -1,7 +1,8 @@
 const path = require("path");
-const resolve = (dir) => path.join(__dirname, dir);
+const resolve = dir => path.join(__dirname, dir);
 // vue.config.js
 module.exports = {
+  runtimeCompiler: true,
   publicPath: process.env.NODE_ENV === "production" ? "" : "/",
   // 构建项目生成的目录
   outputDir: process.env.NODE_ENV === "production" ? "dist" : "devDist",
@@ -25,6 +26,13 @@ module.exports = {
       .options({
         symbolId: "icon-[name]"
       })
+      .end();
+    config.module
+      .rule("i18n")
+      .resourceQuery(/blockType=i18n/)
+      .type("javascript/auto")
+      .use("i18n")
+      .loader("@intlify/vue-i18n-loader")
       .end();
   },
   css: {

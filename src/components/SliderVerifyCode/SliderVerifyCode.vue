@@ -2,7 +2,13 @@
   <div class="slider_verify_code" ref="slider_wrap">
     <div class="backgroud" ref="slider_background"></div>
     <div class="content" ref="slider_content"></div>
-    <div class="icon" ref="slider_icon"  @touchstart="touchstart" @touchmove="touchmove" @touchend="touchend">
+    <div
+      class="icon"
+      ref="slider_icon"
+      @touchstart="touchstart"
+      @touchmove="touchmove"
+      @touchend="touchend"
+    >
       <slot name="icon"></slot>
     </div>
   </div>
@@ -71,7 +77,7 @@ export default {
       // 设置滑块的属性
       slider.style.background = options.sliderColor; // 滑块颜色
 
-      !options.icon ? slider.innerHTML = "&gt;&gt;" : ''; // 滑块文字
+      !options.icon ? (slider.innerHTML = "&gt;&gt;") : ""; // 滑块文字
 
       slider.style.transition = null;
       slider.style.height = options.height + "px"; // 滑块高度
@@ -93,10 +99,10 @@ export default {
           ? wrap.offsetWidth - slider.offsetWidth
           : 0;
 
-      slider.onmousedown = (event) => {
+      slider.onmousedown = event => {
         // 获取按下时的 初始x 的值
         const downX = event.clientX;
-        document.onmousemove = (e) => {
+        document.onmousemove = e => {
           // 获取移动之后 x的值
           const moveX = e.clientX;
           // 获取偏移值
@@ -120,7 +126,7 @@ export default {
             content.innerHTML = options.successText; // 成功文本
             slider.style.color = options.sliderTextColor; // 滑块文本颜色
 
-            !options.icon ? slider.innerHTML = "✔" : ''; // 滑块图标
+            !options.icon ? (slider.innerHTML = "✔") : ""; // 滑块图标
             isSuccess = true;
             // 2、成功后，清除掉鼠标按下事件和移动事件
             slider.onmousedown = null;
@@ -150,11 +156,11 @@ export default {
 
     let downX;
     let moveX;
-    function touchstart(ev){
+    function touchstart(ev) {
       downX = ev.touches[0].clientX;
     }
-    function touchmove(ev){
-      if(ev.touches.length === 1){
+    function touchmove(ev) {
+      if (ev.touches.length === 1) {
         moveX = ev.touches[0].clientX;
         // 获取偏移值
         let offsetX = moveX - downX;
@@ -177,7 +183,7 @@ export default {
           content.innerHTML = options.successText; // 成功文本
           slider.style.color = options.sliderTextColor; // 滑块文本颜色
 
-          !options.icon ? slider.innerHTML = "✔" : ''; // 滑块图标
+          !options.icon ? (slider.innerHTML = "✔") : ""; // 滑块图标
           isSuccess = true;
           // 2、成功后，清除掉鼠标按下事件和移动事件
           slider.onmousedown = null;
@@ -190,7 +196,7 @@ export default {
         }
       }
     }
-    function touchend(){
+    function touchend() {
       // 如果鼠标松开时，滑到了终点，则验证通过
       if (isSuccess) {
         return;
