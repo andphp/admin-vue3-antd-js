@@ -119,7 +119,7 @@ import SliderVerifyCode from "@/components/SliderVerifyCode/SliderVerifyCode.vue
 import SvgIcon from "@/components/Icons/SvgIcon";
 import { useRouter } from "vue-router";
 // import { useI18n } from "vue-i18n";
-import { setLang, getLang } from "@/language";
+// import { setLang, getLang } from "@/language";
 
 export default {
   name: "Login",
