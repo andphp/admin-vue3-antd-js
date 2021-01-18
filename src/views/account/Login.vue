@@ -6,7 +6,7 @@
         <!-- 登录 -->
         <div class="signin">
           <a-card
-            :title="signUpMode ? $t('登录加载') : $t('登录标签')"
+            :title="signUpMode ? $t('登录加载') : $t('后台标题')"
             bordered
             hoverable
             class="a-card"
@@ -82,12 +82,6 @@
         </div>
       </div>
     </div>
-    <div style="width: 319px; border: 1px solid #d9d9d9; border-radius: 4px">
-      <a-calendar :fullscreen="false" />
-    </div>
-    <div class="example">
-      <a-table :data-source="[]" :columns="columns" />
-    </div>
     <!-- 左右切换动画 -->
     <div class="panels-container">
       <div class="panel left-panel">
@@ -114,7 +108,7 @@
 <script>
 import { toRefs, reactive } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
-import { Form, Input, Card, Button, Calendar, Table } from "ant-design-vue";
+import { Form, Input, Card, Button } from "ant-design-vue";
 import SliderVerifyCode from "@/components/SliderVerifyCode/SliderVerifyCode.vue";
 import SvgIcon from "@/components/Icons/SvgIcon";
 import { useRouter } from "vue-router";
@@ -133,9 +127,7 @@ export default {
     UserOutlined: UserOutlined,
     LockOutlined: LockOutlined,
     SliderVerifyCode: SliderVerifyCode,
-    SvgIcon: SvgIcon,
-    ACalendar: Calendar,
-    ATable: Table
+    SvgIcon: SvgIcon
   },
   setup() {
     // const { t } = useI18n({ useScope: "global" });
