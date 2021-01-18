@@ -31,4 +31,4 @@ export default {
 };
 </script>
 
-<style lang="less"></style>
+<style lang="scss"></style>

@@ -161,25 +161,16 @@ module.exports = {
     requireModuleExtension: true,
     sourceMap: true,
     loaderOptions: {
-      less: {
-        // additionalData(content, loaderContext) {
-        //   const { resourcePath, rootContext } = loaderContext;
-        //   const relativePath = path.relative(rootContext, resourcePath);
-        //   if (
-        //     relativePath.replace(/\\/g, "/") !== "src/config/variables.lsss"
-        //   ) {
-        //     return 'import "~src/config/variables.lsss"; ' + content;
-        //   }
-        //   return content;
-        // },
-        // 这里的选项会传递给 less-loader
-        lessOptions: {
-          modifyVars: {
-            "primary-color": "#1DA57A",
-            "link-color": "#1DA57A",
-            "border-radius-base": "2px"
-          },
-          javascriptEnabled: true // 这句话必须要，否则不起效
+      scss: {
+        additionalData(content, loaderContext) {
+          const { resourcePath, rootContext } = loaderContext;
+          const relativePath = path.relative(rootContext, resourcePath);
+          if (
+            relativePath.replace(/\\/g, "/") !== "src/config/variables.scss"
+          ) {
+            return '@import "~@/config/variables.scss";' + content;
+          }
+          return content;
         }
       }
     }

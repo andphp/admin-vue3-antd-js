@@ -187,8 +187,8 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-@import "../../styles/login";
+<style lang="scss" scoped>
+@import "@/styles/login";
 
 .ant-input,
 .ant-input-affix-wrapper,
