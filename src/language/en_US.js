@@ -1,15 +1,13 @@
 module.exports = {
   // 头部菜单
-  header_menu: {
-    logout: "sign out"
-  },
-  login: {
-    btn_title: "sigin",
-    loading: "login...",
-    title: "Manage System",
-    validate: {
-      username: "username",
-      password: "password"
-    }
+  退出: "sign out",
+
+  // 登录页
+  登录标签: "sigin",
+  登录加载: "login...",
+  后台标题: "Manage System",
+  验证: {
+    用户名: "username",
+    密码: "password"
   }
 };

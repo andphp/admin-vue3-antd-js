@@ -6,7 +6,7 @@
         <!-- 登录 -->
         <div class="signin">
           <a-card
-            :title="signUpMode ? $t('login.loading') : $t('login.title')"
+            :title="signUpMode ? $t('登录加载') : $t('登录标签')"
             bordered
             hoverable
             class="a-card"
@@ -74,7 +74,7 @@
                   @click="loginSubmit"
                   block
                 >
-                  {{ $t("login.btn_title") }}
+                  {{ $t("登录标签") }}
                 </a-button>
               </a-form-item>
             </a-form>
