@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import lang from "./modules/lang";
+import settings from "./modules/settings";
 // const files = require.context("./modules", false, /\.js$/);
 // const modules = {};
 
@@ -15,6 +16,7 @@ export default createStore({
   mutations: {},
   actions: {},
   modules: {
-    lang
+    lang,
+    settings
   }
 });
