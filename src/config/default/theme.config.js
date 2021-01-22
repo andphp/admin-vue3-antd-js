@@ -2,8 +2,8 @@
  * @description 导出默认主题配置
  */
 const theme = {
-  //布局种类 horizontal vertical gallery comprehensive common
-  layout: "horizontal",
+  //布局种类 horizontal横向 vertical纵向 gallery画廊 comprehensive综合 common常规
+  layout: "gallery",
   //主题名称 default ocean green glory white
   themeName: "default",
   //是否固定头部

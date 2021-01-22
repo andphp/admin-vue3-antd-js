@@ -26,12 +26,12 @@ requireLayout.keys().forEach(fileName => {
 });
 
 // 加载组件
-const requireComponent = require.context("./apa/components", true, /\.vue$/);
-requireComponent.keys().forEach(fileName => {
-  const componentConfig = requireComponent(fileName);
-  const componentName = componentConfig.default.name;
-  app.component(componentName, componentConfig.default || componentConfig);
-});
+// const requireComponent = require.context("./apa/components", true, /\.vue$/);
+// requireComponent.keys().forEach(fileName => {
+//   const componentConfig = requireComponent(fileName);
+//   const componentName = componentConfig.default.name;
+//   app.component(componentName, componentConfig.default || componentConfig);
+// });
 app.mount("#app");
 // 加载插件
 // const requirePlugin = require.context("./apa/plugins", true, /\.js$/);

@@ -1,7 +1,6 @@
-<!-- 画廊 -->
+<!--  -->
 <template>
-  <div id="Gallery"></div>
-  <router-view />
+  <div id="TopBar"><p>-this is topbar</p></div>
 </template>
 
 <script>
@@ -18,7 +17,7 @@ import {
 } from "vue";
 
 export default {
-  name: "Gallery",
+  name: "TopBar",
   setup() {
     onBeforeMount(() => {}); //挂载前
     onMounted(() => {}); //挂载完成之后调用
@@ -31,7 +30,6 @@ export default {
   }
 };
 </script>
-
 <style lang="scss" scoped>
 //@import url(); 引入公共css类
 </style>

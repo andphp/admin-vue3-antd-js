@@ -1,7 +1,8 @@
-<!-- 画廊 -->
+<!-- 标签切换 -->
 <template>
-  <div id="Gallery"></div>
-  <router-view />
+  <div id="TabsBar">
+    <p>this is a tabs bar</p>
+  </div>
 </template>
 
 <script>
@@ -18,7 +19,7 @@ import {
 } from "vue";
 
 export default {
-  name: "Gallery",
+  name: "TabsBar",
   setup() {
     onBeforeMount(() => {}); //挂载前
     onMounted(() => {}); //挂载完成之后调用
@@ -31,7 +32,6 @@ export default {
   }
 };
 </script>
-
 <style lang="scss" scoped>
 //@import url(); 引入公共css类
 </style>

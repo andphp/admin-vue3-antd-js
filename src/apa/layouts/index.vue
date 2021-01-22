@@ -1,5 +1,4 @@
 <template>
-  {{ layout }}
   <div class="vue-admin-antd-wrapper">
     <component
       :is="layout"
@@ -33,7 +32,7 @@ export default {
   },
   setup() {
     const initData = reactive({
-      oldLayout: "",
+      oldLayout: store.state.settings.layout,
       width: 0,
       classObj: computed(() => {
         return { mobile: store.state.settings.device === "mobile" };
@@ -46,25 +45,22 @@ export default {
     });
 
     onBeforeMount(() => {
-      console.log("onBeforeMount!");
-      window.addEventListener("resize", handleLayouts());
+      // console.log("onBeforeMount!");
+      window.addEventListener("resize", handleLayouts);
     });
 
     onBeforeUnmount(() => {
-      console.log("onBeforeUnmount!");
-      window.removeEventListener("resize", handleLayouts());
+      // console.log("onBeforeUnmount!");
+      window.removeEventListener("resize", handleLayouts);
     });
     onMounted(() => {
       initData.oldLayout = initData.layout;
-      console.log("mounted!");
-      console.log("initData", initData.layout);
       handleLayouts();
       nextTick(() => {
         //  window.location.reload();
         window.addEventListener(
           "storage",
           e => {
-            console.log("key", e.key);
             if (e.key === tokenName && (e.key === null || e.value === null))
               console.log("reload");
             window.location.reload();
@@ -78,10 +74,13 @@ export default {
       if (initData.width !== width) {
         const isMobile = width - 1 < 992;
         store.dispatch(
-          "changeLayout",
+          "settings/changeLayout",
           isMobile ? "Vertical" : initData.oldLayout
         );
-        store.dispatch("toggleDevice", isMobile ? "mobile" : "desktop");
+        store.dispatch(
+          "settings/toggleDevice",
+          isMobile ? "mobile" : "desktop"
+        );
         initData.width = width;
       }
     }
