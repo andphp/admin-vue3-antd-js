@@ -10,12 +10,12 @@
     <div :class="fixedHeader ? 'fixed-header' : ''" class="layout-header">
       <top-bar></top-bar>
       <div v-if="showTabsBar" :class="{ 'tag-bar-horizontal': showTabsBar }">
-        <div class="vab-main">
+        <div class="apa-main">
           <tabs-bar></tabs-bar>
         </div>
       </div>
     </div>
-    <div class="vab-main main-padding">
+    <div class="apa-main main-padding">
       <main-content></main-content>
     </div>
   </div>
