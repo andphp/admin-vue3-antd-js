@@ -38,23 +38,23 @@
     }
   }
 
-  .gallery-bar-container.el-scrollbar {
-    .el-tabs {
-      .el-tabs__nav {
+  .gallery-bar-container.a-scrollbar {
+    .a-tabs {
+      .a-tabs__nav {
         @include container;
       }
 
-      .el-tabs__item.is-active,
-      .el-tabs__item:hover {
+      .a-tabs__item.is-active,
+      .a-tabs__item:hover {
         background: $base-menu-background-active !important;
       }
     }
 
-    .el-menu {
-      .el-menu-item.is-active,
-      .el-submenu__title.is-active,
-      .el-menu-item:hover,
-      .el-submenu__title:hover {
+    .a-menu {
+      .a-menu-item.is-active,
+      .a-submenu__title.is-active,
+      .a-menu-item:hover,
+      .a-submenu__title:hover {
         i {
           color: $base-menu-background !important;
         }
@@ -70,14 +70,14 @@
       background: $base-color-blue !important;
     }
 
-    .el-menu {
+    .a-menu {
       background: $base-color-blue !important;
 
-      .el-submenu__title {
+      .a-submenu__title {
         background: $base-color-blue !important;
       }
 
-      .el-menu-item {
+      .a-menu-item {
         background: $base-color-blue !important;
       }
     }
@@ -86,7 +86,7 @@
     .comprehensive-bar-container {
       background: $base-color-blue !important;
 
-      .el-menu-item {
+      .a-menu-item {
         @include active;
       }
     }
@@ -99,11 +99,11 @@
     .comprehensive-bar-container {
       @include container;
 
-      .el-menu {
+      .a-menu {
         @include container;
 
-        .el-submenu__title,
-        .el-menu-item {
+        .a-submenu__title,
+        .a-menu-item {
           background-color: transparent !important;
 
           &.is-active {
@@ -117,17 +117,17 @@
   .top-bar-container {
     @include container;
 
-    .vab-main {
-      .el-menu.el-menu {
+    .apa-main {
+      .a-menu.a-menu {
         &--horizontal {
-          .el-submenu,
-          .el-menu-item {
+          .a-submenu,
+          .a-menu-item {
             &.is-active {
               background-color: $base-menu-background-active !important;
             }
           }
 
-          > .el-menu-item {
+          > .a-menu-item {
             &.is-active {
               background-color: transparent !important;
               border-bottom: 3px solid $base-color-white !important;
@@ -143,8 +143,8 @@
     border-top: 1px solid #f6f6f6;
 
     .tabs-content {
-      .el-tabs__header {
-        .el-tabs__item {
+      .a-tabs__header {
+        .a-tabs__item {
           &.is-active {
             background: $base-color-blue !important;
             border: 1px solid $base-color-blue !important;
@@ -163,12 +163,12 @@
   }
 
   .nav-bar-container {
-    .el-tabs__item.is-active,
-    .el-tabs__item:hover {
+    .a-tabs__item.is-active,
+    .a-tabs__item:hover {
       color: $base-color-blue !important;
     }
 
-    .el-tabs__active-bar {
+    .a-tabs__active-bar {
       background-color: $base-color-blue !important;
     }
   }

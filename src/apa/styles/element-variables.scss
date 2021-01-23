@@ -845,17 +845,17 @@ $--scrollbar-hover-background-color: rgba($--color-text-secondary, 0.5);
 /* Carousel
 -------------------------- */
 /// fontSize||Font|1
-$--carousel-arrow-font-size: 12px;
-$--carousel-arrow-size: 36px;
-$--carousel-arrow-background: rgba(31, 45, 61, 0.11);
-$--carousel-arrow-hover-background: rgba(31, 45, 61, 0.23);
+$--carousa-arrow-font-size: 12px;
+$--carousa-arrow-size: 36px;
+$--carousa-arrow-background: rgba(31, 45, 61, 0.11);
+$--carousa-arrow-hover-background: rgba(31, 45, 61, 0.23);
 /// width||Other|4
-$--carousel-indicator-width: 30px;
+$--carousa-indicator-width: 30px;
 /// height||Other|4
-$--carousel-indicator-height: 2px;
-$--carousel-indicator-padding-horizontal: 4px;
-$--carousel-indicator-padding-vertical: 12px;
-$--carousel-indicator-out-color: $--border-color-hover;
+$--carousa-indicator-height: 2px;
+$--carousa-indicator-padding-horizontal: 4px;
+$--carousa-indicator-padding-vertical: 12px;
+$--carousa-indicator-out-color: $--border-color-hover;
 
 /* Collapse
 -------------------------- */
@@ -881,15 +881,15 @@ $--collapse-content-font-color: $--color-text-primary;
 $--transfer-border-color: $--border-color-lighter;
 $--transfer-border-radius: $--border-radius-base;
 /// height||Other|4
-$--transfer-panel-width: 200px;
+$--transfer-pana-width: 200px;
 /// height||Other|4
-$--transfer-panel-header-height: 40px;
+$--transfer-pana-header-height: 40px;
 /// color||Color|0
-$--transfer-panel-header-background-color: $--background-color-base;
+$--transfer-pana-header-background-color: $--background-color-base;
 /// height||Other|4
-$--transfer-panel-footer-height: 40px;
+$--transfer-pana-footer-height: 40px;
 /// height||Other|4
-$--transfer-panel-body-height: 246px;
+$--transfer-pana-body-height: 246px;
 /// height||Other|4
 $--transfer-item-height: 30px;
 /// height||Other|4
@@ -956,7 +956,7 @@ $--calendar-cell-width: 85px;
 /* Form
 -------------------------- */
 /// fontSize||Font|1
-$--form-label-font-size: $--font-size-base;
+$--form-laba-font-size: $--font-size-base;
 
 /* Avatar
 -------------------------- */

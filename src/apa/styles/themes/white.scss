@@ -67,27 +67,27 @@
   }
 
   .gallery-bar-container {
-    .el-tabs {
+    .a-tabs {
       border-right: 1px solid rgba(0, 21, 41, 0.08) !important;
       @include container;
 
-      .el-tabs__item,
-      .el-tabs__nav {
+      .a-tabs__item,
+      .a-tabs__nav {
         @include container;
       }
 
-      .el-tabs__item.is-active,
-      .el-tabs__item:hover {
+      .a-tabs__item.is-active,
+      .a-tabs__item:hover {
         color: $base-color-white !important;
         background: $base-menu-background-active !important;
       }
     }
 
-    .el-menu {
-      .el-menu-item.is-active,
-      .el-submenu__title.is-active,
-      .el-menu-item:hover,
-      .el-submenu__title:hover {
+    .a-menu {
+      .a-menu-item.is-active,
+      .a-submenu__title.is-active,
+      .a-menu-item:hover,
+      .a-submenu__title:hover {
         i {
           color: $base-menu-background-active !important;
         }
@@ -102,14 +102,14 @@
   .layout-container-horizontal,
   .layout-container-comprehensive,
   .layout-container-common {
-    .el-menu {
+    .a-menu {
       @include container;
 
-      .el-submenu__title {
+      .a-submenu__title {
         @include container;
       }
 
-      .el-menu-item {
+      .a-menu-item {
         @include container;
       }
     }
@@ -119,7 +119,7 @@
       @include container;
       box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08) !important;
 
-      .el-menu-item {
+      .a-menu-item {
         @include active;
       }
     }
@@ -139,20 +139,20 @@
       }
     }
 
-    .vab-main {
+    .apa-main {
       @include container;
 
-      .el-menu {
+      .a-menu {
         &--horizontal {
-          .el-submenu,
-          .el-menu-item {
+          .a-submenu,
+          .a-menu-item {
             &.is-active {
               color: $base-color-white !important;
               background-color: $base-menu-background-active !important;
             }
           }
 
-          > .el-menu-item {
+          > .a-menu-item {
             &.is-active {
               color: #515a6e !important;
               border-bottom: 3px solid $base-menu-background-active !important;
@@ -168,8 +168,8 @@
     border-top: 1px solid #f6f6f6;
 
     .tabs-content {
-      .el-tabs__header {
-        .el-tabs__item {
+      .a-tabs__header {
+        .a-tabs__item {
           &.is-active {
             color: $base-color-blue !important;
             background: rgba($base-color-blue, 0.1) !important;
@@ -188,12 +188,12 @@
   }
 
   .nav-bar-container {
-    .el-tabs__item.is-active,
-    .el-tabs__item:hover {
+    .a-tabs__item.is-active,
+    .a-tabs__item:hover {
       color: $base-color-blue !important;
     }
 
-    .el-tabs__active-bar {
+    .a-tabs__active-bar {
       background-color: $base-color-blue !important;
     }
   }

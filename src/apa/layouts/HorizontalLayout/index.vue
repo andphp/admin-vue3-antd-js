@@ -1,27 +1,18 @@
 <!-- 横向布局  -->
 <template>
-  <div
-    :class="{
-      fixed: fixedHeader,
-      'no-tabs-bar': !showTabsBar
-    }"
-    class="layout-container-horizontal"
-  >
-    <div :class="fixedHeader ? 'fixed-header' : ''" class="layout-header">
+  <a-layout>
+    <a-layout-header>
       <top-bar></top-bar>
-      <div v-if="showTabsBar" :class="{ 'tag-bar-horizontal': showTabsBar }">
-        <div class="apa-main">
-          <tabs-bar></tabs-bar>
-        </div>
-      </div>
-    </div>
-    <div class="apa-main main-padding">
+    </a-layout-header>
+    <a-layout-content style="padding: 0 50px">
+      <tabs-bar></tabs-bar>
       <main-content></main-content>
-    </div>
-  </div>
+    </a-layout-content>
+  </a-layout>
 </template>
 
 <script>
+import { Layout } from "ant-design-vue";
 import {
   // reactive,
   // computed,
@@ -39,6 +30,9 @@ import MainContent from "../../components/MainContent";
 export default {
   name: "Horizontal",
   components: {
+    ALayout: Layout,
+    ALayoutHeader: Layout.Header,
+    ALayoutContent: Layout.Content,
     TopBar,
     TabsBar,
     MainContent
