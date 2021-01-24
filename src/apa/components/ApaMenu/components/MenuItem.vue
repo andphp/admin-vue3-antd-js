@@ -1,61 +1,35 @@
+<!--  -->
 <template>
-  <el-menu-item :index="routeChildren.fullPath" @click="handleLink">
-    <vab-remix-icon
-      v-if="routeChildren.meta && routeChildren.meta.remixIcon"
-      :is-svg="routeChildren.meta.isCustomSvgIcon"
-      :icon-class="routeChildren.meta.remixIcon"
-      class="vab-remix-icon"
-    ></vab-remix-icon>
-    <span>{{ translateTitle(routeChildren.meta.title) }}</span>
-    <el-tag
-      v-if="routeChildren.meta && routeChildren.meta.badge"
-      effect="dark"
-      type="danger"
-    >
-      {{ routeChildren.meta.badge }}
-    </el-tag>
-  </el-menu-item>
+  <div><p>this is menu item</p></div>
 </template>
 
 <script>
-  import { translateTitle } from '@/utils/i18n'
-  import { isExternal } from '@/utils/validate'
+import {
+  // reactive,
+  // computed,
+  // toRefs,
+  onBeforeMount,
+  onMounted,
+  onBeforeUpdate,
+  onUpdated,
+  onBeforeUnmount,
+  onUnmounted
+} from "vue";
 
-  export default {
-    name: 'MenuItem',
-    props: {
-      item: {
-        type: Object,
-        default() {
-          return null
-        },
-      },
-      routeChildren: {
-        type: Object,
-        default() {
-          return null
-        },
-      },
-    },
-    methods: {
-      translateTitle,
-      handleLink() {
-        const routePath = this.routeChildren.fullPath
-        const target = this.routeChildren.meta.target
-        if (target === '_blank') {
-          if (isExternal(routePath)) {
-            window.open(routePath)
-          } else if (this.$route.path !== routePath) {
-            window.open(routePath.href)
-          }
-        } else {
-          if (isExternal(routePath)) {
-            window.location.href = routePath
-          } else if (this.$route.path !== routePath) {
-            this.$router.push(routePath)
-          }
-        }
-      },
-    },
+export default {
+  name: "Menuitem",
+  setup() {
+    onBeforeMount(() => {}); //挂载前
+    onMounted(() => {}); //挂载完成之后调用
+    onBeforeUpdate(() => {}); //DOM数据更新前调用
+    onUpdated(() => {}); //DOM数据更新完成调用
+    onBeforeUnmount(() => {}); //实例销毁之前
+    onUnmounted(() => {}); //实例销毁后
+    //这里存放返回数据
+    return {};
   }
+};
 </script>
+<style lang="scss" scoped>
+//@import url(); 引入公共css类
+</style>

@@ -1,43 +1,35 @@
+<!--  -->
 <template>
-  <el-submenu
-    ref="subMenu"
-    :index="item.fullPath"
-    :popper-append-to-body="false"
-  >
-    <template slot="title">
-      <vab-remix-icon
-        v-if="item.meta && item.meta.remixIcon"
-        :is-svg="item.meta.isCustomSvgIcon"
-        :icon-class="item.meta.remixIcon"
-        class="vab-remix-icon"
-      ></vab-remix-icon>
-      <span>{{ translateTitle(item.meta.title) }}</span>
-    </template>
-    <slot></slot>
-  </el-submenu>
+  <div><p>this is submenu</p></div>
 </template>
 
 <script>
-  import { translateTitle } from '@/utils/i18n'
+import {
+  // reactive,
+  // computed,
+  // toRefs,
+  onBeforeMount,
+  onMounted,
+  onBeforeUpdate,
+  onUpdated,
+  onBeforeUnmount,
+  onUnmounted
+} from "vue";
 
-  export default {
-    name: 'Submenu',
-    props: {
-      item: {
-        type: Object,
-        default() {
-          return null
-        },
-      },
-      routeChildren: {
-        type: Object,
-        default() {
-          return null
-        },
-      },
-    },
-    methods: {
-      translateTitle,
-    },
+export default {
+  name: "Submenu",
+  setup() {
+    onBeforeMount(() => {}); //挂载前
+    onMounted(() => {}); //挂载完成之后调用
+    onBeforeUpdate(() => {}); //DOM数据更新前调用
+    onUpdated(() => {}); //DOM数据更新完成调用
+    onBeforeUnmount(() => {}); //实例销毁之前
+    onUnmounted(() => {}); //实例销毁后
+    //这里存放返回数据
+    return {};
   }
+};
 </script>
+<style lang="scss" scoped>
+//@import url(); 引入公共css类
+</style>

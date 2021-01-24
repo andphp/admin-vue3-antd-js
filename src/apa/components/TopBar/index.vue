@@ -15,7 +15,8 @@
             menu-trigger="hover"
             mode="horizontal"
           >
-            <template v-for="route in routes">
+            <template v-for="route in routesData.routes">
+              {{ route }}
               <apa-menu
                 v-if="!route.hidden"
                 :key="route.path"
@@ -26,7 +27,7 @@
           </a-menu>
         </a-col>
         <a-col :span="layout === 'horizontal' ? 7 : 18">
-          <div class="right-panel">
+          <!-- <div class="right-panel">
             <error-log></error-log>
             <search></search>
             <notice></notice>
@@ -35,7 +36,7 @@
             <theme class="hidden-md-and-down"></theme>
             <refresh></refresh>
             <avatar></avatar>
-          </div>
+          </div> -->
         </a-col>
       </a-row>
     </div>
@@ -44,7 +45,7 @@
 
 <script>
 import variables from "@/config/variables.scss";
-import { Row, Col } from "ant-design-vue";
+import { Row, Col, Menu } from "ant-design-vue";
 import Logo from "../Logo";
 import ApaMenu from "../ApaMenu";
 import { useRouter } from "vue-router";
@@ -62,24 +63,40 @@ import {
 } from "vue";
 export default {
   name: "TopBar",
+  props: {
+    item: {
+      type: Object,
+      required: true
+    },
+    layout: {
+      type: String,
+      default: ""
+    }
+  },
   components: {
     ARow: Row,
     ACol: Col,
+    AMenu: Menu,
     Logo,
     ApaMenu
   },
   setup(props) {
     onBeforeMount(() => {}); //挂载前
-    onMounted(() => {}); //挂载完成之后调用
+    onMounted(() => {
+      console.log("props1", props);
+    }); //挂载完成之后调用
     onBeforeUpdate(() => {}); //DOM数据更新前调用
     onUpdated(() => {}); //DOM数据更新完成调用
     onBeforeUnmount(() => {}); //实例销毁之前
     onUnmounted(() => {}); //实例销毁后
     const routers = useRouter();
     const { ctx } = getCurrentInstance();
+    const routesData = reactive({
+      routes: computed(() => routers.options.routes)
+    });
+    console.log("routesData", routesData.routes);
     const computedData = reactive({
       variable: computed(() => variables),
-      routes: computed(() => routers.options.routes),
       activeMenu: computed(() => {
         const { meta, path } = ctx.$router.currentRoute.value;
         if (meta.activeMenu) {
@@ -89,10 +106,11 @@ export default {
       })
     });
     const computedDatatoRefs = toRefs(computedData);
-    console.log("props", props.layout);
+
     //这里存放返回数据
     return {
-      ...computedDatatoRefs
+      ...computedDatatoRefs,
+      routesData
     };
   }
 };

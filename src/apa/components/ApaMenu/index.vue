@@ -1,34 +1,33 @@
 <!-- 菜单/主导航 -->
 <template>
-  <div><p>dsfsd</p></div>
-  <!-- <component
+  <component
     :is="menuComponent"
     v-if="!item.hidden"
     :item="item"
     :route-children="routeChildren"
   >
-    <el-scrollbar
+    <a-scrollbar
       v-if="
         item.children && item.children.length > 18 && layout === 'horizontal'
       "
       style="height: 86vh"
     >
       <template v-if="item.children && item.children.length">
-        <vab-menu
+        <apa-menu
           v-for="route in item.children"
           :key="route.fullPath"
           :item="route"
-        ></vab-menu>
+        ></apa-menu>
       </template>
-    </el-scrollbar>
+    </a-scrollbar>
     <template v-else-if="item.children && item.children.length">
-      <vab-menu
+      <apa-menu
         v-for="route in item.children"
         :key="route.fullPath"
         :item="route"
-      ></vab-menu>
+      ></apa-menu>
     </template>
-  </component> -->
+  </component>
 </template>
 
 <script>
@@ -45,12 +44,32 @@ import {
 } from "vue";
 export default {
   name: "ApaMenu",
+  props: {
+    item: {
+      type: Object,
+      required: true
+    },
+    layout: {
+      type: String,
+      default: ""
+    }
+  },
   components: {},
-  setup() {
+  setup(props) {
     onBeforeMount(() => {}); //挂载前
 
     onMounted(() => {
-      // console.log("props", props);
+      console.log("props", props.item);
+      //   const showChildren = handleChildren(this.item.children)
+      // if (showChildren.length === 0) {
+      //   this.menuComponent = 'MenuItem'
+      //   this.routeChildren = this.item
+      // } else if (showChildren.length === 1 && this.item.alwaysShow !== true) {
+      //   this.menuComponent = 'MenuItem'
+      //   this.routeChildren = showChildren[0]
+      // } else {
+      //   this.menuComponent = 'Submenu'
+      // }
     }); //挂载完成之后调用
 
     onBeforeUpdate(() => {}); //DOM数据更新前调用
@@ -60,10 +79,16 @@ export default {
     onBeforeUnmount(() => {}); //实例销毁之前
 
     onUnmounted(() => {}); //实例销毁后
-    // console.log("props", props);
-    //这里存放返回数据
 
-    return {};
+    // console.log("props", props);
+    function handleChildren(children = []) {
+      if (children === null) return [];
+      return children.filter(item => item.hidden !== true);
+    }
+    //这里存放返回数据
+    return {
+      handleChildren
+    };
   }
 };
 </script>
