@@ -48,7 +48,7 @@ import variables from "@/config/variables.scss";
 import { Row, Col, Menu } from "ant-design-vue";
 import Logo from "../Logo";
 import ApaMenu from "../ApaMenu";
-import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import {
   reactive,
   computed,
@@ -89,12 +89,12 @@ export default {
     onUpdated(() => {}); //DOM数据更新完成调用
     onBeforeUnmount(() => {}); //实例销毁之前
     onUnmounted(() => {}); //实例销毁后
-    const routers = useRouter();
+    const routers = useRoute();
     const { ctx } = getCurrentInstance();
     const routesData = reactive({
       routes: computed(() => routers.options.routes)
     });
-    console.log("routesData", routesData.routes);
+    console.log("routesData", routers);
     const computedData = reactive({
       variable: computed(() => variables),
       activeMenu: computed(() => {

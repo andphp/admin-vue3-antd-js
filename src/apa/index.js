@@ -1,7 +1,8 @@
-import Vue from "vue";
+import { inject } from "vue";
 
+const component = inject("defineComponent");
 // 加载图标
-// import "@/utils/svg";
+// import "@/icon";
 // 加载样式
 import "./styles/apa.scss";
 
@@ -10,7 +11,7 @@ const requireLayout = require.context("./layouts", true, /\.vue$/);
 requireLayout.keys().forEach(fileName => {
   const componentConfig = requireLayout(fileName);
   const componentName = componentConfig.default.name;
-  Vue.component(componentName, componentConfig.default || componentConfig);
+  component(componentName, componentConfig.default || componentConfig);
 });
 
 // 加载组件
@@ -18,7 +19,7 @@ const requireComponent = require.context("./components", true, /\.vue$/);
 requireComponent.keys().forEach(fileName => {
   const componentConfig = requireComponent(fileName);
   const componentName = componentConfig.default.name;
-  Vue.component(componentName, componentConfig.default || componentConfig);
+  component(componentName, componentConfig.default || componentConfig);
 });
 
 // 加载插件
