@@ -49,6 +49,7 @@ import { Row, Col, Menu } from "ant-design-vue";
 import Logo from "../Logo";
 import ApaMenu from "../ApaMenu";
 import { useRoute } from "vue-router";
+import store from "@/store";
 import {
   reactive,
   computed,
@@ -94,6 +95,7 @@ export default {
     const routesData = reactive({
       routes: computed(() => routers.options.routes)
     });
+    console.log("store", store);
     console.log("routesData", routers);
     const computedData = reactive({
       variable: computed(() => variables),
