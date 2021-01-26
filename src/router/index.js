@@ -33,12 +33,21 @@ export const asyncRoutes = [
       {
         path: "index",
         name: "Index",
+        hidden: false,
         component: () => import("@/views/index/index"),
         meta: {
           title: "首页"
         }
       }
     ]
+  },
+  {
+    path: "/welcome",
+    hidden: false,
+    component: () => import("@/views/welcome"),
+    meta: {
+      title: "欢迎"
+    }
   }
 ];
 const routes = new Set([...constantRoutes, ...asyncRoutes]);

@@ -6,7 +6,7 @@
     :item="item"
     :route-children="routeChildren"
   >
-    <a-scrollbar
+    <!-- <a-layout-sider
       v-if="
         item.children && item.children.length > 18 && layout === 'horizontal'
       "
@@ -19,22 +19,31 @@
           :item="route"
         ></apa-menu>
       </template>
-    </a-scrollbar>
+    </a-layout-sider>
     <template v-else-if="item.children && item.children.length">
       <apa-menu
         v-for="route in item.children"
         :key="route.fullPath"
         :item="route"
       ></apa-menu>
-    </template>
+    </template> -->
+    <!-- <template>
+      <apa-menu
+        v-for="route in item.children"
+        :key="route.fullPath"
+        :item="route"
+      ></apa-menu>
+    </template> -->
   </component>
 </template>
 
 <script>
+import { Layout } from "ant-design-vue";
+import MenuItem from "./components/MenuItem";
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  reactive,
+  computed,
+  toRefs,
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
@@ -54,23 +63,14 @@ export default {
       default: ""
     }
   },
-  components: {},
+  components: {
+    ALayoutSider: Layout.Sider,
+    MenuItem
+  },
   setup(props) {
     onBeforeMount(() => {}); //挂载前
 
-    onMounted(() => {
-      console.log("props", props.item);
-      //   const showChildren = handleChildren(this.item.children)
-      // if (showChildren.length === 0) {
-      //   this.menuComponent = 'MenuItem'
-      //   this.routeChildren = this.item
-      // } else if (showChildren.length === 1 && this.item.alwaysShow !== true) {
-      //   this.menuComponent = 'MenuItem'
-      //   this.routeChildren = showChildren[0]
-      // } else {
-      //   this.menuComponent = 'Submenu'
-      // }
-    }); //挂载完成之后调用
+    onMounted(() => {}); //挂载完成之后调用
 
     onBeforeUpdate(() => {}); //DOM数据更新前调用
 
@@ -80,14 +80,35 @@ export default {
 
     onUnmounted(() => {}); //实例销毁后
 
-    // console.log("props", props);
+    const dataComponent = reactive({
+      routeChildren: "",
+      menuComponent: computed(() => {
+        const showChildren = handleChildren(props.item.children);
+        if (showChildren.length === 0) {
+          dataComponent.routeChildren = props.item;
+          return "MenuItem";
+        } else if (
+          showChildren.length === 1 &&
+          props.item.alwaysShow !== true
+        ) {
+          dataComponent.routeChildren = showChildren[0];
+          return "MenuItem";
+        } else {
+          return "Submenu";
+        }
+      })
+    });
+    console.log("props", props.item);
+    // console.log("dataComponent", dataComponent.menuComponent);
     function handleChildren(children = []) {
       if (children === null) return [];
       return children.filter(item => item.hidden !== true);
     }
+    const dataComponentToRefs = toRefs(dataComponent);
     //这里存放返回数据
     return {
-      handleChildren
+      handleChildren,
+      ...dataComponentToRefs
     };
   }
 };

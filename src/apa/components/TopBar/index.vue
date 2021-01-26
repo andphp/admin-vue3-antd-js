@@ -8,15 +8,12 @@
         </a-col>
         <a-col v-if="layout === 'horizontal'" :span="11">
           <a-menu
-            :active-text-color="variables['menu-color-active']"
-            :background-color="variables['menu-background']"
+            class="active-text-color background-color text-color"
             :default-active="activeMenu"
-            :text-color="variables['menu-color']"
             menu-trigger="hover"
             mode="horizontal"
           >
             <template v-for="route in routesData.routes">
-              {{ route }}
               <apa-menu
                 v-if="!route.hidden"
                 :key="route.path"
@@ -44,12 +41,11 @@
 </template>
 
 <script>
-import variables from "@/config/variables.scss";
 import { Row, Col, Menu } from "ant-design-vue";
 import Logo from "../Logo";
 import ApaMenu from "../ApaMenu";
-import { useRoute } from "vue-router";
-import store from "@/store";
+// import { useRoute } from "vue-router";
+// import store from "@/store";
 import {
   reactive,
   computed,
@@ -65,10 +61,6 @@ import {
 export default {
   name: "TopBar",
   props: {
-    item: {
-      type: Object,
-      required: true
-    },
     layout: {
       type: String,
       default: ""
@@ -90,15 +82,14 @@ export default {
     onUpdated(() => {}); //DOM数据更新完成调用
     onBeforeUnmount(() => {}); //实例销毁之前
     onUnmounted(() => {}); //实例销毁后
-    const routers = useRoute();
+    // const routers = useRoute();
     const { ctx } = getCurrentInstance();
     const routesData = reactive({
-      routes: computed(() => routers.options.routes)
+      routes: computed(() => ctx.$router.getRoutes())
     });
-    console.log("store", store);
-    console.log("routesData", routers);
+    // console.log("store", store.state.routes.routes);
+    console.log("routesData", ctx.$router.getRoutes());
     const computedData = reactive({
-      variable: computed(() => variables),
       activeMenu: computed(() => {
         const { meta, path } = ctx.$router.currentRoute.value;
         if (meta.activeMenu) {
@@ -107,8 +98,9 @@ export default {
         return path;
       })
     });
-    const computedDatatoRefs = toRefs(computedData);
 
+    const computedDatatoRefs = toRefs(computedData);
+    console.log("computedDatatoRefs", computedDatatoRefs);
     //这里存放返回数据
     return {
       ...computedDatatoRefs,
@@ -119,4 +111,17 @@ export default {
 </script>
 <style lang="scss" scoped>
 //@import url(); 引入公共css类
+@import "@/config/variables.scss";
+
+.active-text-color {
+  //菜单选中文字颜色变量导出
+  color: $base-menu-color-active;
+}
+.background-color {
+  background: $base-menu-background;
+}
+
+.ant-layout-header {
+  background: transparent;
+}
 </style>

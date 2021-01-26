@@ -2,7 +2,7 @@
 <template>
   <a-layout>
     <a-layout-header>
-      <top-bar></top-bar>
+      <top-bar layout="horizontal"></top-bar>
     </a-layout-header>
     <a-layout-content style="padding: 0 50px">
       <tabs-bar></tabs-bar>
