@@ -112,6 +112,7 @@ import { Form, Input, Card, Button } from "ant-design-vue";
 import SliderVerifyCode from "@/components/SliderVerifyCode/SliderVerifyCode.vue";
 import SvgIcon from "@/components/Icons/SvgIcon";
 import { useRouter } from "vue-router";
+import store from "@/store";
 // import { useI18n } from "vue-i18n";
 // import { setLang, getLang } from "@/language";
 
@@ -165,6 +166,13 @@ export default {
     function loginSubmit() {
       formData.signUpMode = !formData.signUpMode;
       setTimeout(function() {
+        store
+          .dispatch("user/login", formData.account)
+          .then(res => {
+            console.log("od===", res);
+            router.push("/");
+          })
+          .catch(err => alert(err.message));
         // router.push("/");
       }, 3000);
     }

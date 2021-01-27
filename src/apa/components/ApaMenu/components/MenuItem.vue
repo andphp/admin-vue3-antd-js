@@ -2,7 +2,10 @@
 <template>
   <a-menu-item :key="routeChildren.path" @click.capture="handleLink">
     <span class="anticon">
-      <svg-icon :iconClass="routeChildren.meta.icon"></svg-icon>
+      <svg-icon
+        v-if="item.meta.icon"
+        :iconClass="routeChildren.meta.icon"
+      ></svg-icon>
     </span>
     <span>{{ routeChildren.meta.title }}</span>
   </a-menu-item>
@@ -49,7 +52,7 @@ export default {
     onUnmounted(() => {}); //实例销毁后
 
     function handleLink() {
-      const routePath = this.routeChildren.fullPath;
+      const routePath = this.routeChildren.path;
       const target = this.routeChildren.meta.target;
       if (target === "_blank") {
         if (isExternal(routePath)) window.open(routePath);

@@ -5,49 +5,58 @@ export const constantRoutes = [
   {
     path: "/login",
     component: () => import("@/views/account/login"),
-    hidden: true
+    meta: {
+      hidden: true
+    }
   },
   {
     path: "/403",
     name: "403",
     component: () => import("@/views/error/403"),
-    hidden: true
+    meta: {
+      hidden: true
+    }
   },
   {
     path: "/404",
     name: "404",
     component: () => import("@/views/error/404"),
-    hidden: true
+    meta: {
+      hidden: true
+    }
   }
 ];
 
 export const asyncRoutes = [
   {
     path: "/",
+    name: "home",
     component: Layout,
     redirect: "/index",
     meta: {
-      title: "首页"
+      title: "首页1",
+      hidden: false,
+      alwaysShow: true
     },
     children: [
       {
         path: "index",
         name: "Index",
-        hidden: false,
         component: () => import("@/views/index/index"),
         meta: {
           title: "首页",
-          icon: "home"
+          icon: "home",
+          hidden: false
         }
       }
     ]
   },
   {
     path: "/welcome",
-    hidden: false,
     component: () => import("@/views/welcome"),
     meta: {
-      title: "欢迎"
+      title: "欢迎",
+      hidden: false
     }
   }
 ];

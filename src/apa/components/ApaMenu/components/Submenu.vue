@@ -1,9 +1,19 @@
 <!--  -->
 <template>
-  <div><p>this is submenu</p></div>
+  <a-sub-menu :key="item.path">
+    <template v-slot:title>
+      <span class="anticon">
+        <svg-icon v-if="item.meta.icon" :iconClass="item.meta.icon"></svg-icon>
+      </span>
+      <span>{{ item.meta.title }}</span>
+    </template>
+    <slot></slot>
+  </a-sub-menu>
 </template>
 
 <script>
+import { Menu } from "ant-design-vue";
+import SvgIcon from "@/components/Icons/SvgIcon";
 import {
   // reactive,
   // computed,
@@ -18,6 +28,16 @@ import {
 
 export default {
   name: "Submenu",
+  components: {
+    ASubMenu: Menu.SubMenu,
+    SvgIcon
+  },
+  props: {
+    item: {
+      type: Object,
+      default: () => null
+    }
+  },
   setup() {
     onBeforeMount(() => {}); //挂载前
     onMounted(() => {}); //挂载完成之后调用

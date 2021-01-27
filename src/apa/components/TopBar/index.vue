@@ -44,7 +44,7 @@
 import { Row, Col, Menu } from "ant-design-vue";
 import Logo from "../Logo";
 import ApaMenu from "../ApaMenu";
-// import { useRoute } from "vue-router";
+import { useRouter } from "vue-router";
 // import store from "@/store";
 import {
   reactive,
@@ -82,13 +82,13 @@ export default {
     onUpdated(() => {}); //DOM数据更新完成调用
     onBeforeUnmount(() => {}); //实例销毁之前
     onUnmounted(() => {}); //实例销毁后
-    // const routers = useRoute();
+    const routers = useRouter();
     const { ctx } = getCurrentInstance();
     const routesData = reactive({
       routes: computed(() => ctx.$router.getRoutes())
     });
     // console.log("store", store.state.routes.routes);
-    console.log("routesData", ctx.$router.getRoutes());
+    console.log("routesData", routers.getRoutes());
     const computedData = reactive({
       activeMenu: computed(() => {
         const { meta, path } = ctx.$router.currentRoute.value;

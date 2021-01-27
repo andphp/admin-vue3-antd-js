@@ -2,44 +2,25 @@
 <template>
   <component
     :is="menuComponent"
-    v-if="!item.hidden"
+    v-if="!item.meta.hidden"
     :item="item"
     :route-children="routeChildren"
   >
-    <!-- <a-layout-sider
-      v-if="
-        item.children && item.children.length > 18 && layout === 'horizontal'
-      "
-      style="height: 86vh"
-    >
-      <template v-if="item.children && item.children.length">
-        <apa-menu
-          v-for="route in item.children"
-          :key="route.fullPath"
-          :item="route"
-        ></apa-menu>
-      </template>
-    </a-layout-sider>
-    <template v-else-if="item.children && item.children.length">
+    <template v-if="item.children && item.children.length">
       <apa-menu
         v-for="route in item.children"
-        :key="route.fullPath"
+        :key="route.path"
         :item="route"
       ></apa-menu>
-    </template> -->
-    <!-- <template>
-      <apa-menu
-        v-for="route in item.children"
-        :key="route.fullPath"
-        :item="route"
-      ></apa-menu>
-    </template> -->
+    </template>
   </component>
 </template>
 
 <script>
 import { Layout } from "ant-design-vue";
 import MenuItem from "./components/MenuItem";
+import Submenu from "./components/Submenu";
+import ApaMenu from "./index";
 import {
   reactive,
   computed,
@@ -65,7 +46,9 @@ export default {
   },
   components: {
     ALayoutSider: Layout.Sider,
-    MenuItem
+    MenuItem,
+    Submenu,
+    ApaMenu
   },
   setup(props) {
     onBeforeMount(() => {}); //挂载前
@@ -84,12 +67,13 @@ export default {
       routeChildren: "",
       menuComponent: computed(() => {
         const showChildren = handleChildren(props.item.children);
+        console.log("length", showChildren.length);
         if (showChildren.length === 0) {
           dataComponent.routeChildren = props.item;
           return "MenuItem";
         } else if (
           showChildren.length === 1 &&
-          props.item.alwaysShow !== true
+          props.item.meta.alwaysShow !== true
         ) {
           dataComponent.routeChildren = showChildren[0];
           return "MenuItem";
@@ -98,16 +82,15 @@ export default {
         }
       })
     });
-    console.log("props", props.item);
-    // console.log("dataComponent", dataComponent.menuComponent);
+    // console.log("props", props.item.hidden);
+    console.log("dataComponent", dataComponent.menuComponent);
     function handleChildren(children = []) {
       if (children === null) return [];
-      return children.filter(item => item.hidden !== true);
+      return children.filter(item => item.meta.hidden !== true);
     }
     const dataComponentToRefs = toRefs(dataComponent);
     //这里存放返回数据
     return {
-      handleChildren,
       ...dataComponentToRefs
     };
   }

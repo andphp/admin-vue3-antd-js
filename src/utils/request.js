@@ -1,4 +1,3 @@
-// import { inject } from "vue";
 import axios from "axios";
 import {
   baseURL,
@@ -12,6 +11,7 @@ import store from "@/store";
 import qs from "qs";
 import router from "@/router";
 import { isArray } from "@/utils/validate";
+import { message } from "ant-design-vue";
 
 let loadingInstance;
 
@@ -20,24 +20,24 @@ const codeVerificationArray = isArray(successCode)
   ? [...successCode]
   : [...[successCode]];
 
-// const CODE_MESSAGE = {
-//   200: "服务器成功返回请求数据",
-//   201: "新建或修改数据成功",
-//   202: "一个请求已经进入后台排队（异步任务）",
-//   204: "删除数据成功",
-//   400: "发出信息有误",
-//   401: "用户没有权限（令牌、用户名、密码错误）",
-//   403: "用户得到授权，但是访问是被禁止的",
-//   404: "访问资源不存在",
-//   406: "请求格式不可得",
-//   410: "请求资源被永久删除，且不会被看到",
-//   500: "服务器发生错误",
-//   502: "网关错误",
-//   503: "服务不可用，服务器暂时过载或维护",
-//   504: "网关超时"
-// };
+const CODE_MESSAGE = {
+  200: "服务器成功返回请求数据",
+  201: "新建或修改数据成功",
+  202: "一个请求已经进入后台排队（异步任务）",
+  204: "删除数据成功",
+  400: "发出信息有误",
+  401: "用户没有权限（令牌、用户名、密码错误）",
+  403: "用户得到授权，但是访问是被禁止的",
+  404: "访问资源不存在",
+  406: "请求格式不可得",
+  410: "请求资源被永久删除，且不会被看到",
+  500: "服务器发生错误",
+  502: "网关错误",
+  503: "服务不可用，服务器暂时过载或维护",
+  504: "网关超时"
+};
 
-const handleData = ({ data, status }) => {
+const handleData = ({ config, data, status, statusText }) => {
   if (loadingInstance) loadingInstance.close();
 
   // 若data.code存在，覆盖默认code
@@ -45,6 +45,11 @@ const handleData = ({ data, status }) => {
   // 若code属于操作正常code，则status修改为200
   if (codeVerificationArray.includes(code)) code = 200;
   // 若data.msg存在，覆盖默认提醒消息
+  const msg = !data
+    ? `后端接口 ${config.url} 异常 ${code}：${CODE_MESSAGE[code]}`
+    : !data.msg
+    ? `后端接口 ${config.url} 异常 ${code}：${statusText}`
+    : data.msg;
 
   switch (code) {
     case 200:
@@ -57,16 +62,14 @@ const handleData = ({ data, status }) => {
       // 或者依然保持完整的格式
       return data;
     case 401:
-      console.log("msg:error", 401);
-      // Vue.prototype.$baseMessage(msg, "error");
+      message.error(msg || "登录失效");
       store.dispatch("user/resetAll").catch(() => {});
       break;
     case 403:
       router.push({ path: "/403" }).catch(() => {});
       break;
     default:
-      console.log("msg:error", "default");
-      // Vue.prototype.$baseMessage(msg, "error");
+      message.error(msg || "error");
       break;
   }
   return data;
@@ -97,8 +100,7 @@ instance.interceptors.request.use(
     )
       config.data = qs.stringify(config.data);
     if (debounce.some(item => config.url.includes(item)))
-      console.log("baseLoading");
-    // loadingInstance = Vue.prototype.$baseLoading();
+      loadingInstance = message.info("loading");
     return config;
   },
   error => {
@@ -114,14 +116,7 @@ instance.interceptors.response.use(
   error => {
     const { response } = error;
     if (response === undefined) {
-      console.log(
-        "baseMessage",
-        "未可知错误，大部分是由于后端不支持跨域CORS或无效配置引起"
-      );
-      // Vue.prototype.$baseMessage(
-      //   "未可知错误，大部分是由于后端不支持跨域CORS或无效配置引起",
-      //   "error"
-      // );
+      message.error("未可知错误，大部分是由于后端不支持跨域CORS或无效配置引起");
       return {};
     } else return handleData(response);
   }
