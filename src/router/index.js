@@ -36,7 +36,8 @@ export const asyncRoutes = [
         hidden: false,
         component: () => import("@/views/index/index"),
         meta: {
-          title: "首页"
+          title: "首页",
+          icon: "home"
         }
       }
     ]
