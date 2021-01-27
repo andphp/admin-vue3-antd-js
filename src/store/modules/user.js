@@ -1,5 +1,4 @@
 /**
- * @author chuzhixin 1204505056@qq.com
  * @description 登录、获取用户信息、退出登录、清除accessToken逻辑，不建议修改
  */
 import { getUserInfo, login, logout } from "@/api/user";
@@ -23,7 +22,6 @@ const getters = {
 };
 const mutations = {
   /**
-   * @author chuzhixin 1204505056@qq.com
    * @description 设置accessToken
    * @param {*} state
    * @param {*} accessToken
@@ -33,7 +31,6 @@ const mutations = {
     setAccessToken(accessToken);
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
    * @description 设置用户名
    * @param {*} state
    * @param {*} username
@@ -42,7 +39,6 @@ const mutations = {
     state.username = username;
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
    * @description 设置头像
    * @param {*} state
    * @param {*} avatar
@@ -53,7 +49,6 @@ const mutations = {
 };
 const actions = {
   /**
-   * @author chuzhixin 1204505056@qq.com
    * @description 登录拦截放行时，设置虚拟角色
    * @param {*} { commit, dispatch }
    */
@@ -66,13 +61,13 @@ const actions = {
     commit("setUsername", "admin(未开启登录拦截)");
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
    * @description 登录
    * @param {*} { commit }
    * @param {*} userInfo
    */
   async login({ commit }, userInfo) {
     const { data } = await login(userInfo);
+    console.log("login", data);
     const accessToken = data[tokenName];
     if (accessToken) {
       commit("setAccessToken", accessToken);
@@ -96,7 +91,6 @@ const actions = {
     }
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
    * @description 获取用户信息接口 这个接口非常非常重要，如果没有明确底层前逻辑禁止修改此方法，错误的修改可能造成整个框架无法正常使用
    * @param {*} { commit, dispatch, state }
    * @returns
@@ -120,7 +114,6 @@ const actions = {
   },
 
   /**
-   * @author chuzhixin 1204505056@qq.com
    * @description 退出登录
    * @param {*} { dispatch }
    */
@@ -129,7 +122,6 @@ const actions = {
     await dispatch("resetAll");
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
    * @description 重置accessToken、roles、ability、router等
    * @param {*} { commit, dispatch }
    */
@@ -141,7 +133,6 @@ const actions = {
     removeAccessToken();
   },
   /**
-   * @author chuzhixin 1204505056@qq.com
    * @description 设置token
    */
   setAccessToken({ commit }, accessToken) {

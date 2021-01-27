@@ -11,6 +11,16 @@ import { i18n } from "./language";
 import SvgIcon from "@/components/Icons/SvgIcon.vue";
 // import "@/apa";
 
+/**
+ * @description 正式环境默认使用mock，正式项目记得注释后再打包
+ */
+console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+if (process.env.NODE_ENV === "development") {
+  const { mockXHR } = require("@/utils/static");
+  console.log("mockXHR", mockXHR);
+  mockXHR();
+}
+
 const app = createApp(App)
   .use(store)
   .use(router)
