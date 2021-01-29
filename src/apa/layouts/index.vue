@@ -1,5 +1,5 @@
 <template>
-  <div class="vue-admin-antd-wrapper">
+  <div :class="classObj" class="vue-admin-antd-wrapper">
     <component
       :is="layout"
       :collapse="collapse"
@@ -34,14 +34,14 @@ export default {
     const initData = reactive({
       oldLayout: store.state.settings.layout,
       width: 0,
-      classObj: computed(() => {
-        return { mobile: store.state.settings.device === "mobile" };
-      }),
       layout: computed(() => store.state.settings.layout),
       showTabsBar: computed(() => store.state.settings.showTabsBar),
       collapse: computed(() => store.state.settings.collapse),
       fixedHeader: computed(() => store.state.settings.fixedHeader),
-      device: computed(() => store.state.settings.device)
+      device: computed(() => store.state.settings.device),
+      classObj: computed(() => {
+        return { mobile: store.state.settings.device === "mobile" };
+      })
     });
 
     onBeforeMount(() => {
@@ -71,6 +71,7 @@ export default {
     });
     function handleLayouts() {
       const width = document.body.getBoundingClientRect().width;
+      console.log("width", width);
       if (initData.width !== width) {
         const isMobile = width - 1 < 992;
         store.dispatch(

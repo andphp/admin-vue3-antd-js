@@ -17,7 +17,6 @@ import SvgIcon from "@/components/Icons/SvgIcon.vue";
 console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 if (process.env.NODE_ENV === "development") {
   const { mockXHR } = require("@/utils/static");
-  console.log("mockXHR", mockXHR);
   mockXHR();
 }
 

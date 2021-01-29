@@ -1,74 +1,65 @@
 <template>
-  <a-layout class="apa-layout-wrap">
+  <a-layout class="layout-container-vertical">
     <div
       v-if="device === 'mobile' && !collapse"
-      class="apa-mask"
+      class="mask"
       @click="handleFoldSideBar"
     ></div>
-    <a-layout-sider
-      collapsible
-      class="apa-sider"
-      width="250"
-      v-model:collapsed="collapse"
-      :class="classObj"
-      :trigger="null"
-    >
-      <apa-logo />
-      <a-menu
-        class="apa-menu"
-        theme="dark"
-        mode="inline"
-        v-model:selectedKeys="selectedKeys"
-        v-model:openKeys="openKeys"
-      >
-        <apa-menu v-for="route in routes" :key="route.path" :item="route" />
-      </a-menu>
-    </a-layout-sider>
-    <a-layout
-      class="apa-layout"
-      :class="'mobile' === device ? 'apa-mobile-layout' : ''"
-    >
-      <a-layout-header class="apa-header">
-        <a-row>
-          <a-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
-            <menu-unfold-outlined
-              v-if="collapse"
-              class="trigger"
-              @click="toggleCollapse"
-            />
-            <menu-fold-outlined
-              v-else
-              class="trigger"
-              @click="toggleCollapse"
-            />
-          </a-col>
-          <a-col :xs="12" :sm="12" :md="12" :lg="12" :xl="12">
-            <apa-avatar />
-          </a-col>
-        </a-row>
-      </a-layout-header>
-      <apa-tabs />
-      <apa-content />
-    </a-layout>
   </a-layout>
 </template>
 
 <script>
 import { Layout } from "ant-design-vue";
-import ApaMenu from "@/apa/components/ApaMenu";
+// import ApaMenu from "@/apa/components/ApaMenu";
 import store from "@/store";
 export default {
   name: "Vertical",
   components: {
-    ALayout: Layout,
-    ALayoutSider: Layout.Sider,
-    ALayoutHeader: Layout.Header,
-    ApaMenu
+    ALayout: Layout
   },
-  setup() {
-    console.log("roteres==", store.state.routes.routes);
+  props: {
+    collapse: {
+      type: Boolean,
+      default() {
+        return false;
+      }
+    },
+    fixedHeader: {
+      type: Boolean,
+      default() {
+        return true;
+      }
+    },
+    showTabsBar: {
+      type: Boolean,
+      default() {
+        return true;
+      }
+    },
+    device: {
+      type: String,
+      default() {
+        return "desktop";
+      }
+    }
+  },
+  setup(props) {
+    console.log("collapse==", props.collapse);
+    console.log("fixedHeader==", props.fixedHeader);
+    console.log("showTabsBar==", props.showTabsBar);
+    console.log("device==", props.device);
+    function handleFoldSideBar() {
+      store
+        .dispatch("settings/foldSideBar")
+        .then(res => {
+          console.log("od===", res);
+        })
+        .catch(err => alert(err.message));
+    }
     //这里存放返回数据
-    return {};
+    return {
+      handleFoldSideBar
+    };
   }
 };
 </script>

@@ -42,8 +42,7 @@ export function mockXHR() {
   }
 
   mocks.forEach(item => {
-    let dd = new RegExp(item.url);
-    console.log("urldd", dd);
+    new RegExp(item.url);
     Mock.mock(
       new RegExp(item.url),
       item.type || "get",
