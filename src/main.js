@@ -8,13 +8,13 @@ import "ant-design-vue/dist/antd.css";
 // 语言
 import { i18n } from "./language";
 // 引入icons
-import SvgIcon from "@/components/Icons/SvgIcon.vue";
+// import SvgIcon from "@/apa/components/Icons/SvgIcon.vue";
 // import "@/apa";
 
 /**
  * @description 正式环境默认使用mock，正式项目记得注释后再打包
  */
-console.log("process.env.NODE_ENV", process.env.NODE_ENV);
+// console.log("process.env.NODE_ENV", process.env.NODE_ENV);
 if (process.env.NODE_ENV === "development") {
   const { mockXHR } = require("@/utils/static");
   mockXHR();
@@ -23,8 +23,7 @@ if (process.env.NODE_ENV === "development") {
 const app = createApp(App)
   .use(store)
   .use(router)
-  .use(i18n)
-  .component("svg-icon", SvgIcon);
+  .use(i18n);
 import "./apa/styles/apa.scss";
 
 // 加载布局

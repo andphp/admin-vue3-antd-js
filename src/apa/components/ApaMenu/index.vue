@@ -30,7 +30,9 @@ import {
   onBeforeUpdate,
   onUpdated,
   onBeforeUnmount,
-  onUnmounted
+  onUnmounted,
+  inject,
+  ref
 } from "vue";
 export default {
   name: "ApaMenu",
@@ -38,10 +40,6 @@ export default {
     item: {
       type: Object,
       required: true
-    },
-    layout: {
-      type: String,
-      default: ""
     }
   },
   components: {
@@ -82,7 +80,8 @@ export default {
         }
       })
     });
-    // console.log("props", props.item.hidden);
+    const layout = ref(inject("layout"));
+    console.log("props--===--", layout.value);
     console.log("dataComponent", dataComponent.menuComponent);
     function handleChildren(children = []) {
       if (children === null) return [];
@@ -91,7 +90,8 @@ export default {
     const dataComponentToRefs = toRefs(dataComponent);
     //这里存放返回数据
     return {
-      ...dataComponentToRefs
+      ...dataComponentToRefs,
+      layout
     };
   }
 };

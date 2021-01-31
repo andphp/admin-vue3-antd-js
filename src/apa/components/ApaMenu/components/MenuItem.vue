@@ -4,7 +4,7 @@
     <span class="anticon">
       <svg-icon
         v-if="item.meta.icon"
-        :iconClass="routeChildren.meta.icon"
+        :iconName="routeChildren.meta.icon"
       ></svg-icon>
     </span>
     <span>{{ routeChildren.meta.title }}</span>
@@ -14,7 +14,7 @@
 <script>
 import { Menu } from "ant-design-vue";
 import { isExternal } from "@/utils/validate";
-import SvgIcon from "@/components/Icons/SvgIcon";
+import SvgIcon from "@/apa/components/Icons/SvgIcon";
 import {
   // reactive,
   // computed,

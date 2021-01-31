@@ -108,11 +108,6 @@ module.exports = {
             test: /[\\/]node_modules[\\/]/,
             priority: 10,
             chunks: "initial"
-          },
-          elementUI: {
-            name: "element-ui",
-            priority: 20,
-            test: /[\\/]node_modules[\\/]_?element-ui(.*)/
           }
         }
       });

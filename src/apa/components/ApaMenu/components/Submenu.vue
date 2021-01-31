@@ -3,7 +3,7 @@
   <a-sub-menu :key="item.path">
     <template v-slot:title>
       <span class="anticon">
-        <svg-icon v-if="item.meta.icon" :iconClass="item.meta.icon"></svg-icon>
+        <svg-icon v-if="item.meta.icon" :iconName="item.meta.icon"></svg-icon>
       </span>
       <span>{{ item.meta.title }}</span>
     </template>

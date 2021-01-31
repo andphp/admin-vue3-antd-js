@@ -1,13 +1,20 @@
 <!-- logo -->
 <template>
-  <div><p>this is a logo</p></div>
+  <div class="apa-logo">
+    <span class="anticon">
+      <svg-icon v-if="logo" :iconName="logo" class-name="apa-large"></svg-icon>
+    </span>
+    <span>{{ title }}</span>
+  </div>
 </template>
 
 <script>
+import SvgIcon from "@/apa/components/Icons/SvgIcon";
+import store from "@/store";
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  reactive,
+  computed,
+  toRefs,
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
@@ -17,7 +24,9 @@ import {
 } from "vue";
 export default {
   name: "Logo",
-  components: {},
+  components: {
+    SvgIcon
+  },
   setup() {
     onBeforeMount(() => {}); //挂载前
 
@@ -31,13 +40,33 @@ export default {
 
     onUnmounted(() => {}); //实例销毁后
 
-    //这里存放返回数据
+    const data = reactive({
+      logo: computed(() => store.state.settings.logo),
+      title: computed(() => store.state.settings.title)
+    });
 
-    return {};
+    const dataToRefs = toRefs(data);
+    //这里存放返回数据
+    return {
+      ...dataToRefs
+    };
   }
 };
 </script>
 
 <style lang="scss" scoped>
 //@import url(); 引入公共css类
+.apa-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  margin: 16px 5px;
+  overflow: hidden;
+  overflow: hidden;
+  font-size: 15px;
+  color: #fff;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 </style>

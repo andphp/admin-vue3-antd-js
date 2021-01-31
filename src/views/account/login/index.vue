@@ -55,12 +55,12 @@
                   <template #icon>
                     <svg-icon
                       v-if="sliderVerifyCodeOptions.icon && isSuccess"
-                      icon-class="slider-success"
+                      icon-name="slider-success"
                       class-name="v-success v-large"
                     ></svg-icon>
                     <svg-icon
                       v-else
-                      icon-class="slider"
+                      icon-name="slider"
                       class-name="v-black v-large"
                     ></svg-icon>
                   </template>
@@ -109,8 +109,8 @@
 import { toRefs, reactive } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import { Form, Input, Card, Button } from "ant-design-vue";
-import SliderVerifyCode from "@/components/SliderVerifyCode/SliderVerifyCode.vue";
-import SvgIcon from "@/components/Icons/SvgIcon";
+import SliderVerifyCode from "@/apa/components/SliderVerifyCode/SliderVerifyCode.vue";
+import SvgIcon from "@/apa/components/Icons/SvgIcon";
 import { useRouter } from "vue-router";
 import store from "@/store";
 // import { useI18n } from "vue-i18n";

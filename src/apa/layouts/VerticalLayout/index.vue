@@ -5,17 +5,21 @@
       class="mask"
       @click="handleFoldSideBar"
     ></div>
+    <side-bar></side-bar>
   </a-layout>
 </template>
 
 <script>
 import { Layout } from "ant-design-vue";
+import SideBar from "@/apa/components/SideBar";
+import { provide } from "vue";
 // import ApaMenu from "@/apa/components/ApaMenu";
 import store from "@/store";
 export default {
   name: "Vertical",
   components: {
-    ALayout: Layout
+    ALayout: Layout,
+    SideBar
   },
   props: {
     collapse: {
@@ -45,9 +49,14 @@ export default {
   },
   setup(props) {
     console.log("collapse==", props.collapse);
+    provide("collapse", props.collapse);
     console.log("fixedHeader==", props.fixedHeader);
+    provide("fixedHeader", props.fixedHeader);
     console.log("showTabsBar==", props.showTabsBar);
+    provide("showTabsBar", props.showTabsBar);
     console.log("device==", props.device);
+    provide("device", props.device);
+    provide("layout", "vertical");
     function handleFoldSideBar() {
       store
         .dispatch("settings/foldSideBar")
