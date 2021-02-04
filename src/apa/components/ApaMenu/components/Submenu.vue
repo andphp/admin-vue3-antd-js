@@ -13,7 +13,7 @@
 
 <script>
 import { Menu } from "ant-design-vue";
-import SvgIcon from "@/components/Icons/SvgIcon";
+import SvgIcon from "@/apa/components/Icons/SvgIcon";
 import {
   // reactive,
   // computed,

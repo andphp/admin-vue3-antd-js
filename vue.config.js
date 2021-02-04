@@ -32,7 +32,7 @@ const productionGzipExtensions = ["html", "js", "css", "svg"];
 // mockjs
 const mockServer = () => {
   if (process.env.NODE_ENV === "development") {
-    return require("./mock/mockServer.js");
+    return require("./src/mock/mockServer.js");
   } else {
     return "";
   }

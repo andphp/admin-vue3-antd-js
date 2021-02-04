@@ -30,9 +30,9 @@ function handleMockArray() {
       });
     };
     findJsonFile(jsonPath);
-    jsonFiles.forEach(item => mockArray.push(`./api/${item}`));
+    jsonFiles.forEach(item => mockArray.push(`./services/${item}`));
   };
-  getFiles("mock/api");
+  getFiles("src/mock/services");
   return mockArray;
 }
 module.exports = {
