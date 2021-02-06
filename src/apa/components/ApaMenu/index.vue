@@ -67,19 +67,23 @@ export default {
         const showChildren = handleChildren(props.item.children);
         console.log("length", showChildren.length);
         if (showChildren.length === 0) {
-          dataComponent.routeChildren = props.item;
+          addRouteChildren(props.item);
           return "MenuItem";
         } else if (
           showChildren.length === 1 &&
           props.item.meta.alwaysShow !== true
         ) {
-          dataComponent.routeChildren = showChildren[0];
+          addRouteChildren(showChildren[0]);
           return "MenuItem";
         } else {
           return "Submenu";
         }
       })
     });
+
+    function addRouteChildren(children) {
+      dataComponent.routeChildren = children;
+    }
     const layout = ref(inject("layout"));
     console.log("props--===--", layout.value);
     console.log("dataComponent", dataComponent.menuComponent);

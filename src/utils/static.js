@@ -5,7 +5,7 @@ import Mock from "mockjs";
 import { paramObj } from "@/utils/index";
 
 const mocks = [];
-const files = require.context("../mock/services", false, /\.js$/);
+const files = require.context("/mock/services", false, /\.js$/);
 
 files.keys().forEach(key => {
   mocks.push(...files(key));

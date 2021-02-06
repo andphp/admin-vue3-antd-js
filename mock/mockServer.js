@@ -3,7 +3,7 @@ const bodyParser = require("body-parser"); // 获取前端传送过来的数据
 const chalk = require("chalk"); // chalk是一个颜色的插件
 const path = require("path");
 const Mock = require("mockjs");
-const { baseURL } = require("../config");
+const { baseURL } = require("../src/config");
 const mockDir = path.join(process.cwd(), "mock");
 
 /**

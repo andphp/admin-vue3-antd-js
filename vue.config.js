@@ -32,7 +32,7 @@ const productionGzipExtensions = ["html", "js", "css", "svg"];
 // mockjs
 const mockServer = () => {
   if (process.env.NODE_ENV === "development") {
-    return require("./src/mock/mockServer.js");
+    return require("./mock/mockServer.js");
   } else {
     return "";
   }
@@ -68,7 +68,10 @@ module.exports = {
         new WebpackBar({
           name: webpackBarName
         })
-      ]
+      ],
+      externals: {
+        fsevents: "fsevents"
+      }
     };
   },
   chainWebpack: config => {

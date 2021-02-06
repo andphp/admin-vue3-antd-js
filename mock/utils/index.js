@@ -32,7 +32,7 @@ function handleMockArray() {
     findJsonFile(jsonPath);
     jsonFiles.forEach(item => mockArray.push(`./services/${item}`));
   };
-  getFiles("src/mock/services");
+  getFiles("mock/services");
   return mockArray;
 }
 module.exports = {
