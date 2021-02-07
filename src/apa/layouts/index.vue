@@ -1,5 +1,5 @@
 <template>
-  <div :class="classObj" class="vue-admin-antd-wrapper">
+  <div :class="classObj" class="apa-wrapper">
     <component
       :is="layout"
       :collapse="collapse"
@@ -7,7 +7,6 @@
       :show-tabs-bar="showTabsBar"
       :device="device"
     ></component>
-    <a-back-top></a-back-top>
   </div>
 </template>
 
@@ -85,44 +84,11 @@ export default {
         initData.width = width;
       }
     }
-    const data = toRefs(initData);
     return {
-      ...data
+      ...toRefs(initData)
     };
   }
 };
 </script>
 
-<style lang="scss" scoped>
-.vue-admin-antd-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-
-  /* 手机端开始 */
-  &.mobile {
-    ::v-deep {
-      .el-pager,
-      .el-pagination__jump {
-        display: none;
-      }
-      .layout-container-vertical {
-        .el-scrollbar.side-bar-container.is-collapse {
-          width: 0;
-        }
-        .vab-main {
-          width: 100%;
-          margin-left: 0;
-        }
-      }
-      .vab-main {
-        .fixed-header {
-          left: 0 !important;
-          width: 100% !important;
-        }
-      }
-    }
-  }
-  /* 手机端结束 */
-}
-</style>
+<style lang="scss" scoped></style>

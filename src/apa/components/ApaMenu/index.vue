@@ -5,6 +5,8 @@
     v-if="!item.meta.hidden"
     :item="item"
     :route-children="routeChildren"
+    theme="dark"
+    mode="inline"
   >
     <template v-if="item.children && item.children.length">
       <apa-menu

@@ -1,20 +1,19 @@
 <!-- SideBar -->
 <template>
-  <a-layout-sider
-    :class="{ 'is-collapse': collapse, 'side-bar-common': layout === 'common' }"
-    class="side-bar-container"
-  >
-    <logo></logo>
-    <a-menu>
-      <template v-for="route in routes">
-        <apa-menu
-          v-if="!route.hidden"
-          :key="route.path"
-          :item="route"
-        ></apa-menu>
-      </template>
-    </a-menu>
-  </a-layout-sider>
+  <div class="side-bar">
+    <a-layout-sider :collapsed="collapse" :trigger="null" collapsible>
+      <logo :collapse="collapse"></logo>
+      <a-menu>
+        <template v-for="route in routes">
+          <apa-menu
+            v-if="!route.hidden"
+            :key="route.path"
+            :item="route"
+          ></apa-menu>
+        </template>
+      </a-menu>
+    </a-layout-sider>
+  </div>
 </template>
 
 <script>
@@ -76,7 +75,15 @@ export default {
 
 <style lang="scss" scoped>
 //@import url(); 引入公共css类
-.ant-layout-sider {
-  background: #3ba0e9;
+.side-bar {
+  ::v-deep(.ant-layout-sider) {
+    background: $base-gallery-first-menu-background;
+    height: 100vh;
+  }
+  .logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+  }
 }
 </style>

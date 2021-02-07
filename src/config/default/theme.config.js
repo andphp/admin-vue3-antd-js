@@ -5,7 +5,7 @@ const theme = {
   //布局种类 horizontal横向 vertical纵向 gallery画廊 comprehensive综合 common常规
   layout: "gallery",
   //主题名称 default ocean green glory white
-  themeName: "default",
+  themeName: "ocean",
   //是否固定头部
   fixedHeader: true,
   //是否显示顶部进度条

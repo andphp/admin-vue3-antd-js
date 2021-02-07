@@ -4,7 +4,9 @@
     <span class="anticon">
       <svg-icon v-if="logo" :iconName="logo" class-name="apa-large"></svg-icon>
     </span>
-    <span>{{ title }}</span>
+    <transition name="slide">
+      <span v-show="!collapse">{{ title }}</span>
+    </transition>
   </div>
 </template>
 
@@ -26,6 +28,14 @@ export default {
   name: "Logo",
   components: {
     SvgIcon
+  },
+  props: {
+    collapse: {
+      type: Boolean,
+      default() {
+        return false;
+      }
+    }
   },
   setup() {
     onBeforeMount(() => {}); //挂载前
@@ -68,5 +78,25 @@ export default {
   color: #fff;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.slide {
+  &-enter {
+    transform: translateX(100%);
+    &-to {
+      transform: translateX(0%);
+    }
+    &-active {
+      transition: transform 0.5s;
+    }
+  }
+  &-leave {
+    transform: translateX(0);
+    &-to {
+      transform: translateX(100%);
+    }
+    &-active {
+      transition: transform 0.5s;
+    }
+  }
 }
 </style>

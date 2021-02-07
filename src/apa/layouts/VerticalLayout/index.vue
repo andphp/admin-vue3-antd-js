@@ -1,16 +1,36 @@
 <template>
-  <a-layout class="layout-container-vertical">
-    <div
-      v-if="device === 'mobile' && !collapse"
-      class="mask"
-      @click="handleFoldSideBar"
-    ></div>
-    <side-bar></side-bar>
-  </a-layout>
+  <div class="layout-container-vertical">
+    <a-layout>
+      <side-bar :collapse="collapse"></side-bar>
+      <a-layout>
+        <a-layout-header style="background: #fff; padding: 0">
+          <div class="trigger">
+            <template v-if="!collapse">
+              <MenuFoldOutlined @click="handleFoldSideBar" />
+            </template>
+            <template v-else>
+              <MenuUnfoldOutlined @click="handleUnFoldSideBar" />
+            </template>
+          </div>
+        </a-layout-header>
+        <a-layout-content
+          :style="{
+            margin: '24px 16px',
+            padding: '24px',
+            background: '#fff',
+            minHeight: '280px'
+          }"
+        >
+          Content
+        </a-layout-content>
+      </a-layout>
+    </a-layout>
+  </div>
 </template>
 
 <script>
 import { Layout } from "ant-design-vue";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
 import SideBar from "@/apa/components/SideBar";
 import { provide } from "vue";
 // import ApaMenu from "@/apa/components/ApaMenu";
@@ -19,7 +39,11 @@ export default {
   name: "Vertical",
   components: {
     ALayout: Layout,
-    SideBar
+    ALayoutHeader: Layout.Header,
+    ALayoutContent: Layout.Content,
+    SideBar,
+    MenuFoldOutlined,
+    MenuUnfoldOutlined
   },
   props: {
     collapse: {
@@ -58,19 +82,30 @@ export default {
     provide("device", props.device);
     provide("layout", "vertical");
     function handleFoldSideBar() {
-      store
-        .dispatch("settings/foldSideBar")
-        .then(res => {
-          console.log("od===", res);
-        })
-        .catch(err => alert(err.message));
+      store.dispatch("settings/foldSideBar");
+    }
+    function handleUnFoldSideBar() {
+      store.dispatch("settings/openSideBar");
     }
     //这里存放返回数据
     return {
-      handleFoldSideBar
+      handleFoldSideBar,
+      handleUnFoldSideBar
     };
   }
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.layout-container-vertical .trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.layout-container-vertical .trigger:hover {
+  color: #1890ff;
+}
+</style>
