@@ -1,21 +1,16 @@
 <!--  -->
 <template>
-  <a-menu-item :key="routeChildren.path" @click.capture="handleLink">
+  <a-menu-item :key="route.path">
     <span class="anticon">
-      <svg-icon
-        v-if="item.meta.icon"
-        :iconName="routeChildren.meta.icon"
-      ></svg-icon>
+      <svg-icon v-if="route.meta.icon" :iconName="route.meta.icon"></svg-icon>
     </span>
-    <span>{{ routeChildren.meta.title }}</span>
+    <span>{{ route.meta.title }}</span>
   </a-menu-item>
 </template>
 
 <script>
 import { Menu } from "ant-design-vue";
-import { isExternal } from "@/utils/validate";
 import SvgIcon from "@/apa/components/Icons/SvgIcon";
-import { useRouter, useRoute } from "vue-router";
 import {
   // reactive,
   // computed,
@@ -35,40 +30,22 @@ export default {
     SvgIcon
   },
   props: {
-    item: {
-      type: Object,
-      default: () => null
-    },
-    routeChildren: {
+    route: {
       type: Object,
       default: () => null
     }
   },
-  setup(props) {
+
+  setup() {
     onBeforeMount(() => {}); //挂载前
     onMounted(() => {}); //挂载完成之后调用
     onBeforeUpdate(() => {}); //DOM数据更新前调用
     onUpdated(() => {}); //DOM数据更新完成调用
     onBeforeUnmount(() => {}); //实例销毁之前
     onUnmounted(() => {}); //实例销毁后
-    let router = useRouter();
-    let route = useRoute();
 
-    function handleLink() {
-      const routePath = props.routeChildren.path;
-      const target = props.routeChildren.meta.target;
-      if (target === "_blank") {
-        if (isExternal(routePath)) window.open(routePath);
-        else if (route.path !== routePath) window.open(routePath.href);
-      } else {
-        if (isExternal(routePath)) window.location.href = routePath;
-        else if (route.path !== routePath) router.push(routePath);
-      }
-    }
     //这里存放返回数据
-    return {
-      handleLink
-    };
+    return {};
   }
 };
 </script>

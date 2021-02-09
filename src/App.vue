@@ -21,6 +21,7 @@ export default {
     const language = reactive({
       locale: ""
     });
+
     const store = useStore();
     language.locale = computed(() => store.state.lang.locale);
 

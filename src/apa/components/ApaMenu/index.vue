@@ -1,28 +1,42 @@
 <!-- 菜单/主导航 -->
 <template>
-  <component
-    :is="menuComponent"
-    v-if="!item.meta.hidden"
-    :item="item"
-    :route-children="routeChildren"
-    theme="dark"
+  <a-menu
     mode="inline"
+    theme="dark"
+    :inline-collapsed="collapse"
+    v-model:openKeys="openKeys"
+    v-model:selectedKeys="selectedKeys"
+    @click="handleClick"
+    @select="handleSelect"
+    @openChange="onOpenChange"
   >
-    <template v-if="item.children && item.children.length">
-      <apa-menu
-        v-for="route in item.children"
-        :key="route.path"
-        :item="route"
-      ></apa-menu>
+    <template v-for="route in routes" :key="route.path">
+      <template v-if="handleChildren(route.children).length == 0">
+        <menu-item v-if="!route.meta.hidden" :route="route"></menu-item>
+      </template>
+      <template
+        v-else-if="
+          handleChildren(route.children).length === 1 &&
+            route.meta.alwaysShow !== true
+        "
+      >
+        <menu-item
+          v-if="!route.meta.hidden"
+          :route="handleChildren(route.children)[0]"
+        ></menu-item>
+      </template>
+      <template v-else>
+        <Submenu :route="route"></Submenu>
+      </template>
     </template>
-  </component>
+  </a-menu>
 </template>
 
 <script>
-import { Layout } from "ant-design-vue";
+import { Menu } from "ant-design-vue";
 import MenuItem from "./components/MenuItem";
 import Submenu from "./components/Submenu";
-import ApaMenu from "./index";
+import store from "@/store";
 import {
   reactive,
   computed,
@@ -39,18 +53,19 @@ import {
 export default {
   name: "ApaMenu",
   props: {
-    item: {
-      type: Object,
-      required: true
+    collapse: {
+      type: Boolean,
+      default() {
+        return false;
+      }
     }
   },
   components: {
-    ALayoutSider: Layout.Sider,
+    AMenu: Menu,
     MenuItem,
-    Submenu,
-    ApaMenu
+    Submenu
   },
-  setup(props) {
+  setup() {
     onBeforeMount(() => {}); //挂载前
 
     onMounted(() => {}); //挂载完成之后调用
@@ -63,41 +78,49 @@ export default {
 
     onUnmounted(() => {}); //实例销毁后
 
-    const dataComponent = reactive({
-      routeChildren: "",
-      menuComponent: computed(() => {
-        const showChildren = handleChildren(props.item.children);
-        console.log("length", showChildren.length);
-        if (showChildren.length === 0) {
-          addRouteChildren(props.item);
-          return "MenuItem";
-        } else if (
-          showChildren.length === 1 &&
-          props.item.meta.alwaysShow !== true
-        ) {
-          addRouteChildren(showChildren[0]);
-          return "MenuItem";
-        } else {
-          return "Submenu";
-        }
+    const selectedKeys = ref(["/"]);
+    const openKeys = ref(["/"]);
+    const layout = ref(inject("layout"));
+    const filterRoutes = reactive({
+      routes: computed(() => {
+        return store.state.routes.routes;
       })
     });
 
-    function addRouteChildren(children) {
-      dataComponent.routeChildren = children;
-    }
-    const layout = ref(inject("layout"));
-    console.log("props--===--", layout.value);
-    console.log("dataComponent", dataComponent.menuComponent);
     function handleChildren(children = []) {
       if (children === null) return [];
       return children.filter(item => item.meta.hidden !== true);
     }
-    const dataComponentToRefs = toRefs(dataComponent);
+    console.log("filterRoutes.routes==", filterRoutes.routes);
+    const handleClick = ({ item, key, keyPath }) => {
+      console.log("clickitem", item);
+      console.log("clickkey", key);
+      console.log("clickkeyPath", keyPath);
+    };
+    const handleSelect = ({ item, key, keyPath }) => {
+      console.log("Selectitem", item);
+      console.log("Selectkey", key);
+      console.log("cSelectkeyPath", keyPath);
+    };
+    // const latestOpenKey = ref("/index");
+    // 打开/折叠 侧边栏 二级菜单
+    function onOpenChange(openKey) {
+      // latestOpenKey.value = openKey.find(
+      //   key => openKeys.value.indexOf(key) === -1
+      // );
+      // openKeys.value = latestOpenKey.value ? [latestOpenKey] : [];
+      console.log("openKey", openKey);
+    }
     //这里存放返回数据
     return {
-      ...dataComponentToRefs,
-      layout
+      layout,
+      handleChildren,
+      ...toRefs(filterRoutes),
+      selectedKeys,
+      openKeys,
+      handleClick,
+      handleSelect,
+      onOpenChange
     };
   }
 };

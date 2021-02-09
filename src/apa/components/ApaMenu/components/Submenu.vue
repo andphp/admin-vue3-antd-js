@@ -1,19 +1,42 @@
 <!--  -->
 <template>
-  <a-sub-menu :key="item.path">
+  <a-sub-menu :key="route.path" @titleClick="titleClick">
     <template v-slot:title>
       <span class="anticon">
-        <svg-icon v-if="item.meta.icon" :iconName="item.meta.icon"></svg-icon>
+        <svg-icon v-if="route.meta.icon" :iconName="route.meta.icon"></svg-icon>
       </span>
-      <span>{{ item.meta.title }}</span>
+      <span>{{ route.meta.title }}</span>
     </template>
-    <slot></slot>
+    <template
+      v-for="itemRoute in handleChildren(route.children)"
+      :key="itemRoute.path"
+    >
+      <template v-if="handleChildren(itemRoute.children).length == 0">
+        <MenuItem v-if="!itemRoute.meta.hidden" :route="itemRoute"></MenuItem>
+      </template>
+      <template
+        v-else-if="
+          handleChildren(itemRoute.children).length === 1 &&
+            itemRoute.meta.alwaysShow !== true
+        "
+      >
+        <MenuItem
+          v-if="!itemRoute.meta.hidden"
+          :route="handleChildren(itemRoute.children)[0]"
+        ></MenuItem>
+      </template>
+      <template v-else>
+        <Submenu :route="itemRoute"></Submenu>
+      </template>
+    </template>
   </a-sub-menu>
 </template>
 
 <script>
 import { Menu } from "ant-design-vue";
 import SvgIcon from "@/apa/components/Icons/SvgIcon";
+import MenuItem from "./MenuItem";
+import Submenu from "./Submenu";
 import {
   // reactive,
   // computed,
@@ -30,10 +53,12 @@ export default {
   name: "Submenu",
   components: {
     ASubMenu: Menu.SubMenu,
-    SvgIcon
+    SvgIcon,
+    MenuItem,
+    Submenu
   },
   props: {
-    item: {
+    route: {
       type: Object,
       default: () => null
     }
@@ -45,8 +70,15 @@ export default {
     onUpdated(() => {}); //DOM数据更新完成调用
     onBeforeUnmount(() => {}); //实例销毁之前
     onUnmounted(() => {}); //实例销毁后
+    function handleChildren(children = []) {
+      if (children === null) return [];
+      return children.filter(item => item.meta.hidden !== true);
+    }
+    const titleClick = e => {
+      console.log("titleClick", e);
+    };
     //这里存放返回数据
-    return {};
+    return { handleChildren, titleClick };
   }
 };
 </script>

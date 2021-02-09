@@ -3,21 +3,13 @@
   <div class="side-bar">
     <a-layout-sider :collapsed="collapse" :trigger="null" collapsible>
       <logo :collapse="collapse"></logo>
-      <a-menu>
-        <template v-for="route in routes">
-          <apa-menu
-            v-if="!route.hidden"
-            :key="route.path"
-            :item="route"
-          ></apa-menu>
-        </template>
-      </a-menu>
+      <apa-menu :collapse="collapse"></apa-menu>
     </a-layout-sider>
   </div>
 </template>
 
 <script>
-import { Layout, Menu } from "ant-design-vue";
+import { Layout } from "ant-design-vue";
 import ApaMenu from "../ApaMenu";
 import store from "@/store";
 import Logo from "@/apa/components/Logo";
@@ -36,7 +28,6 @@ export default {
   name: "SideBar",
   components: {
     ALayoutSider: Layout.Sider,
-    AMenu: Menu,
     ApaMenu,
     Logo
   },
@@ -63,11 +54,9 @@ export default {
     const routesData = reactive({
       routes: computed(() => store.state.routes.routes)
     });
-
     //这里存放返回数据
-    const routes = toRefs(routesData);
     return {
-      ...routes
+      ...toRefs(routesData)
     };
   }
 };

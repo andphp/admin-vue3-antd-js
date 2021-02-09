@@ -50,8 +50,6 @@ export const setLang = lang => {
       moment.locale(zhCN.locale);
   }
   // 当前语言
-
-  console.log(store);
   store
     .dispatch("lang/setLanguage", lang)
     .then(res => {

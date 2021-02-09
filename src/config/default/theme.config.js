@@ -7,7 +7,7 @@ const theme = {
   //主题名称 default ocean green glory white
   themeName: "ocean",
   //是否固定头部
-  fixedHeader: true,
+  fixedHeader: false,
   //是否显示顶部进度条
   showProgressBar: true,
   //是否显示多标签页

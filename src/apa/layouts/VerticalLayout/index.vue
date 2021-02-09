@@ -12,7 +12,13 @@
               <MenuUnfoldOutlined @click="handleUnFoldSideBar" />
             </template>
           </div>
+          <a-button type="primary" @click="showDrawer">Open</a-button>
         </a-layout-header>
+        <ThemeDrawer
+          :collapse="collapse"
+          :visible="visible"
+          @closeDrawer="closeDrawer"
+        ></ThemeDrawer>
         <a-layout-content
           :style="{
             margin: '24px 16px',
@@ -29,10 +35,11 @@
 </template>
 
 <script>
-import { Layout } from "ant-design-vue";
+import { Layout, Button } from "ant-design-vue";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
 import SideBar from "@/apa/components/SideBar";
-import { provide } from "vue";
+import ThemeDrawer from "@/apa/components/ThemeDrawer";
+import { provide, ref } from "vue";
 // import ApaMenu from "@/apa/components/ApaMenu";
 import store from "@/store";
 export default {
@@ -43,7 +50,9 @@ export default {
     ALayoutContent: Layout.Content,
     SideBar,
     MenuFoldOutlined,
-    MenuUnfoldOutlined
+    MenuUnfoldOutlined,
+    AButton: Button,
+    ThemeDrawer
   },
   props: {
     collapse: {
@@ -81,16 +90,28 @@ export default {
     console.log("device==", props.device);
     provide("device", props.device);
     provide("layout", "vertical");
+
     function handleFoldSideBar() {
       store.dispatch("settings/foldSideBar");
     }
     function handleUnFoldSideBar() {
       store.dispatch("settings/openSideBar");
     }
+    // 全局主题设置
+    const visible = ref(false);
+    const showDrawer = () => {
+      visible.value = true;
+    };
+    const closeDrawer = () => {
+      visible.value = false;
+    };
     //这里存放返回数据
     return {
       handleFoldSideBar,
-      handleUnFoldSideBar
+      handleUnFoldSideBar,
+      visible,
+      showDrawer,
+      closeDrawer
     };
   }
 };
