@@ -10,9 +10,13 @@
     @select="handleSelect"
     @openChange="onOpenChange"
   >
-    <template v-for="route in routes" :key="route.path">
+    <template v-for="route in routes">
       <template v-if="handleChildren(route.children).length == 0">
-        <menu-item v-if="!route.meta.hidden" :route="route"></menu-item>
+        <menu-item
+          v-if="!route.meta.hidden"
+          :route="route"
+          :key="route.path"
+        ></menu-item>
       </template>
       <template
         v-else-if="
@@ -23,10 +27,12 @@
         <menu-item
           v-if="!route.meta.hidden"
           :route="handleChildren(route.children)[0]"
+          :key="route.path"
         ></menu-item>
       </template>
       <template v-else>
-        <Submenu :route="route"></Submenu>
+        <!-- <Submenu :route="route"></Submenu> -->
+        <Submenu :route="route" :key="route.path" />
       </template>
     </template>
   </a-menu>

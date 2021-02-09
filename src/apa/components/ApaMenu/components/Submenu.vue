@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <a-sub-menu :key="route.path" @titleClick="titleClick">
+  <a-sub-menu :key="route.path" @titleClick="titleClick" v-bind="$attrs">
     <template v-slot:title>
       <span class="anticon">
         <svg-icon v-if="route.meta.icon" :iconName="route.meta.icon"></svg-icon>
@@ -12,7 +12,11 @@
       :key="itemRoute.path"
     >
       <template v-if="handleChildren(itemRoute.children).length == 0">
-        <MenuItem v-if="!itemRoute.meta.hidden" :route="itemRoute"></MenuItem>
+        <MenuItem
+          v-if="!itemRoute.meta.hidden"
+          :route="itemRoute"
+          :key="itemRoute.path"
+        ></MenuItem>
       </template>
       <template
         v-else-if="
@@ -23,10 +27,11 @@
         <MenuItem
           v-if="!itemRoute.meta.hidden"
           :route="handleChildren(itemRoute.children)[0]"
+          :key="itemRoute.path"
         ></MenuItem>
       </template>
       <template v-else>
-        <Submenu :route="itemRoute"></Submenu>
+        <Submenu :route="itemRoute" :key="itemRoute.path" />
       </template>
     </template>
   </a-sub-menu>
