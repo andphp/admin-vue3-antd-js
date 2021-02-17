@@ -16,7 +16,7 @@ import "moment/locale/zh-tw";
 import "moment/locale/en-au";
 
 export const i18n = createI18n({
-  locale: ENUM_LANG.zhCN, // 设置默认语言
+  locale: store.state.settings.language, // 设置默认语言
   messages: {
     [ENUM_LANG.enUS]: {
       ...customEnUS,
@@ -39,23 +39,16 @@ export const setLang = lang => {
   // 设置组件国际化
   switch (lang) {
     case ENUM_LANG.enUS:
-      console.log("--d", enUS.locale);
       moment.locale(enUS.locale);
       break;
     case ENUM_LANG.zhTW:
       moment.locale(zhTW.locale);
       break;
     default:
-      console.log("--", zhCN.locale);
       moment.locale(zhCN.locale);
   }
   // 当前语言
-  store
-    .dispatch("lang/setLanguage", lang)
-    .then(res => {
-      console.log("od===", res);
-    })
-    .catch(err => alert(err.message));
+  store.dispatch("settings/changeLanguage", lang);
   i18n.global.locale = lang;
   console.log(lang, "antd组件设置成功");
 };
@@ -63,4 +56,21 @@ export const setLang = lang => {
 // 获取当前语言
 export const getLang = () => {
   return i18n && i18n.global.locale;
+};
+
+// 获取当前语言antd组件
+export const getLangLocale = () => {
+  const language = getLang();
+  let locale = "";
+  switch (language) {
+    case ENUM_LANG.enUS:
+      locale = enUS;
+      break;
+    case ENUM_LANG.zhTW:
+      locale = zhTW;
+      break;
+    default:
+      locale = zhCN;
+  }
+  return locale;
 };

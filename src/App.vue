@@ -9,8 +9,7 @@
 <script>
 import { reactive, toRefs, computed } from "vue";
 import { ConfigProvider } from "ant-design-vue";
-
-import { useStore } from "vuex";
+import { getLangLocale } from "./language";
 export default {
   components: {
     AConfigProvider: ConfigProvider
@@ -19,12 +18,8 @@ export default {
   setup() {
     // UI控件 国际多语言
     const language = reactive({
-      locale: ""
+      locale: computed(() => getLangLocale())
     });
-
-    const store = useStore();
-    language.locale = computed(() => store.state.lang.locale);
-
     return {
       ...toRefs(language)
     };
