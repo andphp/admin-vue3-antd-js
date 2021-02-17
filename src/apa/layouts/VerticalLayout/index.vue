@@ -127,6 +127,6 @@ export default {
 }
 
 .layout-container-vertical .trigger:hover {
-  color: #1890ff;
+  color: $base-color-red;
 }
 </style>
