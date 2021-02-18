@@ -1,19 +1,57 @@
 <template>
   <div class="layout-container-vertical">
     <a-layout>
-      <side-bar :collapse="collapse"></side-bar>
+      <!-- side-bar start -->
+      <a-drawer
+        v-if="device == 'mobile'"
+        placement="left"
+        :closable="false"
+        :visible="collapse"
+        :bodyStyle="{ padding: '0px' }"
+        @close="handleUnFoldSideBar"
+      >
+        <side-bar></side-bar>
+      </a-drawer>
+      <side-bar v-else :collapse="collapse"></side-bar>
+      <!-- side-bar end -->
       <a-layout>
-        <a-layout-header style="background: #fff; padding: 0">
-          <div class="trigger">
-            <template v-if="!collapse">
-              <MenuFoldOutlined @click="handleFoldSideBar" />
-            </template>
-            <template v-else>
-              <MenuUnfoldOutlined @click="handleUnFoldSideBar" />
-            </template>
-          </div>
-          <a-button type="primary" @click="showDrawer">Open</a-button>
+        <a-layout-header>
+          <a-row type="flex" justify="space-between" align="middle">
+            <a-col :xs="4" :sm="12" :md="12">
+              <div style="float:left">
+                <template v-if="!collapse">
+                  <MenuFoldOutlined
+                    class="trigger"
+                    @click="handleFoldSideBar"
+                  />
+                </template>
+                <template v-else>
+                  <MenuUnfoldOutlined
+                    class="trigger"
+                    @click="handleUnFoldSideBar"
+                  />
+                </template>
+              </div>
+              <div style="float:left;padding:20px;">
+                <a-breadcrumb>
+                  <a-breadcrumb-item>Home</a-breadcrumb-item>
+                  <a-breadcrumb-item
+                    ><a href="">Application Center</a></a-breadcrumb-item
+                  >
+                  <a-breadcrumb-item
+                    ><a href="">Application List</a></a-breadcrumb-item
+                  >
+                </a-breadcrumb>
+              </div>
+            </a-col>
+            <a-col :xs="20" :sm="12" :md="12">
+              <div style="float:right;padding-right:20px;">
+                <a-button type="primary" @click="showDrawer">Open</a-button>
+              </div>
+            </a-col>
+          </a-row>
         </a-layout-header>
+
         <ThemeDrawer
           :collapse="collapse"
           :visible="visible"
@@ -35,7 +73,7 @@
 </template>
 
 <script>
-import { Layout, Button } from "ant-design-vue";
+import { Layout, Button, Drawer, Row, Col, Breadcrumb } from "ant-design-vue";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
 import SideBar from "@/apa/components/SideBar";
 import ThemeDrawer from "@/apa/components/ThemeDrawer";
@@ -52,6 +90,11 @@ export default {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     AButton: Button,
+    ADrawer: Drawer,
+    ARow: Row,
+    ACol: Col,
+    ABreadcrumb: Breadcrumb,
+    ABreadcrumbItem: Breadcrumb.Item,
     ThemeDrawer
   },
   props: {
@@ -118,15 +161,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.layout-container-vertical .trigger {
-  font-size: 18px;
-  line-height: 64px;
-  padding: 0 24px;
-  cursor: pointer;
-  transition: color 0.3s;
-}
-
-.layout-container-vertical .trigger:hover {
-  color: $base-color-red;
+.layout-container-vertical {
+  .ant-layout-header {
+    background-color: #fff;
+    padding: 0px;
+  }
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  .trigger:hover {
+    color: $base-color-red;
+  }
 }
 </style>

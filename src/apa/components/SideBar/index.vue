@@ -1,7 +1,12 @@
 <!-- SideBar -->
 <template>
   <div class="side-bar">
-    <a-layout-sider :collapsed="collapse" :trigger="null" collapsible>
+    <a-layout-sider
+      width="100%"
+      :collapsed="collapse"
+      :trigger="null"
+      collapsible
+    >
       <logo :collapse="collapse"></logo>
       <apa-menu :collapse="collapse"></apa-menu>
     </a-layout-sider>
