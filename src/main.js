@@ -42,6 +42,7 @@ requireLayout.keys().forEach(fileName => {
 //   app.component(componentName, componentConfig.default || componentConfig);
 // });
 app.mount("#app");
+
 // 加载插件
 const requirePlugin = require.context("./apa/plugins", true, /\.js$/);
 requirePlugin.keys().forEach(fileName => {

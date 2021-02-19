@@ -1,7 +1,7 @@
 <!-- 全局主题设置 -->
 <template>
   <a-drawer
-    title="Basic Drawer"
+    :title="themeTitle"
     placement="right"
     :closable="true"
     :visible="visible"
@@ -15,6 +15,7 @@
 
 <script>
 import { Drawer } from "ant-design-vue";
+import { useI18n } from "vue-i18n";
 import {
   reactive,
   // computed,
@@ -50,6 +51,7 @@ export default {
   },
   setup(props, context) {
     const parent = { ...context };
+    const { t } = useI18n({ useScope: "global" });
     onBeforeMount(() => {}); //挂载前
 
     onMounted(() => {}); //挂载完成之后调用
@@ -61,16 +63,16 @@ export default {
     onBeforeUnmount(() => {}); //实例销毁之前
 
     onUnmounted(() => {}); //实例销毁后
-
-    const visibleChange = reactive({
+    const reactiveData = reactive({
       onClose: () => {
         parent.emit("closeDrawer");
-      }
+      },
+      themeTitle: t("主题配置标题")
     });
     //这里存放返回数据
 
     return {
-      ...toRefs(visibleChange)
+      ...toRefs(reactiveData)
     };
   }
 };

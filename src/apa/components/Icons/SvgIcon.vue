@@ -23,7 +23,7 @@ export default {
       return /^(https?:|mailto:|tel:)/.test(path);
     };
 
-    console.log("props.iconName", props.iconName);
+    // console.log("props.iconName", props.iconName);
     const data = toRefs(
       reactive({
         // 监听是否外链

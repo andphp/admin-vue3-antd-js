@@ -70,7 +70,7 @@ export default {
     });
     function handleLayouts() {
       const width = document.body.getBoundingClientRect().width;
-      console.log("width", width);
+      // console.log("width", width);
       if (initData.width !== width) {
         const isMobile = width - 1 < 992;
         store.dispatch(

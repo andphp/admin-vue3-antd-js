@@ -9,5 +9,6 @@ module.exports = {
   验证: {
     用户名: "username",
     密码: "password"
-  }
+  },
+  主题配置标题: "ThemeConfig"
 };

@@ -46,7 +46,7 @@
             </a-col>
             <a-col :xs="20" :sm="12" :md="12">
               <div style="float:right;padding-right:20px;">
-                <a-button type="primary" @click="showDrawer">Open</a-button>
+                <BgColorsOutlined @click="showDrawer" />
               </div>
             </a-col>
           </a-row>
@@ -73,8 +73,12 @@
 </template>
 
 <script>
-import { Layout, Button, Drawer, Row, Col, Breadcrumb } from "ant-design-vue";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons-vue";
+import { Layout, Drawer, Row, Col, Breadcrumb } from "ant-design-vue";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  BgColorsOutlined
+} from "@ant-design/icons-vue";
 import SideBar from "@/apa/components/SideBar";
 import ThemeDrawer from "@/apa/components/ThemeDrawer";
 import { provide, ref } from "vue";
@@ -89,13 +93,13 @@ export default {
     SideBar,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    AButton: Button,
     ADrawer: Drawer,
     ARow: Row,
     ACol: Col,
     ABreadcrumb: Breadcrumb,
     ABreadcrumbItem: Breadcrumb.Item,
-    ThemeDrawer
+    ThemeDrawer,
+    BgColorsOutlined
   },
   props: {
     collapse: {
@@ -124,13 +128,13 @@ export default {
     }
   },
   setup(props) {
-    console.log("collapse==", props.collapse);
+    // console.log("collapse==", props.collapse);
     provide("collapse", props.collapse);
-    console.log("fixedHeader==", props.fixedHeader);
+    // console.log("fixedHeader==", props.fixedHeader);
     provide("fixedHeader", props.fixedHeader);
-    console.log("showTabsBar==", props.showTabsBar);
+    // console.log("showTabsBar==", props.showTabsBar);
     provide("showTabsBar", props.showTabsBar);
-    console.log("device==", props.device);
+    // console.log("device==", props.device);
     provide("device", props.device);
     provide("layout", "vertical");
 

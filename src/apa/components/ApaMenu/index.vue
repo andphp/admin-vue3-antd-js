@@ -97,7 +97,7 @@ export default {
       if (children === null) return [];
       return children.filter(item => item.meta.hidden !== true);
     }
-    console.log("filterRoutes.routes==", filterRoutes.routes);
+    // console.log("filterRoutes.routes==", filterRoutes.routes);
     const handleClick = ({ item, key, keyPath }) => {
       console.log("clickitem", item);
       console.log("clickkey", key);
