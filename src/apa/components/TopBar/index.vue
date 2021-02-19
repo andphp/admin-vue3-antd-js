@@ -109,16 +109,13 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-//@import url(); 引入公共css类
-@import "@/config/variables.scss";
-
+<style lang="less" scoped>
 .active-text-color {
   //菜单选中文字颜色变量导出
-  color: $base-menu-color-active;
+  color: red;
 }
 .background-color {
-  background: $base-menu-background;
+  background: red;
 }
 
 .ant-layout-header {

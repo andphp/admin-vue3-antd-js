@@ -67,11 +67,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-//@import url(); 引入公共css类
+<style lang="less" scoped>
 .side-bar {
   ::v-deep(.ant-layout-sider) {
-    background: $base-gallery-first-menu-background;
+    background: rgba(255, 255, 255, 0.2);
     height: 100vh;
   }
   .logo {

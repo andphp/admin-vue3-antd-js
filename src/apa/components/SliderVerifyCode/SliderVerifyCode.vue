@@ -218,7 +218,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .slider_verify_code {
   position: relative;
   margin: 0 auto;

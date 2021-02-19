@@ -169,7 +169,7 @@ export default {
         store
           .dispatch("user/login", formData.account)
           .then(res => {
-            console.log("od===", res);
+            console.log("login===", res);
             router.push("/");
           })
           .catch(err => alert(err.message));
@@ -187,8 +187,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import "@/styles/login";
+<style lang="less" scoped>
+@import "@/styles/login.less";
 
 .ant-input,
 .ant-input-affix-wrapper,

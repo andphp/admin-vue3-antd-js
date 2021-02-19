@@ -164,7 +164,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .layout-container-vertical {
   .ant-layout-header {
     background-color: #fff;
@@ -178,7 +178,7 @@ export default {
     transition: color 0.3s;
   }
   .trigger:hover {
-    color: $base-color-red;
+    color: red;
   }
 }
 </style>

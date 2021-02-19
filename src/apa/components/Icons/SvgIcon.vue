@@ -52,16 +52,16 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .svg-icon {
   width: 1em;
   height: 1em;
   vertical-align: -0.15em;
-  fill: currentColor;
+  fill: @current-color;
   overflow: hidden;
 }
 .svg-external-icon {
-  background-color: currentColor;
+  background-color: @current-color;
   mask-size: cover !important;
   display: inline-block;
 }

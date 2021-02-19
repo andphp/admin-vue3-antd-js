@@ -20,6 +20,7 @@ export default {
     // UI控件 国际多语言
     const store = useStore();
     // setLang("zh_CN");
+    console.log("store.state.settings.language", store.state.settings.language);
     setLang(store.state.settings.language);
     const language = reactive({
       locale: computed(() => getLangLocale()),
@@ -32,4 +33,4 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="less"></style>

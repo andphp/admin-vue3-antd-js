@@ -24,7 +24,7 @@ const app = createApp(App)
   .use(store)
   .use(router)
   .use(i18n);
-import "./apa/styles/apa.scss";
+import "./apa/styles/apa.less";
 
 // 加载布局
 const requireLayout = require.context("./apa/layouts", true, /\.vue$/);

@@ -159,16 +159,16 @@ module.exports = {
     requireModuleExtension: true,
     sourceMap: true,
     loaderOptions: {
-      scss: {
-        additionalData(content, loaderContext) {
-          const { resourcePath, rootContext } = loaderContext;
-          const relativePath = path.relative(rootContext, resourcePath);
-          if (
-            relativePath.replace(/\\/g, "/") !== "src/config/variables.scss"
-          ) {
-            return '@import "~@/config/variables.scss";' + content;
+      less: {
+        lessOptions: {
+          javascriptEnabled: true,
+          modifyVars: {
+            "apa-color-blue": "#1890ff",
+            "current-color": "#1890ff",
+            "apa-margin": "20px",
+            "apa-padding": "20px",
+            "apa-header-height": "65px"
           }
-          return content;
         }
       }
     }
