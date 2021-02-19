@@ -42,7 +42,7 @@ export default {
         return { mobile: store.state.settings.device === "mobile" };
       })
     });
-
+    // console.log("layout!", initData.layout);
     onBeforeMount(() => {
       // console.log("onBeforeMount!");
       window.addEventListener("resize", handleLayouts);

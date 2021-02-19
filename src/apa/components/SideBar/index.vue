@@ -2,7 +2,7 @@
 <template>
   <div class="side-bar">
     <a-layout-sider
-      width="100%"
+      width="220"
       :collapsed="collapse"
       :trigger="null"
       collapsible
@@ -67,16 +67,4 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-.side-bar {
-  ::v-deep(.ant-layout-sider) {
-    background: rgba(255, 255, 255, 0.2);
-    height: 100vh;
-  }
-  .logo {
-    height: 32px;
-    background: rgba(255, 255, 255, 0.2);
-    margin: 16px;
-  }
-}
-</style>
+<style lang="less" scoped></style>

@@ -3,7 +3,45 @@
   <a-menu
     mode="inline"
     theme="dark"
+    v-if="layout == 'vertical'"
     :inline-collapsed="collapse"
+    v-model:openKeys="openKeys"
+    v-model:selectedKeys="selectedKeys"
+    @click="handleClick"
+    @select="handleSelect"
+    @openChange="onOpenChange"
+  >
+    <template v-for="route in routes">
+      <template v-if="handleChildren(route.children).length == 0">
+        <menu-item
+          v-if="!route.meta.hidden"
+          :route="route"
+          :key="route.path"
+        ></menu-item>
+      </template>
+      <template
+        v-else-if="
+          handleChildren(route.children).length === 1 &&
+            route.meta.alwaysShow !== true
+        "
+      >
+        <menu-item
+          v-if="!route.meta.hidden"
+          :route="handleChildren(route.children)[0]"
+          :key="route.path"
+        ></menu-item>
+      </template>
+      <template v-else>
+        <!-- <Submenu :route="route"></Submenu> -->
+        <Submenu :route="route" :key="route.path" />
+      </template>
+    </template>
+  </a-menu>
+  <!-- 横向导航 -->
+  <a-menu
+    :mode="layout"
+    theme="dark"
+    v-else
     v-model:openKeys="openKeys"
     v-model:selectedKeys="selectedKeys"
     @click="handleClick"
@@ -53,12 +91,15 @@ import {
   onUpdated,
   onBeforeUnmount,
   onUnmounted,
-  inject,
   ref
 } from "vue";
 export default {
   name: "ApaMenu",
   props: {
+    layout: {
+      type: String,
+      default: "inline"
+    },
     collapse: {
       type: Boolean,
       default() {
@@ -86,11 +127,13 @@ export default {
 
     const selectedKeys = ref(["/"]);
     const openKeys = ref(["/"]);
-    const layout = ref(inject("layout"));
     const filterRoutes = reactive({
       routes: computed(() => {
         return store.state.routes.routes;
       })
+    });
+    const layoutData = reactive({
+      layout: computed(() => store.state.settings.layout)
     });
 
     function handleChildren(children = []) {
@@ -119,9 +162,9 @@ export default {
     }
     //这里存放返回数据
     return {
-      layout,
       handleChildren,
       ...toRefs(filterRoutes),
+      ...toRefs(layoutData),
       selectedKeys,
       openKeys,
       handleClick,

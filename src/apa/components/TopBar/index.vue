@@ -1,51 +1,67 @@
 <!--  -->
 <template>
   <div class="top-bar-container">
-    <div class="apa-main">
-      <a-row>
-        <a-col :span="6">
-          <logo />
+    <a-layout-header>
+      <a-row type="flex" justify="space-between" align="middle">
+        <a-col :xs="4" :sm="12" :md="12">
+          <div style="float:left">
+            <div v-if="layout === 'horizontal'">
+              <logo :collapse="false"></logo>
+            </div>
+            <div v-else>
+              <template v-if="!collapse">
+                <MenuFoldOutlined class="trigger" @click="handleFoldSideBar" />
+              </template>
+              <template v-else>
+                <MenuUnfoldOutlined
+                  class="trigger"
+                  @click="handleUnFoldSideBar"
+                />
+              </template>
+            </div>
+          </div>
+          <div v-if="device !== 'mobile'">
+            <div
+              v-if="layout === 'horizontal'"
+              style="float:left;padding-top:20px;"
+            >
+              <apa-menu :collapse="collapse" layout="horizontal"></apa-menu>
+            </div>
+            <div v-else style="float:left;padding-top:20px;">
+              <a-breadcrumb>
+                <a-breadcrumb-item>Home</a-breadcrumb-item>
+                <a-breadcrumb-item
+                  ><a href="">Application Center</a></a-breadcrumb-item
+                >
+                <a-breadcrumb-item
+                  ><a href="">Application List</a></a-breadcrumb-item
+                >
+                <a-breadcrumb-item>An Application</a-breadcrumb-item>
+              </a-breadcrumb>
+            </div>
+          </div>
         </a-col>
-        <a-col v-if="layout === 'horizontal'" :span="11">
-          <a-menu
-            class="active-text-color background-color text-color"
-            :default-active="activeMenu"
-            menu-trigger="hover"
-            mode="horizontal"
-          >
-            <template v-for="route in routesData.routes">
-              <apa-menu
-                v-if="!route.hidden"
-                :key="route.path"
-                :layout="layout"
-                :item="route"
-              ></apa-menu>
-            </template>
-          </a-menu>
-        </a-col>
-        <a-col :span="layout === 'horizontal' ? 7 : 18">
-          <!-- <div class="right-panel">
-            <error-log></error-log>
-            <search></search>
-            <notice></notice>
-            <full-screen></full-screen>
-            <language></language>
-            <theme class="hidden-md-and-down"></theme>
-            <refresh></refresh>
-            <avatar></avatar>
-          </div> -->
+        <a-col :xs="20" :sm="12" :md="12">
+          <div style="float:right;padding-right:20px;">
+            <BgColorsOutlined @click="onShow" />
+          </div>
         </a-col>
       </a-row>
-    </div>
+    </a-layout-header>
   </div>
 </template>
 
 <script>
-import { Row, Col, Menu } from "ant-design-vue";
-import Logo from "../Logo";
+import { Layout, Row, Col, Breadcrumb } from "ant-design-vue";
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  BgColorsOutlined
+} from "@ant-design/icons-vue";
 import ApaMenu from "../ApaMenu";
 import { useRouter } from "vue-router";
-// import store from "@/store";
+import store from "@/store";
+import Logo from "@/apa/components/Logo";
 import {
   reactive,
   computed,
@@ -61,19 +77,40 @@ import {
 export default {
   name: "TopBar",
   props: {
+    collapse: {
+      type: Boolean,
+      default() {
+        return false;
+      }
+    },
     layout: {
       type: String,
       default: ""
+    },
+    device: {
+      type: String,
+      default() {
+        return "desktop";
+      }
     }
   },
   components: {
+    ALayoutHeader: Layout.Header,
     ARow: Row,
     ACol: Col,
-    AMenu: Menu,
-    Logo,
-    ApaMenu
+    ABreadcrumb: Breadcrumb,
+    ABreadcrumbItem: Breadcrumb.Item,
+    ApaMenu,
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    BgColorsOutlined,
+    Logo
   },
-  setup(props) {
+  emits: {
+    showThemeDrawer: null
+  },
+  setup(props, context) {
+    const parent = { ...context };
     onBeforeMount(() => {}); //挂载前
     onMounted(() => {
       console.log("props1", props);
@@ -99,12 +136,22 @@ export default {
       })
     });
 
-    const computedDatatoRefs = toRefs(computedData);
-    console.log("computedDatatoRefs", computedDatatoRefs);
+    function handleFoldSideBar() {
+      store.dispatch("settings/foldSideBar");
+    }
+    function handleUnFoldSideBar() {
+      store.dispatch("settings/openSideBar");
+    }
+    function onShow() {
+      parent.emit("showThemeDrawer");
+    }
     //这里存放返回数据
     return {
-      ...computedDatatoRefs,
-      routesData
+      ...toRefs(computedData),
+      routesData,
+      handleFoldSideBar,
+      handleUnFoldSideBar,
+      onShow
     };
   }
 };

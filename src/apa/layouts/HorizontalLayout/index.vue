@@ -1,41 +1,47 @@
 <!-- 横向布局  -->
 <template>
-  <a-layout>
-    <a-layout-header>
-      <top-bar layout="horizontal"></top-bar>
-    </a-layout-header>
-    <a-layout-content style="padding: 0 50px">
-      <tabs-bar></tabs-bar>
-      <main-content></main-content>
-    </a-layout-content>
-  </a-layout>
-</template>
+  <div class="layout-container-horizontal">
+    <a-layout>
+      <TopBar
+        :collapse="collapse"
+        :device="device"
+        layout="horizontal"
+        @showThemeDrawer="showThemeDrawer"
+      ></TopBar>
 
+      <ThemeDrawer
+        :collapse="collapse"
+        :visible="visible"
+        @closeThemeDrawer="closeThemeDrawer"
+      ></ThemeDrawer>
+      <a-layout-content
+        :style="{
+          margin: '24px 16px',
+          padding: '24px',
+          background: '#fff',
+          minHeight: '280px'
+        }"
+      >
+        Content
+      </a-layout-content>
+    </a-layout>
+  </div>
+</template>
 <script>
 import { Layout } from "ant-design-vue";
-import {
-  // reactive,
-  // computed,
-  // toRefs,
-  onBeforeMount,
-  onMounted,
-  onBeforeUpdate,
-  onUpdated,
-  onBeforeUnmount,
-  onUnmounted
-} from "vue";
-import TopBar from "../../components/TopBar";
-import TabsBar from "../../components/TabsBar";
-import MainContent from "../../components/MainContent";
+
+import ThemeDrawer from "@/apa/components/ThemeDrawer";
+import TopBar from "@/apa/components/TopBar";
+import { provide, ref } from "vue";
+// import ApaMenu from "@/apa/components/ApaMenu";
+
 export default {
   name: "Horizontal",
   components: {
     ALayout: Layout,
-    ALayoutHeader: Layout.Header,
     ALayoutContent: Layout.Content,
-    TopBar,
-    TabsBar,
-    MainContent
+    ThemeDrawer,
+    TopBar
   },
   props: {
     collapse: {
@@ -63,15 +69,31 @@ export default {
       }
     }
   },
-  setup() {
-    onBeforeMount(() => {}); //挂载前
-    onMounted(() => {}); //挂载完成之后调用
-    onBeforeUpdate(() => {}); //DOM数据更新前调用
-    onUpdated(() => {}); //DOM数据更新完成调用
-    onBeforeUnmount(() => {}); //实例销毁之前
-    onUnmounted(() => {}); //实例销毁后
+  setup(props) {
+    // console.log("props==", props);
+    provide("collapse", props.collapse);
+    // console.log("fixedHeader==", props.fixedHeader);
+    provide("fixedHeader", props.fixedHeader);
+    // console.log("showTabsBar==", props.showTabsBar);
+    provide("showTabsBar", props.showTabsBar);
+    // console.log("device==", props.device);
+    provide("device", props.device);
+    provide("layout", "horizontal");
+
+    // 全局主题设置
+    const visible = ref(false);
+    const showThemeDrawer = () => {
+      visible.value = true;
+    };
+    const closeThemeDrawer = () => {
+      visible.value = false;
+    };
     //这里存放返回数据
-    return {};
+    return {
+      visible,
+      showThemeDrawer,
+      closeThemeDrawer
+    };
   }
 };
 </script>

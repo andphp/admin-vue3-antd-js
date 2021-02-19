@@ -47,7 +47,7 @@ export default {
     }
   },
   emits: {
-    closeDrawer: null
+    closeThemeDrawer: null
   },
   setup(props, context) {
     const parent = { ...context };
@@ -65,7 +65,7 @@ export default {
     onUnmounted(() => {}); //实例销毁后
     const reactiveData = reactive({
       onClose: () => {
-        parent.emit("closeDrawer");
+        parent.emit("closeThemeDrawer");
       },
       themeTitle: t("主题配置标题")
     });
