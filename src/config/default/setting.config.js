@@ -48,7 +48,7 @@ const setting = {
   //是否显示logo，不显示时设置false，显示时请填写remixIcon图标名称，暂时只支持设置remixIcon
   logo: "vuejs-fill",
   //语言类型zh-cn、zh-tw、en
-  i18n: "zh-CN",
+  i18n: "zh_CN",
   //消息框消失时间
   messageDuration: 3000,
   //在哪些环境下显示高亮错误
