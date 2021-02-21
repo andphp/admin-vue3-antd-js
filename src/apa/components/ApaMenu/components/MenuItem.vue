@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <a-menu-item :key="route.path" v-bind="$attrs">
+  <a-menu-item :key="route.path">
     <span class="anticon">
       <svg-icon v-if="route.meta.icon" :iconName="route.meta.icon"></svg-icon>
     </span>

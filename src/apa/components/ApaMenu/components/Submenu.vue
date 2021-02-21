@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <a-sub-menu :key="route.path" @titleClick="titleClick" v-bind="$attrs">
+  <a-sub-menu :key="route.path" @titleClick="titleClick">
     <template v-slot:title>
       <span class="anticon">
         <svg-icon v-if="route.meta.icon" :iconName="route.meta.icon"></svg-icon>

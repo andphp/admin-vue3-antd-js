@@ -68,10 +68,12 @@
           :key="route.path"
         ></menu-item>
       </template>
-      <template v-else>
-        <!-- <Submenu :route="route"></Submenu> -->
-        <Submenu :route="route" :key="route.path" />
-      </template>
+      <Submenu
+        :route="route"
+        v-else
+        style="mix-width:160px;"
+        :key="route.path"
+      />
     </template>
   </a-menu>
 </template>

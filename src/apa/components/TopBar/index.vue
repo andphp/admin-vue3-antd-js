@@ -2,7 +2,7 @@
 <template>
   <div class="top-bar-container">
     <a-layout-header>
-      <a-row type="flex" justify="space-between" align="middle">
+      <a-row>
         <a-col :xs="4" :sm="12" :md="12">
           <div style="float:left">
             <div v-if="layout === 'horizontal'">
