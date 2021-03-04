@@ -2,7 +2,7 @@
 <template>
   <div class="side-bar">
     <a-layout-sider
-      width="220"
+      width="256"
       :collapsed="collapse"
       :trigger="null"
       collapsible

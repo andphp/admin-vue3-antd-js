@@ -4,6 +4,7 @@
     <a-layout-header>
       <a-row>
         <a-col :xs="4" :sm="12" :md="12">
+          <!-- 折叠按钮 -->
           <div style="float:left">
             <div v-if="layout === 'horizontal'">
               <logo :collapse="false"></logo>
@@ -21,22 +22,22 @@
             </div>
           </div>
           <div v-if="device !== 'mobile'">
+            <!-- 横向菜单 -->
             <div
               v-if="layout === 'horizontal'"
               style="float:left;padding-top:20px;"
             >
               <apa-menu :collapse="collapse" layout="horizontal"></apa-menu>
             </div>
+            <!-- 纵向面包屑 -->
             <div v-else style="float:left;padding-top:20px;">
               <a-breadcrumb>
                 <a-breadcrumb-item>Home</a-breadcrumb-item>
                 <a-breadcrumb-item
-                  ><a href="">Application Center</a></a-breadcrumb-item
+                  :key="item.path"
+                  v-for="item in matched.slice(1, matched.length)"
+                  ><a href="">{{ item.meta.title }}</a></a-breadcrumb-item
                 >
-                <a-breadcrumb-item
-                  ><a href="">Application List</a></a-breadcrumb-item
-                >
-                <a-breadcrumb-item>An Application</a-breadcrumb-item>
               </a-breadcrumb>
             </div>
           </div>
@@ -59,7 +60,7 @@ import {
   BgColorsOutlined
 } from "@ant-design/icons-vue";
 import ApaMenu from "../ApaMenu";
-import { useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import store from "@/store";
 import Logo from "@/apa/components/Logo";
 import {
@@ -111,6 +112,9 @@ export default {
   },
   setup(props, context) {
     const parent = { ...context };
+    const { ctx } = getCurrentInstance();
+    const route = useRoute();
+    const matched = computed(() => route.matched);
     onBeforeMount(() => {}); //挂载前
     onMounted(() => {
       console.log("props1", props);
@@ -119,13 +123,14 @@ export default {
     onUpdated(() => {}); //DOM数据更新完成调用
     onBeforeUnmount(() => {}); //实例销毁之前
     onUnmounted(() => {}); //实例销毁后
-    const routers = useRouter();
-    const { ctx } = getCurrentInstance();
+
     const routesData = reactive({
       routes: computed(() => ctx.$router.getRoutes())
     });
-    // console.log("store", store.state.routes.routes);
-    console.log("routesData", routers.getRoutes());
+    console.log(
+      "store",
+      ctx.$router.getRoutes().filter(item => item.name)
+    );
     const computedData = reactive({
       activeMenu: computed(() => {
         const { meta, path } = ctx.$router.currentRoute.value;
@@ -135,7 +140,8 @@ export default {
         return path;
       })
     });
-
+    // console.log("activeMenu", computedData.activeMenu);
+    console.log("matched", matched);
     function handleFoldSideBar() {
       store.dispatch("settings/foldSideBar");
     }
@@ -145,13 +151,30 @@ export default {
     function onShow() {
       parent.emit("showThemeDrawer");
     }
+    // 面包屑数据
+    // function getBreadcrumb() {
+    //   let matched = this.$route.matched.filter(item => item.name);
+    //   const first = matched[0];
+    //   if (
+    //     first &&
+    //     first.name.trim().toLocaleLowerCase() !==
+    //       "Dashboard".toLocaleLowerCase()
+    //   ) {
+    //     matched = [{ path: "/dashboard", meta: { title: "dashboard" } }].concat(
+    //       matched
+    //     );
+    //   }
+    //   this.levelList = matched;
+    // }
+
     //这里存放返回数据
     return {
       ...toRefs(computedData),
       routesData,
       handleFoldSideBar,
       handleUnFoldSideBar,
-      onShow
+      onShow,
+      matched
     };
   }
 };
