@@ -34,13 +34,38 @@ module.exports = [
       }
       return {
         code: 200,
-        msg: "success",
-        data: { accessToken }
+        data: {
+          user: {
+            ID: 1,
+            CreatedAt: "2021-03-04T19:13:37+08:00",
+            UpdatedAt: "2021-03-04T19:13:37+08:00",
+            uuid: "db77d2fe-d799-4565-9380-551e0d4a19b5",
+            userName: "admin",
+            nickName: "超级管理员",
+            headerImg: "http://qmplusimg.henrongyi.top/gva_header.jpg",
+            authority: {
+              CreatedAt: "2021-03-04T19:13:37+08:00",
+              UpdatedAt: "2021-03-04T19:13:37+08:00",
+              DeletedAt: null,
+              authorityId: "888",
+              authorityName: "普通用户",
+              parentId: "0",
+              dataAuthorityId: null,
+              children: null,
+              menus: null,
+              defaultRouter: "dashboard"
+            },
+            authorityId: "888"
+          },
+          accessToken: accessToken,
+          expiresAt: 1615462376000
+        },
+        msg: "登录成功"
       };
     }
   },
   {
-    url: "/socialLogin",
+    url: "/socialLogin", //社交 登录
     type: "post",
     response(config) {
       const { code } = config.body;

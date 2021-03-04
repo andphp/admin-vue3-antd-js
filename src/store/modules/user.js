@@ -12,6 +12,12 @@ import { message, notification } from "ant-design-vue";
 
 const state = () => ({
   accessToken: getAccessToken(),
+  userInfo: {
+    uuid: "",
+    nickName: "",
+    headerImg: "",
+    authority: ""
+  },
   username: "",
   avatar: ""
 });
