@@ -17,9 +17,7 @@ const state = () => ({
     nickName: "",
     headerImg: "",
     authority: ""
-  },
-  username: "",
-  avatar: ""
+  }
 });
 const getters = {
   accessToken: state => state.accessToken,
@@ -37,20 +35,12 @@ const mutations = {
     setAccessToken(accessToken);
   },
   /**
-   * @description 设置用户名
+   * @description 设置用户信息
    * @param {*} state
    * @param {*} username
    */
-  setUsername(state, username) {
-    state.username = username;
-  },
-  /**
-   * @description 设置头像
-   * @param {*} state
-   * @param {*} avatar
-   */
-  setAvatar(state, avatar) {
-    state.avatar = avatar;
+  setUserInfo(state, userinfo) {
+    state.userinfo = userinfo;
   }
 };
 const actions = {
@@ -77,6 +67,8 @@ const actions = {
     const accessToken = data[tokenName];
     if (accessToken) {
       commit("setAccessToken", accessToken);
+      // 赋值
+      commit("setUserInfo", data.user);
       const hour = new Date().getHours();
       const thisTime =
         hour < 8
