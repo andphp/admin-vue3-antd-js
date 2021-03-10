@@ -6,7 +6,7 @@ import store from "@/store";
 import getPageTitle from "./pageTitle";
 import {
   authentication,
-  loginInterception,
+  loginInterception, // 是否开启 登录拦截
   recordRoute,
   routesWhiteList
 } from "@/config";
@@ -18,7 +18,7 @@ router.beforeEach(async (to, from, next) => {
 
   if (hasToken) {
     if (to.path === "/login") {
-      next({ path: "/" });
+      // next({ path: "/" });
     } else {
       const hasRoles =
         store.getters["acl/admin"] ||

@@ -2,6 +2,7 @@
  * @description 登录、获取用户信息、退出登录、清除accessToken逻辑，不建议修改
  */
 import { getUserInfo, login, logout } from "@/api/user";
+import router from "@/router/index";
 import {
   getAccessToken,
   removeAccessToken,
@@ -11,36 +12,47 @@ import { title, tokenName } from "@/config";
 import { message, notification } from "ant-design-vue";
 
 const state = () => ({
-  accessToken: getAccessToken(),
+  token: getAccessToken(),
   userInfo: {
     uuid: "",
-    nickName: "",
-    headerImg: "",
+    nickname: "",
+    avatar: "",
     authority: ""
   }
 });
 const getters = {
   accessToken: state => state.accessToken,
-  username: state => state.username,
-  avatar: state => state.avatar
+  username: state => state.userInfo.nickname,
+  avatar: state => state.userInfo.avatar,
+  uid: state => state.userInfo.uuid
 };
 const mutations = {
   /**
-   * @description 设置accessToken
+   * @description 设置token
    * @param {*} state
-   * @param {*} accessToken
+   * @param {*} token
    */
-  setAccessToken(state, accessToken) {
-    state.accessToken = accessToken;
-    setAccessToken(accessToken);
+  SetToken(state, token) {
+    state.token = token;
+    setAccessToken(token);
   },
   /**
    * @description 设置用户信息
    * @param {*} state
    * @param {*} username
    */
-  setUserInfo(state, userinfo) {
+  SetUserInfo(state, userinfo) {
     state.userinfo = userinfo;
+  },
+  LoginOut(state) {
+    state.userInfo = {};
+    state.token = "";
+    sessionStorage.clear();
+    router.push({ name: "login", replace: true });
+    window.location.reload();
+  },
+  ResetUserInfo(state, userInfo = {}) {
+    state.userInfo = { ...state.userInfo, ...userInfo };
   }
 };
 const actions = {
@@ -62,13 +74,10 @@ const actions = {
    * @param {*} userInfo
    */
   async login({ commit }, userInfo) {
-    const { data } = await login(userInfo);
-    console.log("login", data);
-    const accessToken = data[tokenName];
-    if (accessToken) {
-      commit("setAccessToken", accessToken);
-      // 赋值
-      commit("setUserInfo", data.user);
+    const result = await login(userInfo);
+    // console.log("login", result["data"]);
+    if (result["data"] && result["data"][tokenName]) {
+      commit("SetToken", result["data"][tokenName]);
       const hour = new Date().getHours();
       const thisTime =
         hour < 8
@@ -84,57 +93,67 @@ const actions = {
         message: `欢迎登录${title}`,
         description: `${thisTime}！`
       });
-    } else {
-      message.error(`登录接口异常，未正确返回${tokenName}...`);
     }
+    return result;
   },
   /**
    * @description 获取用户信息接口 这个接口非常非常重要，如果没有明确底层前逻辑禁止修改此方法，错误的修改可能造成整个框架无法正常使用
    * @param {*} { commit, dispatch, state }
    * @returns
    */
-  async getUserInfo({ commit, dispatch, state }) {
+  async getUserInfo({ commit, state }) {
     const { data } = await getUserInfo(state.accessToken);
     if (!data) {
       message.error(`验证失败，请重新登录...`);
       return false;
     }
-    let { username, avatar, roles, ability } = data;
-    if (username && roles && Array.isArray(roles)) {
-      dispatch("acl/setRole", roles, { root: true });
-      if (ability && ability.length > 0)
-        dispatch("acl/setAbility", ability, { root: true });
-      commit("setUsername", username);
-      commit("setAvatar", avatar);
-    } else {
-      message.error("用户信息接口异常");
-    }
+    // 赋值
+    let user = {
+      uuid: data["uuid"],
+      nickName: data["nickname"],
+      headerImg: data["avatar"],
+      authority: data["roleId"]
+    };
+    commit("SetUserInfo", user);
+    // let { username, avatar, roles, ability } = data;
+    // if (username && roles && Array.isArray(roles)) {
+    //   dispatch("acl/setRole", roles, { root: true });
+    //   if (ability && ability.length > 0)
+    //     dispatch("acl/setAbility", ability, { root: true });
+    //   commit("setUsername", username);
+    //   commit("setAvatar", avatar);
+    // } else {
+    //   message.error("用户信息接口异常");
+    // }
   },
 
   /**
    * @description 退出登录
    * @param {*} { dispatch }
    */
-  async logout({ dispatch }) {
-    await logout(state.accessToken);
-    await dispatch("resetAll");
+  async logout({ commit, dispatch }) {
+    const res = await logout(state.accessToken);
+    if (res.code == 200) {
+      await dispatch("resetAll");
+      commit("LoginOut");
+    }
   },
   /**
    * @description 重置accessToken、roles、ability、router等
    * @param {*} { commit, dispatch }
    */
   async resetAll({ dispatch }) {
-    await dispatch("setAccessToken", "");
-    await dispatch("acl/setFull", false, { root: true });
-    await dispatch("acl/setRole", [], { root: true });
-    await dispatch("acl/setAbility", [], { root: true });
+    await dispatch("setToken", "");
+    // await dispatch("acl/setFull", false, { root: true });
+    // await dispatch("acl/setRole", [], { root: true });
+    // await dispatch("acl/setAbility", [], { root: true });
     removeAccessToken();
   },
   /**
    * @description 设置token
    */
-  setAccessToken({ commit }, accessToken) {
-    commit("setAccessToken", accessToken);
+  setToken({ commit }, accessToken) {
+    commit("setToken", accessToken);
   }
 };
 export default { state, getters, mutations, actions };

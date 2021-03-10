@@ -165,12 +165,17 @@ export default {
 
     function loginSubmit() {
       formData.signUpMode = !formData.signUpMode;
+      let params = {
+        account: formData.account.username,
+        password: formData.account.password
+      };
       setTimeout(function() {
         store
-          .dispatch("user/login", formData.account)
+          .dispatch("user/login", params)
           .then(res => {
-            console.log("login===", res);
-            router.push("/");
+            if (res["code"] == 200) {
+              router.push("/");
+            }
           })
           .catch(err => alert(err.message));
         // router.push("/");

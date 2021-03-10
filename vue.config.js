@@ -175,17 +175,17 @@ module.exports = {
   },
   devServer: {
     port: devPort,
-    before: mockServer()
+    // before: mockServer()
     // 注释掉的地方是前端配置代理访问后端的示例
-    // proxy: {
-    //   [baseURL]: {
-    //     target: `http://你的后端接口地址`,
-    //     ws: true,
-    //     changeOrigin: true,
-    //     pathRewrite: {
-    //       ["^/" + baseURL]: "",
-    //     },
-    //   },
-    // },
+    proxy: {
+      ["/mock-server"]: {
+        target: `http://ladmin.test/api`,
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          ["^/mock-server"]: ""
+        }
+      }
+    }
   }
 };

@@ -15,10 +15,10 @@ import { i18n } from "./language";
  * @description 正式环境默认使用mock，正式项目记得注释后再打包
  */
 // console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-if (process.env.NODE_ENV === "development") {
-  const { mockXHR } = require("@/utils/static");
-  mockXHR();
-}
+// if (process.env.NODE_ENV === "development") {
+//   const { mockXHR } = require("@/utils/static");
+//   mockXHR();
+// }
 
 const app = createApp(App)
   .use(store)
