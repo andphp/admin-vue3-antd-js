@@ -173,7 +173,7 @@ export default {
         store
           .dispatch("user/login", params)
           .then(res => {
-            if (res["code"] == 200) {
+            if (res["code"] == 0) {
               router.push("/");
             }
           })

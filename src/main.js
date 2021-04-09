@@ -7,6 +7,7 @@ import store from "./store";
 import "ant-design-vue/dist/antd.css";
 // 语言
 import { i18n } from "./language";
+
 // 引入icons
 // import SvgIcon from "@/apa/components/Icons/SvgIcon.vue";
 // import "@/apa";

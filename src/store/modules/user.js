@@ -1,19 +1,16 @@
 /**
- * @description 登录、获取用户信息、退出登录、清除accessToken逻辑，不建议修改
+ * @description 登录、获取用户信息、退出登录、清除token逻辑，不建议修改
  */
-import { getUserInfo, login, logout } from "@/api/user";
+import { getUserInfo, login, logout } from "@/api/auth";
 import router from "@/router/index";
-import {
-  getAccessToken,
-  removeAccessToken,
-  setAccessToken
-} from "@/utils/accessToken";
+import { getToken, removeToken, setToken } from "@/utils/token";
 import { title, tokenName } from "@/config";
 import { message, notification } from "ant-design-vue";
 
 const state = () => ({
-  token: getAccessToken(),
+  token: getToken(),
   userInfo: {
+    id: "",
     uuid: "",
     nickname: "",
     avatar: "",
@@ -21,10 +18,11 @@ const state = () => ({
   }
 });
 const getters = {
-  accessToken: state => state.accessToken,
+  token: state => state.token,
   username: state => state.userInfo.nickname,
   avatar: state => state.userInfo.avatar,
-  uid: state => state.userInfo.uuid
+  uuid: state => state.userInfo.uuid,
+  uid: state => state.userInfo.id
 };
 const mutations = {
   /**
@@ -34,7 +32,7 @@ const mutations = {
    */
   SetToken(state, token) {
     state.token = token;
-    setAccessToken(token);
+    setToken(token);
   },
   /**
    * @description 设置用户信息
@@ -102,13 +100,14 @@ const actions = {
    * @returns
    */
   async getUserInfo({ commit, state }) {
-    const { data } = await getUserInfo(state.accessToken);
+    const { data } = await getUserInfo(state.token);
     if (!data) {
       message.error(`验证失败，请重新登录...`);
       return false;
     }
     // 赋值
     let user = {
+      id: data["id"],
       uuid: data["uuid"],
       nickName: data["nickname"],
       headerImg: data["avatar"],
@@ -132,14 +131,14 @@ const actions = {
    * @param {*} { dispatch }
    */
   async logout({ commit, dispatch }) {
-    const res = await logout(state.accessToken);
+    const res = await logout(state.token);
     if (res.code == 200) {
       await dispatch("resetAll");
       commit("LoginOut");
     }
   },
   /**
-   * @description 重置accessToken、roles、ability、router等
+   * @description 重置token、roles、ability、router等
    * @param {*} { commit, dispatch }
    */
   async resetAll({ dispatch }) {
@@ -147,13 +146,13 @@ const actions = {
     // await dispatch("acl/setFull", false, { root: true });
     // await dispatch("acl/setRole", [], { root: true });
     // await dispatch("acl/setAbility", [], { root: true });
-    removeAccessToken();
+    removeToken();
   },
   /**
    * @description 设置token
    */
-  setToken({ commit }, accessToken) {
-    commit("setToken", accessToken);
+  setToken({ commit }, token) {
+    commit("setToken", token);
   }
 };
 export default { state, getters, mutations, actions };

@@ -4,8 +4,7 @@ import {
   contentType,
   debounce,
   requestTimeout,
-  successCode,
-  tokenName
+  successCode
 } from "@/config";
 import store from "@/store";
 import qs from "qs";
@@ -52,7 +51,7 @@ const handleData = ({ config, data, status, statusText }) => {
     : data.msg;
 
   switch (code) {
-    case 200:
+    case 0:
       // 业务层级错误处理，以下是假定restful有一套统一输出格式（指不管成功与否都有相应的数据格式）情况下进行处理
       // 例如响应内容：
       //  错误内容：{ status: 1, msg: '非法参数' }
@@ -91,8 +90,8 @@ const instance = axios.create({
  */
 instance.interceptors.request.use(
   config => {
-    if (store.getters["user/accessToken"])
-      config.headers[tokenName] = store.getters["user/accessToken"];
+    if (store.getters["user/token"])
+      config.headers["Authorization"] = "Bearer " + store.getters["user/token"];
     if (
       config.data &&
       config.headers["Content-Type"] ===

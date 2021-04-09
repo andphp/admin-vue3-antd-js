@@ -179,7 +179,7 @@ module.exports = {
     // 注释掉的地方是前端配置代理访问后端的示例
     proxy: {
       ["/mock-server"]: {
-        target: `http://ladmin.test/api`,
+        target: `http://lamange.test/api`,
         ws: true,
         changeOrigin: true,
         pathRewrite: {
