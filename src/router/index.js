@@ -93,3 +93,12 @@ const router = createRouter({
 });
 
 export default router;
+
+//写一个重置路由的方法，切换用户后，或者退出时清除动态加载的路由
+export function resetRouter() {
+  const newRouter = createRouter({
+    history: createWebHashHistory(),
+    routes
+  });
+  router.matcher = newRouter.matcher; // 新路由实例matcer，赋值给旧路由实例的matcher，（相当于replaceRouter）
+}

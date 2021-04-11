@@ -2,27 +2,26 @@
  * @description 登录、获取用户信息、退出登录、清除token逻辑，不建议修改
  */
 import { getUserInfo, login, logout } from "@/api/auth";
-import router from "@/router/index";
+import { resetRouter } from "@/router/index";
 import { getToken, removeToken, setToken } from "@/utils/token";
 import { title, tokenName } from "@/config";
 import { message, notification } from "ant-design-vue";
 
 const state = () => ({
   token: getToken(),
-  userInfo: {
-    id: "",
-    uuid: "",
-    nickname: "",
-    avatar: "",
-    authority: ""
-  }
+  id: 0,
+  uuid: "",
+  nickname: "",
+  username: "",
+  avatar: ""
 });
 const getters = {
   token: state => state.token,
-  username: state => state.userInfo.nickname,
-  avatar: state => state.userInfo.avatar,
-  uuid: state => state.userInfo.uuid,
-  uid: state => state.userInfo.id
+  nickname: state => state.nickname,
+  username: state => state.username,
+  avatar: state => state.avatar,
+  uuid: state => state.uuid,
+  id: state => state.id
 };
 const mutations = {
   /**
@@ -35,22 +34,58 @@ const mutations = {
     setToken(token);
   },
   /**
-   * @description 设置用户信息
+   * @description 设置昵称
+   * @param {*} state
+   * @param {*} nickname
+   */
+  setNickname(state, nickname) {
+    state.nickname = nickname;
+  },
+  /**
+   * @description 设置用户名
    * @param {*} state
    * @param {*} username
    */
-  SetUserInfo(state, userinfo) {
-    state.userinfo = userinfo;
+  setUsername(state, username) {
+    state.username = username;
   },
+  /**
+   * @description 设置头像
+   * @param {*} state
+   * @param {*} avatar
+   */
+  setAvatar(state, avatar) {
+    state.avatar = avatar;
+  },
+  /**
+   * @description 设置唯一用户ID
+   * @param {*} state
+   * @param {*} uuid
+   */
+  setUuid(state, uuid) {
+    state.uuid = uuid;
+  },
+  /**
+   * @description 设置普通用户ID
+   * @param {*} state
+   * @param {*} id
+   */
+  setId(state, id) {
+    state.id = id;
+  },
+  /**
+   * @description 重置登录信息
+   * @param {*} state
+   */
   LoginOut(state) {
-    state.userInfo = {};
+    state.id = 0;
+    state.uuid = "";
     state.token = "";
+    state.avatar = "";
+    state.username = "";
+    state.nickname = "";
     sessionStorage.clear();
-    router.push({ name: "login", replace: true });
     window.location.reload();
-  },
-  ResetUserInfo(state, userInfo = {}) {
-    state.userInfo = { ...state.userInfo, ...userInfo };
   }
 };
 const actions = {
@@ -96,34 +131,29 @@ const actions = {
   },
   /**
    * @description 获取用户信息接口 这个接口非常非常重要，如果没有明确底层前逻辑禁止修改此方法，错误的修改可能造成整个框架无法正常使用
-   * @param {*} { commit, dispatch, state }
+   * @param {*} { commit, dispatch }
    * @returns
    */
-  async getUserInfo({ commit, state }) {
-    const { data } = await getUserInfo(state.token);
+  async getUserInfo({ commit, dispatch }) {
+    const { data } = await getUserInfo();
     if (!data) {
       message.error(`验证失败，请重新登录...`);
       return false;
     }
-    // 赋值
-    let user = {
-      id: data["id"],
-      uuid: data["uuid"],
-      nickName: data["nickname"],
-      headerImg: data["avatar"],
-      authority: data["roleId"]
-    };
-    commit("SetUserInfo", user);
-    // let { username, avatar, roles, ability } = data;
-    // if (username && roles && Array.isArray(roles)) {
-    //   dispatch("acl/setRole", roles, { root: true });
-    //   if (ability && ability.length > 0)
-    //     dispatch("acl/setAbility", ability, { root: true });
-    //   commit("setUsername", username);
-    //   commit("setAvatar", avatar);
-    // } else {
-    //   message.error("用户信息接口异常");
-    // }
+
+    let { id, uuid, nickname, username, avatar, roles, ability } = data;
+    if (id) commit("setId", id);
+    if (uuid) commit("setUuid", uuid);
+    if (nickname) commit("setNickname", nickname);
+    if (username) commit("setUsername", username);
+    if (avatar) commit("setAvatar", avatar);
+    if (ability && ability.length > 0)
+      dispatch("acl/setAbility", ability, { root: true });
+    if (roles && Array.isArray(roles)) {
+      dispatch("acl/setRole", roles, { root: true });
+    } else {
+      message.error("用户信息接口异常");
+    }
   },
 
   /**
@@ -132,7 +162,7 @@ const actions = {
    */
   async logout({ commit, dispatch }) {
     const res = await logout(state.token);
-    if (res.code == 200) {
+    if (res.code == process.env.VUE_APP_SUCCESS_CODE) {
       await dispatch("resetAll");
       commit("LoginOut");
     }
@@ -143,9 +173,10 @@ const actions = {
    */
   async resetAll({ dispatch }) {
     await dispatch("setToken", "");
-    // await dispatch("acl/setFull", false, { root: true });
-    // await dispatch("acl/setRole", [], { root: true });
-    // await dispatch("acl/setAbility", [], { root: true });
+    await dispatch("acl/setFull", false, { root: true });
+    await dispatch("acl/setRole", [], { root: true });
+    await dispatch("acl/setAbility", [], { root: true });
+    await resetRouter();
     removeToken();
   },
   /**

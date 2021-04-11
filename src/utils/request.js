@@ -42,7 +42,8 @@ const handleData = ({ config, data, status, statusText }) => {
   // 若data.code存在，覆盖默认code
   let code = data && data.code ? data.code : status;
   // 若code属于操作正常code，则status修改为200
-  if (codeVerificationArray.includes(code)) code = 200;
+  if (codeVerificationArray.includes(code))
+    code = process.env.VUE_APP_SUCCESS_CODE;
   // 若data.msg存在，覆盖默认提醒消息
   const msg = !data
     ? `后端接口 ${config.url} 异常 ${code}：${CODE_MESSAGE[code]}`
@@ -51,7 +52,7 @@ const handleData = ({ config, data, status, statusText }) => {
     : data.msg;
 
   switch (code) {
-    case 0:
+    case process.env.VUE_APP_SUCCESS_CODE:
       // 业务层级错误处理，以下是假定restful有一套统一输出格式（指不管成功与否都有相应的数据格式）情况下进行处理
       // 例如响应内容：
       //  错误内容：{ status: 1, msg: '非法参数' }

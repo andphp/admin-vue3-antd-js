@@ -1,7 +1,8 @@
 import en_US from "ant-design-vue/lib/locale-provider/en_US";
 import zh_CN from "ant-design-vue/lib/locale-provider/zh_CN";
 import zh_TW from "ant-design-vue/lib/locale-provider/zh_TW";
-import { ENUM_LANG } from "@/constants/common";
+import { ENUM_LANG } from "@/constants/lang.js";
+
 const store = {
   namespaced: true,
   state: () => ({

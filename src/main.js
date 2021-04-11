@@ -3,6 +3,8 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
+// 常量
+import "./constants";
 // and-design-vue
 import "ant-design-vue/dist/antd.css";
 // 语言

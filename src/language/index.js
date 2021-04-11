@@ -1,5 +1,5 @@
 // 语言
-import { ENUM_LANG } from "@/constants/common";
+import { ENUM_LANG } from "@/constants/lang.js";
 import { createI18n } from "vue-i18n";
 // import { useStore } from "vuex";
 import store from "@/store";

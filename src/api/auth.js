@@ -1,5 +1,4 @@
 import request from "@/utils/request";
-import { tokenName } from "@/config";
 
 const baseUrl = "/sys";
 
@@ -19,7 +18,7 @@ export async function socialLogin(data) {
   });
 }
 
-export function getUserInfo(accessToken) {
+export function getUserInfo() {
   //此处为了兼容mock.js使用data传递accessToken，如果使用mock可以走headers
   return request({
     url: baseUrl + "/user/info",
