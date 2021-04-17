@@ -25,29 +25,29 @@ import {
   onBeforeUpdate,
   onUpdated,
   onBeforeUnmount,
-  onUnmounted
+  onUnmounted,
 } from "vue";
 export default {
   name: "ThemeDrawer",
   components: {
-    ADrawer: Drawer
+    ADrawer: Drawer,
   },
   props: {
     collapse: {
       type: Boolean,
       default() {
         return false;
-      }
+      },
     },
     visible: {
       type: Boolean,
       default() {
         return false;
-      }
-    }
+      },
+    },
   },
   emits: {
-    closeThemeDrawer: null
+    closeThemeDrawer: null,
   },
   setup(props, context) {
     const parent = { ...context };
@@ -67,14 +67,14 @@ export default {
       onClose: () => {
         parent.emit("closeThemeDrawer");
       },
-      themeTitle: t("主题配置标题")
+      themeTitle: t("主题配置标题"),
     });
     //这里存放返回数据
 
     return {
-      ...toRefs(reactiveData)
+      ...toRefs(reactiveData),
     };
-  }
+  },
 };
 </script>
 

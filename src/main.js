@@ -23,15 +23,12 @@ import { i18n } from "./language";
 //   mockXHR();
 // }
 
-const app = createApp(App)
-  .use(store)
-  .use(router)
-  .use(i18n);
+const app = createApp(App).use(store).use(router).use(i18n);
 import "./apa/styles/apa.less";
 
 // 加载布局
 const requireLayout = require.context("./apa/layouts", true, /\.vue$/);
-requireLayout.keys().forEach(fileName => {
+requireLayout.keys().forEach((fileName) => {
   const componentConfig = requireLayout(fileName);
   const componentName = componentConfig.default.name;
   app.component(componentName, componentConfig.default || componentConfig);
@@ -48,11 +45,12 @@ app.mount("#app");
 
 // 加载插件
 const requirePlugin = require.context("./apa/plugins", true, /\.js$/);
-requirePlugin.keys().forEach(fileName => {
+requirePlugin.keys().forEach((fileName) => {
   requirePlugin(fileName);
 });
 
 // 扫描后缀名为SVG的文件。
-const req = require.context("./assets/icons/svg", false, /\.svg$/);
-const requireAll = requireContext => requireContext.keys().map(requireContext);
+const req = require.context("./assets/icons", true, /\.svg$/);
+const requireAll = (requireContext) =>
+  requireContext.keys().map(requireContext);
 requireAll(req);

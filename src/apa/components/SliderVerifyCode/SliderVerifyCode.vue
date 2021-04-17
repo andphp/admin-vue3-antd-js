@@ -22,7 +22,7 @@ export default {
     options: {
       type: Object,
       required: true,
-      default: function() {
+      default: function () {
         return {
           text: "请向右滑动验证",
           successText: "验证成功", // 验证成功文字
@@ -35,10 +35,10 @@ export default {
           backgroud: "#cfd3ce", // 背景颜色
           fontSize: 12, // 字体大小
           icon: false, // 是否自定义图标，如果自定义需要自己配置成功图标
-          delay: 0 // 延迟回调函数时间
+          delay: 0, // 延迟回调函数时间
         };
-      }
-    }
+      },
+    },
   },
   setup(props, { emit }) {
     // 取出配置的参数
@@ -99,10 +99,10 @@ export default {
           ? wrap.offsetWidth - slider.offsetWidth
           : 0;
 
-      slider.onmousedown = event => {
+      slider.onmousedown = (event) => {
         // 获取按下时的 初始x 的值
         const downX = event.clientX;
-        document.onmousemove = e => {
+        document.onmousemove = (e) => {
           // 获取移动之后 x的值
           const moveX = e.clientX;
           // 获取偏移值
@@ -212,9 +212,9 @@ export default {
       slider_background,
       touchstart,
       touchmove,
-      touchend
+      touchend,
     };
-  }
+  },
 };
 </script>
 
@@ -249,5 +249,6 @@ export default {
   border-radius: 4px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.29),
     2px 2px 2px rgba(255, 255, 255, 0.44) inset;
-}</style
->>
+}
+</style>
+>

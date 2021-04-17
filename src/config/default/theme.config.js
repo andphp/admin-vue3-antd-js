@@ -3,7 +3,7 @@
  */
 const theme = {
   //布局种类 horizontal横向 vertical纵向 gallery画廊 comprehensive综合 common常规
-  layout: "gallery",
+  layout: "comprehensive",
   //主题名称 default ocean green glory white
   themeName: "ocean",
   //是否固定头部
@@ -23,6 +23,6 @@ const theme = {
   //是否显示通知组件
   showNotice: true,
   //是否显示全屏组件
-  showFullScreen: true
+  showFullScreen: true,
 };
 module.exports = theme;

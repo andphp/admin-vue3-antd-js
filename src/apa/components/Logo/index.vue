@@ -22,20 +22,20 @@ import {
   onBeforeUpdate,
   onUpdated,
   onBeforeUnmount,
-  onUnmounted
+  onUnmounted,
 } from "vue";
 export default {
   name: "Logo",
   components: {
-    SvgIcon
+    SvgIcon,
   },
   props: {
     collapse: {
       type: Boolean,
       default() {
         return false;
-      }
-    }
+      },
+    },
   },
   setup() {
     onBeforeMount(() => {}); //挂载前
@@ -52,15 +52,15 @@ export default {
 
     const data = reactive({
       logo: computed(() => store.state.settings.logo),
-      title: computed(() => store.state.settings.title)
+      title: computed(() => store.state.settings.title),
     });
 
     const dataToRefs = toRefs(data);
     //这里存放返回数据
     return {
-      ...dataToRefs
+      ...dataToRefs,
     };
-  }
+  },
 };
 </script>
 

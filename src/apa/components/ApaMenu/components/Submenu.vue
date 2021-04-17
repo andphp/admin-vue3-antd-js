@@ -21,7 +21,7 @@
       <template
         v-else-if="
           handleChildren(itemRoute.children).length === 1 &&
-            itemRoute.meta.alwaysShow !== true
+          itemRoute.meta.alwaysShow !== true
         "
       >
         <MenuItem
@@ -51,7 +51,7 @@ import {
   onBeforeUpdate,
   onUpdated,
   onBeforeUnmount,
-  onUnmounted
+  onUnmounted,
 } from "vue";
 
 export default {
@@ -60,13 +60,13 @@ export default {
     ASubMenu: Menu.SubMenu,
     SvgIcon,
     MenuItem,
-    Submenu
+    Submenu,
   },
   props: {
     route: {
       type: Object,
-      default: () => null
-    }
+      default: () => null,
+    },
   },
   setup() {
     onBeforeMount(() => {}); //挂载前
@@ -77,14 +77,14 @@ export default {
     onUnmounted(() => {}); //实例销毁后
     function handleChildren(children = []) {
       if (children === null) return [];
-      return children.filter(item => item.meta.hidden !== true);
+      return children.filter((item) => item.meta.hidden !== true);
     }
-    const titleClick = e => {
+    const titleClick = (e) => {
       console.log("titleClick", e);
     };
     //这里存放返回数据
     return { handleChildren, titleClick };
-  }
+  },
 };
 </script>
 <style lang="less" scoped>

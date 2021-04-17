@@ -5,19 +5,16 @@
       <a-row>
         <a-col :xs="4" :sm="12" :md="12">
           <!-- 折叠按钮 -->
-          <div style="float:left">
+          <div style="float: left">
             <div v-if="layout === 'horizontal'">
               <logo :collapse="false"></logo>
             </div>
             <div v-else>
               <template v-if="!collapse">
-                <MenuFoldOutlined class="trigger" @click="handleFoldSideBar" />
+                <MenuFoldOutlined class="trigger" @click="toggleCollapse" />
               </template>
               <template v-else>
-                <MenuUnfoldOutlined
-                  class="trigger"
-                  @click="handleUnFoldSideBar"
-                />
+                <MenuUnfoldOutlined class="trigger" @click="toggleCollapse" />
               </template>
             </div>
           </div>
@@ -25,12 +22,12 @@
             <!-- 横向菜单 -->
             <div
               v-if="layout === 'horizontal'"
-              style="float:left;padding-top:20px;"
+              style="float: left; padding-top: 20px"
             >
               <apa-menu :collapse="collapse" layout="horizontal"></apa-menu>
             </div>
             <!-- 纵向面包屑 -->
-            <div v-else style="float:left;padding-top:20px;">
+            <div v-else style="float: left; padding-top: 20px">
               <a-breadcrumb>
                 <a-breadcrumb-item>Home</a-breadcrumb-item>
                 <a-breadcrumb-item
@@ -43,9 +40,11 @@
           </div>
         </a-col>
         <a-col :xs="20" :sm="12" :md="12">
-          <div style="float:right;padding-right:20px;">
+          <screenfull></screenfull>
+          <div class="top-bar-right-padding">
             <BgColorsOutlined @click="onShow" />
           </div>
+          <avatar></avatar>
         </a-col>
       </a-row>
     </a-layout-header>
@@ -57,9 +56,11 @@ import { Layout, Row, Col, Breadcrumb } from "ant-design-vue";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  BgColorsOutlined
+  BgColorsOutlined,
 } from "@ant-design/icons-vue";
 import ApaMenu from "../ApaMenu";
+import Avatar from "../Avatar";
+import Screenfull from "../Screenfull";
 import { useRoute } from "vue-router";
 import store from "@/store";
 import Logo from "@/apa/components/Logo";
@@ -73,27 +74,21 @@ import {
   onUpdated,
   onBeforeUnmount,
   onUnmounted,
-  getCurrentInstance
+  getCurrentInstance,
 } from "vue";
 export default {
   name: "TopBar",
   props: {
-    collapse: {
-      type: Boolean,
-      default() {
-        return false;
-      }
-    },
     layout: {
       type: String,
-      default: ""
+      default: "",
     },
     device: {
       type: String,
       default() {
         return "desktop";
-      }
-    }
+      },
+    },
   },
   components: {
     ALayoutHeader: Layout.Header,
@@ -105,10 +100,12 @@ export default {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     BgColorsOutlined,
-    Logo
+    Logo,
+    Avatar,
+    Screenfull,
   },
   emits: {
-    showThemeDrawer: null
+    showThemeDrawer: null,
   },
   setup(props, context) {
     const parent = { ...context };
@@ -116,20 +113,18 @@ export default {
     const route = useRoute();
     const matched = computed(() => route.matched);
     onBeforeMount(() => {}); //挂载前
-    onMounted(() => {
-      console.log("props1", props);
-    }); //挂载完成之后调用
+    onMounted(() => {}); //挂载完成之后调用
     onBeforeUpdate(() => {}); //DOM数据更新前调用
     onUpdated(() => {}); //DOM数据更新完成调用
     onBeforeUnmount(() => {}); //实例销毁之前
     onUnmounted(() => {}); //实例销毁后
 
     const routesData = reactive({
-      routes: computed(() => ctx.$router.getRoutes())
+      routes: computed(() => ctx.$router.getRoutes()),
     });
     console.log(
       "store",
-      ctx.$router.getRoutes().filter(item => item.name)
+      ctx.$router.getRoutes().filter((item) => item.name)
     );
     const computedData = reactive({
       activeMenu: computed(() => {
@@ -138,15 +133,60 @@ export default {
           return meta.activeMenu;
         }
         return path;
-      })
+      }),
+      collapse: computed({
+        set: () => {
+          // if (val) {
+          //   store.dispatch(
+          //     "settings/toggleMenuPreOpenKeys",
+          //     store.state.settings.menuOpenKeys
+          //   );
+          //   store.dispatch("settings/toggleMenuOpenKeys", []);
+          // } else {
+          //   const preOpenKeys = store.state.settings.menuPreOpenKeys;
+          //   console.log("store.sta88723423", preOpenKeys);
+          //   console.log("store.sta88723423", Object.values(preOpenKeys));
+          //   // store.commit(
+          //   //   "settings/toggleMenuPreOpenKeys",
+          //   //   Object.values(preOpenKeys)
+          //   // );
+          // }
+          // store.dispatch("settings/toggleMenuPreOpenKeys", val);
+          // console.log("typeof", typeof computedData.preOpenKeys);
+          // const preOpenKeysArray =
+          //   typeof computedData.preOpenKeys !== "undefined" && !val
+          //     ? Object.values(computedData.preOpenKeys)
+          //     : [];
+          // console.log("preOpenKeysArray", preOpenKeysArray);
+          // store.commit("settings/toggleMenuOpenKeys", preOpenKeysArray);
+          store.dispatch("settings/toggleCollapse");
+        },
+        get: () => {
+          console.log("==222==11", store.state.settings.collapse);
+          return store.state.settings.collapse;
+        },
+      }),
     });
     // console.log("activeMenu", computedData.activeMenu);
     console.log("matched", matched);
-    function handleFoldSideBar() {
-      store.dispatch("settings/foldSideBar");
-    }
-    function handleUnFoldSideBar() {
-      store.dispatch("settings/openSideBar");
+    // function handleFoldSideBar() {
+    //   store.dispatch("settings/foldSideBar");
+    //   console.log("settings/collapse1", store.getters["settings/collapse"]);
+    // }
+    // function handleUnFoldSideBar() {
+    //   store.dispatch("settings/openSideBar");
+    //   console.log("settings/collapse2", store.getters["settings/collapse"]);
+    // }
+    function toggleCollapse() {
+      // store.dispatch("settings/toggleCollapse");
+      computedData.collapse = !computedData.collapse;
+      // const preOpenKeys = computedData.preOpenKeys;
+      // const collapsed = props.collapse;
+      // if (!props.collapse) {
+      //   store.dispatch("settings/toggleMenuOpenKeys", []);
+      // } else {
+      //   store.dispatch("settings/toggleMenuOpenKeys", preOpenKeys);
+      // }
     }
     function onShow() {
       parent.emit("showThemeDrawer");
@@ -171,12 +211,13 @@ export default {
     return {
       ...toRefs(computedData),
       routesData,
-      handleFoldSideBar,
-      handleUnFoldSideBar,
+      // handleFoldSideBar,
+      // handleUnFoldSideBar,
+      toggleCollapse,
       onShow,
-      matched
+      matched,
     };
-  }
+  },
 };
 </script>
 <style lang="less" scoped>

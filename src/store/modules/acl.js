@@ -1,12 +1,12 @@
 const state = {
   admin: false,
   role: [],
-  ability: []
+  ability: [],
 };
 const getters = {
-  admin: state => state.admin,
-  role: state => state.role,
-  ability: state => state.ability
+  admin: (state) => state.admin,
+  role: (state) => state.role,
+  ability: (state) => state.ability,
 };
 const mutations = {
   setFull(state, admin) {
@@ -17,7 +17,7 @@ const mutations = {
   },
   setAbility(state, ability) {
     state.ability = ability;
-  }
+  },
 };
 const actions = {
   setFull({ commit }, admin) {
@@ -28,6 +28,6 @@ const actions = {
   },
   setAbility({ commit }, ability) {
     commit("setAbility", ability);
-  }
+  },
 };
 export default { state, getters, mutations, actions };

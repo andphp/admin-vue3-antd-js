@@ -20,22 +20,22 @@ export const i18n = createI18n({
   messages: {
     [ENUM_LANG.enUS]: {
       ...customEnUS,
-      ...enUS
+      ...enUS,
     },
     [ENUM_LANG.zhCN]: {
       ...customZhCN,
-      ...zhCN
+      ...zhCN,
     },
     [ENUM_LANG.zhTW]: {
       ...customZhTW,
-      ...zhTW
-    }
+      ...zhTW,
+    },
   },
-  silentTranslationWarn: true
+  silentTranslationWarn: true,
 });
 // const store = useStore();
 // 切换语言
-export const setLang = lang => {
+export const setLang = (lang) => {
   // 设置组件国际化
   switch (lang) {
     case ENUM_LANG.enUS:

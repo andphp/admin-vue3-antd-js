@@ -13,23 +13,23 @@ import { getLangLocale, setLang } from "./language";
 import { useStore } from "vuex";
 export default {
   components: {
-    AConfigProvider: ConfigProvider
+    AConfigProvider: ConfigProvider,
   },
   computed: {},
   setup() {
     // UI控件 国际多语言
     const store = useStore();
     // setLang("zh_CN");
-    console.log("store.state.settings.language", store.state.settings.language);
+    // console.log("store.state.settings.language", store.state.settings.language);
     setLang(store.state.settings.language);
     const language = reactive({
       locale: computed(() => getLangLocale()),
-      theme: computed(() => "theme-" + store.state.settings.themeName)
+      theme: computed(() => "theme-" + store.state.settings.themeName),
     });
     return {
-      ...toRefs(language)
+      ...toRefs(language),
     };
-  }
+  },
 };
 </script>
 

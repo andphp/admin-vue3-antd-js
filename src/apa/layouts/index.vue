@@ -19,7 +19,7 @@ import {
   onBeforeMount,
   onBeforeUnmount,
   onMounted,
-  nextTick
+  nextTick,
 } from "vue";
 import store from "@/store";
 // import { tokenName } from "@/config";
@@ -27,7 +27,7 @@ import { tokenName } from "@/config";
 export default {
   name: "Layout",
   components: {
-    ABackTop: BackTop
+    ABackTop: BackTop,
   },
   setup() {
     const initData = reactive({
@@ -40,7 +40,7 @@ export default {
       device: computed(() => store.state.settings.device),
       classObj: computed(() => {
         return { mobile: store.state.settings.device === "mobile" };
-      })
+      }),
     });
     // console.log("layout!", initData.layout);
     onBeforeMount(() => {
@@ -59,7 +59,7 @@ export default {
         //  window.location.reload();
         window.addEventListener(
           "storage",
-          e => {
+          (e) => {
             if (e.key === tokenName && (e.key === null || e.value === null))
               console.log("reload");
             window.location.reload();
@@ -70,7 +70,7 @@ export default {
     });
     function handleLayouts() {
       const width = document.body.getBoundingClientRect().width;
-      // console.log("width", width);
+      console.log("width", width);
       if (initData.width !== width) {
         const isMobile = width - 1 < 992;
         store.dispatch(
@@ -85,9 +85,9 @@ export default {
       }
     }
     return {
-      ...toRefs(initData)
+      ...toRefs(initData),
     };
-  }
+  },
 };
 </script>
 

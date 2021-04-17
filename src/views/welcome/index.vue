@@ -15,7 +15,7 @@ import {
   onBeforeUpdate,
   onUpdated,
   onBeforeUnmount,
-  onUnmounted
+  onUnmounted,
 } from "vue";
 
 export default {
@@ -29,7 +29,7 @@ export default {
     onUnmounted(() => {}); //实例销毁后
     //这里存放返回数据
     return {};
-  }
+  },
 };
 </script>
 <style lang="less" scoped></style>

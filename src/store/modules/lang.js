@@ -6,7 +6,7 @@ import { ENUM_LANG } from "@/constants/lang.js";
 const store = {
   namespaced: true,
   state: () => ({
-    locale: zh_CN
+    locale: zh_CN,
   }),
   mutations: {
     setLang(state, selectLang) {
@@ -23,13 +23,13 @@ const store = {
           state.locale = zh_CN;
           console.log("lang：", ENUM_LANG.zhCN);
       }
-    }
+    },
   },
   actions: {
     setLanguage({ commit }, locale) {
       commit("setLang", locale);
-    }
-  }
+    },
+  },
 };
 
 export default store;

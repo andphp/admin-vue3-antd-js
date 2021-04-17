@@ -4,6 +4,6 @@
 const config = {
   layout: "vertical",
   templateFolder: "project",
-  authentication: "intelligence"
+  authentication: "intelligence",
 };
 module.exports = config;

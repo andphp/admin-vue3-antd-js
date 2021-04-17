@@ -13,15 +13,15 @@ const state = () => ({
   uuid: "",
   nickname: "",
   username: "",
-  avatar: ""
+  avatar: "",
 });
 const getters = {
-  token: state => state.token,
-  nickname: state => state.nickname,
-  username: state => state.username,
-  avatar: state => state.avatar,
-  uuid: state => state.uuid,
-  id: state => state.id
+  token: (state) => state.token,
+  nickname: (state) => state.nickname,
+  username: (state) => state.username,
+  avatar: (state) => state.avatar,
+  uuid: (state) => state.uuid,
+  id: (state) => state.id,
 };
 const mutations = {
   /**
@@ -86,7 +86,7 @@ const mutations = {
     state.nickname = "";
     sessionStorage.clear();
     window.location.reload();
-  }
+  },
 };
 const actions = {
   /**
@@ -124,7 +124,7 @@ const actions = {
           : "晚上好";
       notification.open({
         message: `欢迎登录${title}`,
-        description: `${thisTime}！`
+        description: `${thisTime}！`,
       });
     }
     return result;
@@ -184,6 +184,6 @@ const actions = {
    */
   setToken({ commit }, token) {
     commit("setToken", token);
-  }
+  },
 };
 export default { state, getters, mutations, actions };

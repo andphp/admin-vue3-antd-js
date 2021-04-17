@@ -27,22 +27,22 @@ import {
   onBeforeUpdate,
   onUpdated,
   onBeforeUnmount,
-  onUnmounted
+  onUnmounted,
 } from "vue";
 export default {
   name: "SideBar",
   components: {
     ALayoutSider: Layout.Sider,
     ApaMenu,
-    Logo
+    Logo,
   },
   props: {
     collapse: {
       type: Boolean,
       default() {
         return false;
-      }
-    }
+      },
+    },
   },
   setup() {
     onBeforeMount(() => {}); //挂载前
@@ -57,13 +57,13 @@ export default {
 
     onUnmounted(() => {}); //实例销毁后
     const routesData = reactive({
-      routes: computed(() => store.state.routes.routes)
+      routes: computed(() => store.state.routes.routes),
     });
     //这里存放返回数据
     return {
-      ...toRefs(routesData)
+      ...toRefs(routesData),
     };
-  }
+  },
 };
 </script>
 

@@ -6,12 +6,12 @@
 
 const EnumModule = {};
 
-const req = context => context.keys().map(context);
+const req = (context) => context.keys().map(context);
 const options = req(require.context("./", true, /\.js$/)); // 批量导入当前文件所在目录下的.js文件
 
-options.forEach(option => {
+options.forEach((option) => {
   Object.assign(EnumModule, {
-    ...option
+    ...option,
   });
 });
 

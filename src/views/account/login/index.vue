@@ -27,12 +27,12 @@
                   v-model:value="account.username"
                 >
                   <template #prefix>
-                    <UserOutlined style="color:#1890ff" />
+                    <UserOutlined style="color: #1890ff" />
                   </template>
                 </a-input>
               </a-form-item>
               <a-form-item name="password">
-                <div style="border-radius: 8px 8px;">
+                <div style="border-radius: 8px 8px">
                   <a-input-password
                     size="large"
                     autocomplete="on"
@@ -40,7 +40,7 @@
                     v-model:value="account.password"
                   >
                     <template #prefix>
-                      <LockOutlined style="color:#1890ff" />
+                      <LockOutlined style="color: #1890ff" />
                     </template>
                   </a-input-password>
                 </div>
@@ -128,7 +128,7 @@ export default {
     UserOutlined: UserOutlined,
     LockOutlined: LockOutlined,
     SliderVerifyCode: SliderVerifyCode,
-    SvgIcon: SvgIcon
+    SvgIcon: SvgIcon,
   },
   setup() {
     // const { t } = useI18n({ useScope: "global" });
@@ -138,7 +138,7 @@ export default {
     const formData = reactive({
       account: {
         username: "admin",
-        password: "123456"
+        password: "123456",
       },
       signUpMode: false,
       sliderVerifyCodeOptions: {
@@ -151,44 +151,44 @@ export default {
         color: "#fff", // 初始化的字体颜色
         backgroud: "#cfd3ce", // 背景颜色
         fontSize: 12, // 字体大小
-        icon: true // 是否使用自定义的图标文件
+        icon: true, // 是否使用自定义的图标文件
       },
-      isSuccess: false
+      isSuccess: false,
     });
     //验证规则
     let rules = reactive({
       username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
       password: [
-        { required: true, min: 6, message: "密码最少六位", trigger: "change" }
-      ]
+        { required: true, min: 6, message: "密码最少六位", trigger: "change" },
+      ],
     });
 
     function loginSubmit() {
       formData.signUpMode = !formData.signUpMode;
       let params = {
         account: formData.account.username,
-        password: formData.account.password
+        password: formData.account.password,
       };
-      setTimeout(function() {
+      setTimeout(function () {
         store
           .dispatch("user/login", params)
-          .then(res => {
+          .then((res) => {
             if (res["code"] == 0) {
               router.push("/");
             }
           })
-          .catch(err => alert(err.message));
+          .catch((err) => alert(err.message));
         // router.push("/");
       }, 3000);
     }
 
-    const success = e => {
+    const success = (e) => {
       formData.isSuccess = e;
     };
     const data = toRefs(formData);
     const columns = [];
     return { columns, loginSubmit, ...data, success, rules, router };
-  }
+  },
 };
 </script>
 

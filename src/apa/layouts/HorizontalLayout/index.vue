@@ -19,10 +19,10 @@
           margin: '24px 16px',
           padding: '24px',
           background: '#fff',
-          minHeight: '280px'
+          minHeight: '280px',
         }"
       >
-        Content
+        <apa-main />
       </a-layout-content>
     </a-layout>
   </div>
@@ -32,6 +32,7 @@ import { Layout } from "ant-design-vue";
 
 import ThemeDrawer from "@/apa/components/ThemeDrawer";
 import TopBar from "@/apa/components/TopBar";
+import ApaMain from "@/apa/components/ApaMain";
 import { provide, ref } from "vue";
 // import ApaMenu from "@/apa/components/ApaMenu";
 
@@ -41,33 +42,34 @@ export default {
     ALayout: Layout,
     ALayoutContent: Layout.Content,
     ThemeDrawer,
-    TopBar
+    TopBar,
+    ApaMain,
   },
   props: {
     collapse: {
       type: Boolean,
       default() {
         return false;
-      }
+      },
     },
     fixedHeader: {
       type: Boolean,
       default() {
         return true;
-      }
+      },
     },
     showTabsBar: {
       type: Boolean,
       default() {
         return true;
-      }
+      },
     },
     device: {
       type: String,
       default() {
         return "desktop";
-      }
-    }
+      },
+    },
   },
   setup(props) {
     // console.log("props==", props);
@@ -92,9 +94,9 @@ export default {
     return {
       visible,
       showThemeDrawer,
-      closeThemeDrawer
+      closeThemeDrawer,
     };
-  }
+  },
 };
 </script>
 <style lang="less" scoped></style>

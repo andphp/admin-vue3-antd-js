@@ -4,7 +4,7 @@ import {
   contentType,
   debounce,
   requestTimeout,
-  successCode
+  successCode,
 } from "@/config";
 import store from "@/store";
 import qs from "qs";
@@ -33,7 +33,7 @@ const CODE_MESSAGE = {
   500: "服务器发生错误",
   502: "网关错误",
   503: "服务不可用，服务器暂时过载或维护",
-  504: "网关超时"
+  504: "网关超时",
 };
 
 const handleData = ({ config, data, status, statusText }) => {
@@ -82,15 +82,15 @@ const instance = axios.create({
   baseURL,
   timeout: requestTimeout,
   headers: {
-    "Content-Type": contentType
-  }
+    "Content-Type": contentType,
+  },
 });
 
 /**
  * @description axios请求拦截器
  */
 instance.interceptors.request.use(
-  config => {
+  (config) => {
     if (store.getters["user/token"])
       config.headers["Authorization"] = "Bearer " + store.getters["user/token"];
     if (
@@ -99,11 +99,11 @@ instance.interceptors.request.use(
         "application/x-www-form-urlencoded;charset=UTF-8"
     )
       config.data = qs.stringify(config.data);
-    if (debounce.some(item => config.url.includes(item)))
+    if (debounce.some((item) => config.url.includes(item)))
       loadingInstance = message.info("loading");
     return config;
   },
-  error => {
+  (error) => {
     return Promise.reject(error);
   }
 );
@@ -112,8 +112,8 @@ instance.interceptors.request.use(
  * @description axios响应拦截器
  */
 instance.interceptors.response.use(
-  response => handleData(response),
-  error => {
+  (response) => handleData(response),
+  (error) => {
     const { response } = error;
     if (response === undefined) {
       message.error("未可知错误，大部分是由于后端不支持跨域CORS或无效配置引起");

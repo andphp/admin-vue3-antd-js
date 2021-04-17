@@ -10,15 +10,15 @@ import { hasRole } from "@/utils/hasRole";
  * @returns {*}
  */
 export function convertRouter(asyncRoutes) {
-  return asyncRoutes.map(route => {
+  return asyncRoutes.map((route) => {
     if (route.component) {
       if (route.component === "Layout") {
-        route.component = resolve => require(["@/apa/layouts"], resolve);
+        route.component = (resolve) => require(["@/apa/layouts"], resolve);
       } else {
         const index = route.component.indexOf("views");
         const path =
           index > 0 ? route.component.slice(index) : `views/${route.component}`;
-        route.component = resolve => require([`@/${path}`], resolve);
+        route.component = (resolve) => require([`@/${path}`], resolve);
       }
     }
     if (route.children && route.children.length)
@@ -36,12 +36,12 @@ export function convertRouter(asyncRoutes) {
  */
 export function filterRoutes(routes, baseUrl = "/") {
   return routes
-    .filter(route => {
+    .filter((route) => {
       if (rolesControl && route.meta && route.meta.roles)
         return hasRole(route.meta.roles);
       else return true;
     })
-    .map(route => {
+    .map((route) => {
       if (route.path !== "*" && !isExternal(route.path))
         route.path = path.resolve(baseUrl, route.path);
       route.fullPath = route.path;

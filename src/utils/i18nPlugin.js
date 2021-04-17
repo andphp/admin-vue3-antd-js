@@ -1,12 +1,12 @@
 // src/i18nPlugin.js
 import { ref, provide, inject } from "vue";
 
-const createI18n = config => ({
+const createI18n = (config) => ({
   locale: ref(config.locale),
   messages: config.messages,
   $t(key) {
     return this.messages[this.locale.value][key];
-  }
+  },
 });
 
 const i18nSymbol = Symbol();

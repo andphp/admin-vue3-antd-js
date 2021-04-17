@@ -22,7 +22,7 @@
       <template
         v-else-if="
           handleChildren(route.children).length === 1 &&
-            route.meta.alwaysShow !== true
+          route.meta.alwaysShow !== true
         "
       >
         <menu-item
@@ -59,7 +59,7 @@
       <template
         v-else-if="
           handleChildren(route.children).length === 1 &&
-            route.meta.alwaysShow !== true
+          route.meta.alwaysShow !== true
         "
       >
         <menu-item
@@ -71,7 +71,7 @@
       <Submenu
         :route="route"
         v-else
-        style="mix-width:160px;"
+        style="mix-width: 160px"
         :key="route.path"
       />
     </template>
@@ -93,26 +93,20 @@ import {
   onUpdated,
   onBeforeUnmount,
   onUnmounted,
-  ref
+  watch,
 } from "vue";
 export default {
   name: "ApaMenu",
   props: {
     layout: {
       type: String,
-      default: "inline"
+      default: "vertical",
     },
-    collapse: {
-      type: Boolean,
-      default() {
-        return false;
-      }
-    }
   },
   components: {
     AMenu: Menu,
     MenuItem,
-    Submenu
+    Submenu,
   },
   setup() {
     onBeforeMount(() => {}); //挂载前
@@ -127,20 +121,46 @@ export default {
 
     onUnmounted(() => {}); //实例销毁后
 
-    const selectedKeys = ref(["/"]);
-    const openKeys = ref(["/"]);
+    const state = reactive({
+      selectedKeys: ["/system"],
+      openKeys: ["/system", "/"],
+      preOpenKeys: ["/system", "/"],
+      collapse: computed(() => store.state.settings.collapse),
+    });
+    watch(
+      () => state.openKeys,
+      (val, oldVal) => {
+        console.log("oldVal", oldVal);
+        console.log("val", Object.values(oldVal));
+        state.preOpenKeys = oldVal;
+      }
+    );
+
+    watch(
+      () => state.collapse,
+      (val) => {
+        if (val) {
+          state.openKeys = [];
+        } else {
+          state.openKeys = state.preOpenKeys;
+        }
+        console.log("被改变", val);
+        console.log("被改变", state.preOpenKeys);
+      }
+    );
+
     const filterRoutes = reactive({
       routes: computed(() => {
         return store.state.routes.routes;
-      })
+      }),
     });
     const layoutData = reactive({
-      layout: computed(() => store.state.settings.layout)
+      layout: computed(() => store.state.settings.layout),
     });
 
     function handleChildren(children = []) {
       if (children === null) return [];
-      return children.filter(item => item.meta.hidden !== true);
+      return children.filter((item) => item.meta.hidden !== true);
     }
     // console.log("filterRoutes.routes==", filterRoutes.routes);
     const handleClick = ({ item, key, keyPath }) => {
@@ -167,13 +187,12 @@ export default {
       handleChildren,
       ...toRefs(filterRoutes),
       ...toRefs(layoutData),
-      selectedKeys,
-      openKeys,
+      ...toRefs(state),
       handleClick,
       handleSelect,
-      onOpenChange
+      onOpenChange,
     };
-  }
+  },
 };
 </script>
 

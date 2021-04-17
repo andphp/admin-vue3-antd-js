@@ -15,11 +15,11 @@ export default {
   name: "SvgIcon",
   props: {
     iconName: { type: String, required: true }, // icon名称
-    className: { type: String, default: "" } // 自定义class类名
+    className: { type: String, default: "" }, // 自定义class类名
   },
   setup(props) {
     // 判断是否为外部连接 https: mailto: tel:
-    const isExternal = path => {
+    const isExternal = (path) => {
       return /^(https?:|mailto:|tel:)/.test(path);
     };
 
@@ -40,15 +40,15 @@ export default {
         styleExternal: computed(() => {
           return {
             mask: `url(${props.iconName}) no-repeat 50% 50%`,
-            "-webkit-mask": `url(${props.iconName}) no-repeat 50% 50%`
+            "-webkit-mask": `url(${props.iconName}) no-repeat 50% 50%`,
           };
-        })
+        }),
       })
     );
     return {
-      ...data
+      ...data,
     };
-  }
+  },
 };
 </script>
 

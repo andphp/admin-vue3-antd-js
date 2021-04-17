@@ -28,7 +28,7 @@ export function parseTime(time, cFormat) {
     h: date.getHours(),
     i: date.getMinutes(),
     s: date.getSeconds(),
-    a: date.getDay()
+    a: date.getDay(),
   };
   return format.replace(/{([ymdhisa])+}/g, (result, key) => {
     let value = formatObj[key];
@@ -114,13 +114,13 @@ export function paramObj(url) {
  */
 export function translateDataToTree(data) {
   const parent = data.filter(
-    value => value.parentId === "undefined" || value.parentId == null
+    (value) => value.parentId === "undefined" || value.parentId == null
   );
   const children = data.filter(
-    value => value.parentId !== "undefined" && value.parentId != null
+    (value) => value.parentId !== "undefined" && value.parentId != null
   );
   const translator = (parent, children) => {
-    parent.forEach(parent => {
+    parent.forEach((parent) => {
       children.forEach((current, index) => {
         if (current.parentId === parent.id) {
           const temp = JSON.parse(JSON.stringify(children));
@@ -144,12 +144,12 @@ export function translateDataToTree(data) {
  */
 export function translateTreeToData(data) {
   const result = [];
-  data.forEach(item => {
-    const loop = data => {
+  data.forEach((item) => {
+    const loop = (data) => {
       result.push({
         id: data.id,
         name: data.name,
-        parentId: data.parentId
+        parentId: data.parentId,
       });
       const child = data.children;
       if (child) {
@@ -233,8 +233,8 @@ export function random(m, n) {
  * @description addEventListener
  * @type {function(...[*]=)}
  */
-export const on = (function() {
-  return function(element, event, handler, useCapture = false) {
+export const on = (function () {
+  return function (element, event, handler, useCapture = false) {
     if (element && event && handler) {
       element.addEventListener(event, handler, useCapture);
     }
@@ -245,8 +245,8 @@ export const on = (function() {
  * @description removeEventListener
  * @type {function(...[*]=)}
  */
-export const off = (function() {
-  return function(element, event, handler, useCapture = false) {
+export const off = (function () {
+  return function (element, event, handler, useCapture = false) {
     if (element && event) {
       element.removeEventListener(event, handler, useCapture);
     }

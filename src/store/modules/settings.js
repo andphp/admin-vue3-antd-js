@@ -18,11 +18,12 @@ const {
   showSearch,
   showTheme,
   showNotice,
-  showFullScreen
+  showFullScreen,
 } = defaultSettings;
 
-const getLocalStorage = key => {
+const getLocalStorage = (key) => {
   const value = localStorage.getItem(key);
+  console.log("==sdfsa====", value);
   if (isJson(value)) {
     return JSON.parse(value);
   } else {
@@ -30,15 +31,21 @@ const getLocalStorage = key => {
   }
 };
 
-const theme = getLocalStorage("theme");
-const { collapse } = getLocalStorage("collapse");
-const { language } = getLocalStorage("language");
-const toggleBoolean = key => {
+const theme = getLocalStorage("admin-vue-antd-js-theme");
+const { collapse } = getLocalStorage("admin-vue-antd-js-collapse");
+const { language } = getLocalStorage("admin-vue-antd-js-language");
+const { menuOpenKeys } = getLocalStorage("admin-vue-antd-js-menu-open-keys");
+const { menuPreOpenKeys } = getLocalStorage(
+  "admin-vue-antd-js-menu-pre-open-keys"
+);
+const toggleBoolean = (key) => {
   return typeof theme[key] !== "undefined" ? theme[key] : key;
 };
 
 const state = {
   collapse,
+  menuOpenKeys,
+  menuPreOpenKeys,
   device: "desktop",
   logo,
   title,
@@ -53,36 +60,64 @@ const state = {
   showSearch: toggleBoolean(showSearch),
   showTheme: toggleBoolean(showTheme),
   showNotice: toggleBoolean(showNotice),
-  showFullScreen: toggleBoolean(showFullScreen)
+  showFullScreen: toggleBoolean(showFullScreen),
 };
 const getters = {
-  collapse: state => state.collapse,
-  device: state => state.device,
-  logo: state => state.logo,
-  title: state => state.title,
-  language: state => state.language,
-  layout: state => state.layout,
-  themeName: state => state.themeName,
-  fixedHeader: state => state.fixedHeader,
-  showProgressBar: state => state.showProgressBar,
-  showTabsBar: state => state.showTabsBar,
-  showLanguage: state => state.showLanguage,
-  showRefresh: state => state.showRefresh,
-  showSearch: state => state.showSearch,
-  showTheme: state => state.showTheme,
-  showNotice: state => state.showNotice,
-  showFullScreen: state => state.showFullScreen
+  collapse: (state) => state.collapse,
+  menuOpenKeys: (state) => state.menuOpenKeys,
+  menuPreOpenKeys: (state) => state.menuPreOpenKeys,
+  device: (state) => state.device,
+  logo: (state) => state.logo,
+  title: (state) => state.title,
+  language: (state) => state.language,
+  layout: (state) => state.layout,
+  themeName: (state) => state.themeName,
+  fixedHeader: (state) => state.fixedHeader,
+  showProgressBar: (state) => state.showProgressBar,
+  showTabsBar: (state) => state.showTabsBar,
+  showLanguage: (state) => state.showLanguage,
+  showRefresh: (state) => state.showRefresh,
+  showSearch: (state) => state.showSearch,
+  showTheme: (state) => state.showTheme,
+  showNotice: (state) => state.showNotice,
+  showFullScreen: (state) => state.showFullScreen,
 };
 const mutations = {
+  toggleMenuOpenKeys(state, openKeys) {
+    state.menuOpenKeys = openKeys;
+    const obj = {
+      menuOpenKeys: Array.isArray(openKeys) ? openKeys : [],
+    };
+    localStorage.setItem(
+      "admin-vue-antd-js-menu-open-keys",
+      JSON.stringify(obj)
+    );
+  },
+  toggleMenuPreOpenKeys(state, preOpenKeys) {
+    state.menuPreOpenKeys = preOpenKeys;
+    const obj = {
+      menuPreOpenKeys: Array.isArray(preOpenKeys) ? preOpenKeys : [],
+    };
+    localStorage.setItem(
+      "admin-vue-antd-js-menu-pre-open-keys",
+      JSON.stringify(obj)
+    );
+  },
   toggleCollapse(state) {
     state.collapse = !state.collapse;
-    localStorage.setItem("collapse", `{"collapse":${state.collapse}}`);
+    localStorage.setItem(
+      "admin-vue-antd-js-collapse",
+      `{"collapse":${state.collapse}}`
+    );
   },
   toggleDevice(state, device) {
     state.device = device;
   },
   changeLanguage(state, language) {
-    localStorage.setItem("language", `{"language":"${language}"}`);
+    localStorage.setItem(
+      "admin-vue-antd-js-language",
+      `{"language":"${language}"}`
+    );
     state.language = language;
   },
   changeLayout(state, layout) {
@@ -120,9 +155,15 @@ const mutations = {
   },
   foldSideBar(state) {
     state.collapse = true;
-  }
+  },
 };
 const actions = {
+  toggleMenuOpenKeys({ commit }, openKeys) {
+    commit("toggleMenuOpenKeys", openKeys);
+  },
+  toggleMenuPreOpenKeys({ commit }, openKeys) {
+    commit("toggleMenuPreOpenKeys", openKeys);
+  },
   toggleCollapse({ commit }) {
     commit("toggleCollapse");
   },
@@ -167,6 +208,6 @@ const actions = {
   },
   foldSideBar({ commit }) {
     commit("foldSideBar");
-  }
+  },
 };
 export default { state, getters, mutations, actions };

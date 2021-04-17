@@ -8,7 +8,7 @@ module.exports = {
   后台标题: "Manage System",
   验证: {
     用户名: "username",
-    密码: "password"
+    密码: "password",
   },
-  主题配置标题: "ThemeConfig"
+  主题配置标题: "ThemeConfig",
 };

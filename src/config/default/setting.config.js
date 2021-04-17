@@ -74,6 +74,6 @@ const setting = {
   //代码生成机生成在view下的文件夹名称
   templateFolder: "project",
   //画廊布局和综合布局时，是否点击一级菜单默认开启第一个二级菜单
-  openFirstMenu: true
+  openFirstMenu: true,
 };
 module.exports = setting;

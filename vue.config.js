@@ -1,5 +1,5 @@
 const path = require("path");
-const resolve = dir => path.join(__dirname, dir);
+const resolve = (dir) => path.join(__dirname, dir);
 
 // 全局配置
 const {
@@ -13,7 +13,7 @@ const {
   abbreviation,
   devPort,
   providePlugin,
-  build7z
+  build7z,
 } = require("./src/config");
 
 const { webpackBarName, webpackBanner } = require("./apa.config");
@@ -30,13 +30,13 @@ const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const productionGzipExtensions = ["html", "js", "css", "svg"];
 
 // mockjs
-const mockServer = () => {
-  if (process.env.NODE_ENV === "development") {
-    return require("./mock/mockServer.js");
-  } else {
-    return "";
-  }
-};
+// const mockServer = () => {
+//   if (process.env.NODE_ENV === "development") {
+//     return require("./mock/mockServer.js");
+//   } else {
+//     return "";
+//   }
+// };
 
 process.env.VUE_APP_TITLE = title || "admin-vue-antd";
 process.env.VUE_APP_AUTHOR = author || "AndPHP";
@@ -60,27 +60,24 @@ module.exports = {
       resolve: {
         alias: {
           "@": resolve("src"),
-          "*": resolve("")
-        }
+          "*": resolve(""),
+        },
       },
       plugins: [
         new Webpack.ProvidePlugin(providePlugin),
         new WebpackBar({
-          name: webpackBarName
-        })
+          name: webpackBarName,
+        }),
       ],
       externals: {
-        fsevents: "fsevents"
-      }
+        fsevents: "fsevents",
+      },
     };
   },
-  chainWebpack: config => {
+  chainWebpack: (config) => {
     // 修复HMR
     config.resolve.symlinks(true);
-    config.module
-      .rule("svg")
-      .exclude.add(resolve("src/assets/icons"))
-      .end();
+    config.module.rule("svg").exclude.add(resolve("src/assets/icons")).end();
     config.module
       .rule("icons")
       .test(/\.svg$/)
@@ -89,7 +86,7 @@ module.exports = {
       .use("svg-sprite-loader")
       .loader("svg-sprite-loader")
       .options({
-        symbolId: "icon-[name]"
+        symbolId: "icon-[name]",
       })
       .end();
     config.module
@@ -100,7 +97,7 @@ module.exports = {
       .loader("@intlify/vue-i18n-loader")
       .end();
 
-    config.when(process.env.NODE_ENV !== "development", config => {
+    config.when(process.env.NODE_ENV !== "development", (config) => {
       config.performance.set("hints", false);
       config.devtool("none");
       config.optimization.splitChunks({
@@ -110,9 +107,9 @@ module.exports = {
             name: "libs",
             test: /[\\/]node_modules[\\/]/,
             priority: 10,
-            chunks: "initial"
-          }
-        }
+            chunks: "initial",
+          },
+        },
       });
       config
         .plugin("banner")
@@ -128,14 +125,14 @@ module.exports = {
               "\\.(" + productionGzipExtensions.join("|") + ")$"
             ),
             threshold: 8192,
-            minRatio: 0.8
-          }
+            minRatio: 0.8,
+          },
         ])
         .end();
     });
 
     if (build7z) {
-      config.when(process.env.NODE_ENV === "production", config => {
+      config.when(process.env.NODE_ENV === "production", (config) => {
         config
           .plugin("fileManager")
           .use(FileManagerPlugin, [
@@ -145,11 +142,11 @@ module.exports = {
                 archive: [
                   {
                     source: `./${outputDir}`,
-                    destination: `./${outputDir}/${abbreviation}_${outputDir}_${date}.7z`
-                  }
-                ]
-              }
-            }
+                    destination: `./${outputDir}/${abbreviation}_${outputDir}_${date}.7z`,
+                  },
+                ],
+              },
+            },
           ])
           .end();
       });
@@ -167,11 +164,11 @@ module.exports = {
             "current-color": "#1890ff",
             "apa-margin": "20px",
             "apa-padding": "20px",
-            "apa-header-height": "65px"
-          }
-        }
-      }
-    }
+            "apa-header-height": "65px",
+          },
+        },
+      },
+    },
   },
   devServer: {
     port: devPort,
@@ -183,9 +180,9 @@ module.exports = {
         ws: true,
         changeOrigin: true,
         pathRewrite: {
-          ["^/mock-server"]: ""
-        }
-      }
-    }
-  }
+          ["^/mock-server"]: "",
+        },
+      },
+    },
+  },
 };

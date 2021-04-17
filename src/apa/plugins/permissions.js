@@ -8,7 +8,7 @@ import {
   authentication,
   loginInterception, // 是否开启 登录拦截
   recordRoute,
-  routesWhiteList
+  routesWhiteList,
 } from "@/config";
 
 router.beforeEach(async (to, from, next) => {
@@ -41,7 +41,7 @@ router.beforeEach(async (to, from, next) => {
           } else if (authentication === "all") {
             accessRoutes = await store.dispatch("routes/setAllRoutes");
           }
-          accessRoutes.forEach(item => {
+          accessRoutes.forEach((item) => {
             router.addRoute(item);
           });
 
@@ -52,7 +52,7 @@ router.beforeEach(async (to, from, next) => {
             next({
               path: "/login",
               query: { redirect: to.path },
-              replace: true
+              replace: true,
             });
           else next({ path: "/login", replace: true });
         }
@@ -68,6 +68,6 @@ router.beforeEach(async (to, from, next) => {
     }
   }
 });
-router.afterEach(to => {
+router.afterEach((to) => {
   document.title = getPageTitle(to.meta.title);
 });

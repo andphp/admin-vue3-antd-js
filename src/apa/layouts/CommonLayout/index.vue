@@ -52,7 +52,7 @@
             background: '#fff',
             padding: '24px',
             margin: 0,
-            minHeight: '280px'
+            minHeight: '280px',
           }"
         >
           Content
@@ -66,7 +66,7 @@
 import {
   UserOutlined,
   LaptopOutlined,
-  NotificationOutlined
+  NotificationOutlined,
 } from "@ant-design/icons-vue";
 import { Layout, Menu, Breadcrumb } from "ant-design-vue";
 import TopBar from "@/apa/components/TopBar";
@@ -79,7 +79,7 @@ import {
   onBeforeUpdate,
   onUpdated,
   onBeforeUnmount,
-  onUnmounted
+  onUnmounted,
 } from "vue";
 export default {
   name: "Common",
@@ -96,14 +96,14 @@ export default {
     ASubMenu: Menu.SubMenu,
     ABreadcrumb: Breadcrumb,
     ABreadcrumbItem: Breadcrumb.Item,
-    TopBar
+    TopBar,
   },
   data() {
     return {
       selectedKeys1: ["2"],
       selectedKeys2: ["1"],
       collapsed: false,
-      openKeys: ["sub1"]
+      openKeys: ["sub1"],
     };
   },
   setup() {
@@ -122,7 +122,7 @@ export default {
     //这里存放返回数据
 
     return {};
-  }
+  },
 };
 </script>
 

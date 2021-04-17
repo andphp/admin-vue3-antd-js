@@ -5,7 +5,7 @@ export function hasRole(value) {
   if (value instanceof Array && value.length > 0)
     return can(store.getters["acl/role"], {
       role: value,
-      mode: "oneOf"
+      mode: "oneOf",
     });
   let mode = "oneOf";
   if (Object.prototype.hasOwnProperty.call(value, "mode")) mode = value["mode"];
@@ -18,7 +18,7 @@ export function hasRole(value) {
       result &&
       can(store.getters["acl/ability"], {
         role: value["ability"],
-        mode
+        mode,
       });
   return result;
 }
@@ -32,17 +32,17 @@ export function can(roleOrAbility, value) {
   ) {
     const { role, mode } = value;
     if (mode === "allOf") {
-      hasRole = role.every(item => {
+      hasRole = role.every((item) => {
         return roleOrAbility.includes(item);
       });
     }
     if (mode === "oneOf") {
-      hasRole = role.some(item => {
+      hasRole = role.some((item) => {
         return roleOrAbility.includes(item);
       });
     }
     if (mode === "except") {
-      hasRole = !role.some(item => {
+      hasRole = !role.some((item) => {
         return roleOrAbility.includes(item);
       });
     }

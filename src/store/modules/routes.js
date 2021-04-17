@@ -7,8 +7,8 @@ import { convertRouter, filterRoutes } from "@/utils/routes";
 
 const state = { routes: [], partialRoutes: [] };
 const getters = {
-  routes: state => state.routes,
-  partialRoutes: state => state.partialRoutes
+  routes: (state) => state.routes,
+  partialRoutes: (state) => state.partialRoutes,
 };
 const mutations = {
   setRoutes(state, routes) {
@@ -16,7 +16,7 @@ const mutations = {
   },
   setPartialRoutes(state, routes) {
     state.partialRoutes = routes;
-  }
+  },
 };
 const actions = {
   /**
@@ -44,6 +44,6 @@ const actions = {
    */
   setPartialRoutes({ commit }, accessedRoutes) {
     commit("setPartialRoutes", accessedRoutes);
-  }
+  },
 };
 export default { state, getters, mutations, actions };
