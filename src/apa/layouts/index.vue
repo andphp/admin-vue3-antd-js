@@ -60,8 +60,9 @@ export default {
         window.addEventListener(
           "storage",
           (e) => {
-            if (e.key === tokenName && (e.key === null || e.value === null))
+            if (e.key === tokenName && (e.key === null || e.value === null)) {
               console.log("reload");
+            }
             window.location.reload();
           },
           false

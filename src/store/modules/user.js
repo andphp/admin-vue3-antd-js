@@ -141,14 +141,15 @@ const actions = {
       return false;
     }
 
-    let { id, uuid, nickname, username, avatar, roles, ability } = data;
+    const { id, uuid, nickname, username, avatar, roles, ability } = data;
     if (id) commit("setId", id);
     if (uuid) commit("setUuid", uuid);
     if (nickname) commit("setNickname", nickname);
     if (username) commit("setUsername", username);
     if (avatar) commit("setAvatar", avatar);
-    if (ability && ability.length > 0)
+    if (ability && ability.length > 0) {
       dispatch("acl/setAbility", ability, { root: true });
+    }
     if (roles && Array.isArray(roles)) {
       dispatch("acl/setRole", roles, { root: true });
     } else {

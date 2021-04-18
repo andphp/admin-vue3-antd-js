@@ -155,8 +155,8 @@ export default {
       },
       isSuccess: false,
     });
-    //验证规则
-    let rules = reactive({
+    // 验证规则
+    const rules = reactive({
       username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
       password: [
         { required: true, min: 6, message: "密码最少六位", trigger: "change" },
@@ -165,7 +165,7 @@ export default {
 
     function loginSubmit() {
       formData.signUpMode = !formData.signUpMode;
-      let params = {
+      const params = {
         account: formData.account.username,
         password: formData.account.password,
       };

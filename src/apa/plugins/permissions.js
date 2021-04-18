@@ -31,7 +31,7 @@ router.beforeEach(async (to, from, next) => {
           if (loginInterception) {
             await store.dispatch("user/getUserInfo");
           } else {
-            //loginInterception为false（关闭登录拦截时）时，创建虚拟角色
+            // loginInterception为false（关闭登录拦截时）时，创建虚拟角色
             await store.dispatch("user/setVirtualRoles");
           }
 
@@ -48,13 +48,13 @@ router.beforeEach(async (to, from, next) => {
           next({ ...to, replace: true });
         } catch {
           await store.dispatch("user/resetAll");
-          if (recordRoute)
+          if (recordRoute) {
             next({
               path: "/login",
               query: { redirect: to.path },
               replace: true,
             });
-          else next({ path: "/login", replace: true });
+          } else next({ path: "/login", replace: true });
         }
       }
     }
@@ -62,9 +62,9 @@ router.beforeEach(async (to, from, next) => {
     if (routesWhiteList.indexOf(to.path) !== -1) {
       next();
     } else {
-      if (recordRoute)
+      if (recordRoute) {
         next({ path: "/login", query: { redirect: to.path }, replace: true });
-      else next({ path: "/login", replace: true });
+      } else next({ path: "/login", replace: true });
     }
   }
 });

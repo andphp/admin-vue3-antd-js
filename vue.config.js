@@ -175,12 +175,12 @@ module.exports = {
     // before: mockServer()
     // 注释掉的地方是前端配置代理访问后端的示例
     proxy: {
-      ["/mock-server"]: {
+      "/mock-server": {
         target: `http://lamange.test/api`,
         ws: true,
         changeOrigin: true,
         pathRewrite: {
-          ["^/mock-server"]: "",
+          "^/mock-server": "",
         },
       },
     },

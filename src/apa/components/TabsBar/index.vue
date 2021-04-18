@@ -71,19 +71,19 @@ export default {
     AMenuItem: Menu.Item,
   },
   setup() {
-    onBeforeMount(() => {}); //挂载前
-    onMounted(() => {}); //挂载完成之后调用
-    onBeforeUpdate(() => {}); //DOM数据更新前调用
-    onUpdated(() => {}); //DOM数据更新完成调用
-    onBeforeUnmount(() => {}); //实例销毁之前
-    onUnmounted(() => {}); //实例销毁后
+    onBeforeMount(() => {}); // 挂载前
+    onMounted(() => {}); // 挂载完成之后调用
+    onBeforeUpdate(() => {}); // DOM数据更新前调用
+    onUpdated(() => {}); // DOM数据更新完成调用
+    onBeforeUnmount(() => {}); // 实例销毁之前
+    onUnmounted(() => {}); // 实例销毁后
     store.dispatch("settings/foldSideBar");
     const data = reactive({
       affixTabs: [],
       tabActive: null,
       created: false,
     });
-    //这里存放返回数据
+    // 这里存放返回数据
     return { ...toRefs(data) };
   },
 };

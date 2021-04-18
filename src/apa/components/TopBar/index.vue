@@ -112,12 +112,12 @@ export default {
     const { ctx } = getCurrentInstance();
     const route = useRoute();
     const matched = computed(() => route.matched);
-    onBeforeMount(() => {}); //挂载前
-    onMounted(() => {}); //挂载完成之后调用
-    onBeforeUpdate(() => {}); //DOM数据更新前调用
-    onUpdated(() => {}); //DOM数据更新完成调用
-    onBeforeUnmount(() => {}); //实例销毁之前
-    onUnmounted(() => {}); //实例销毁后
+    onBeforeMount(() => {}); // 挂载前
+    onMounted(() => {}); // 挂载完成之后调用
+    onBeforeUpdate(() => {}); // DOM数据更新前调用
+    onUpdated(() => {}); // DOM数据更新完成调用
+    onBeforeUnmount(() => {}); // 实例销毁之前
+    onUnmounted(() => {}); // 实例销毁后
 
     const routesData = reactive({
       routes: computed(() => ctx.$router.getRoutes()),
@@ -207,7 +207,7 @@ export default {
     //   this.levelList = matched;
     // }
 
-    //这里存放返回数据
+    // 这里存放返回数据
     return {
       ...toRefs(computedData),
       routesData,

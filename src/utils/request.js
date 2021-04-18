@@ -42,8 +42,9 @@ const handleData = ({ config, data, status, statusText }) => {
   // 若data.code存在，覆盖默认code
   let code = data && data.code ? data.code : status;
   // 若code属于操作正常code，则status修改为200
-  if (codeVerificationArray.includes(code))
+  if (codeVerificationArray.includes(code)) {
     code = process.env.VUE_APP_SUCCESS_CODE;
+  }
   // 若data.msg存在，覆盖默认提醒消息
   const msg = !data
     ? `后端接口 ${config.url} 异常 ${code}：${CODE_MESSAGE[code]}`
@@ -91,16 +92,19 @@ const instance = axios.create({
  */
 instance.interceptors.request.use(
   (config) => {
-    if (store.getters["user/token"])
+    if (store.getters["user/token"]) {
       config.headers["Authorization"] = "Bearer " + store.getters["user/token"];
+    }
     if (
       config.data &&
       config.headers["Content-Type"] ===
         "application/x-www-form-urlencoded;charset=UTF-8"
-    )
+    ) {
       config.data = qs.stringify(config.data);
-    if (debounce.some((item) => config.url.includes(item)))
+    }
+    if (debounce.some((item) => config.url.includes(item))) {
       loadingInstance = message.info("loading");
+    }
     return config;
   },
   (error) => {

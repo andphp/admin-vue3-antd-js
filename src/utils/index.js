@@ -181,7 +181,7 @@ export function tenBitTimestamp(time) {
   let second = date.getSeconds();
   minute = minute < 10 ? "0" + minute : minute;
   second = second < 10 ? "0" + second : second;
-  return y + "年" + m + "月" + d + "日 " + h + ":" + minute + ":" + second; //组合
+  return y + "年" + m + "月" + d + "日 " + h + ":" + minute + ":" + second; // 组合
 }
 
 /**
@@ -202,7 +202,7 @@ export function thirteenBitTimestamp(time) {
   let second = date.getSeconds();
   minute = minute < 10 ? "0" + minute : minute;
   second = second < 10 ? "0" + second : second;
-  return y + "年" + m + "月" + d + "日 " + h + ":" + minute + ":" + second; //组合
+  return y + "年" + m + "月" + d + "日 " + h + ":" + minute + ":" + second; // 组合
 }
 
 /**

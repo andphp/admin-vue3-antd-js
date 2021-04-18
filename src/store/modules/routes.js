@@ -28,9 +28,10 @@ const actions = {
   async setRoutes({ commit }, mode = "intelligence") {
     let routes = asyncRoutes;
     if (mode === "all") {
-      let { data } = await getRouterList();
-      if (data[data.length - 1].path !== "*")
+      const { data } = await getRouterList();
+      if (data[data.length - 1].path !== "*") {
         data.push({ path: "*", redirect: "/404", hidden: true });
+      }
       routes = convertRouter(data);
     }
     const finallyRoutes = filterRoutes([...constantRoutes, ...routes]);

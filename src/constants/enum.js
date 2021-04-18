@@ -19,8 +19,8 @@ EnumUtil.install = function (data) {
     if (!Object.prototype.hasOwnProperty.call(constantInfo, constantName)) {
       return "";
     }
-    let constantItem = constantInfo[constantName]; // 通过传进来的名字拿到所对应的常量项
-    for (let item in constantItem) {
+    const constantItem = constantInfo[constantName]; // 通过传进来的名字拿到所对应的常量项
+    for (const item in constantItem) {
       // 循环常量项
       if (constantItem[item].value === value) {
         return constantItem[item].desc;

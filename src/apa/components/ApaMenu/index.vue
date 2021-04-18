@@ -1,23 +1,19 @@
 <!-- 菜单/主导航 -->
 <template>
   <a-menu
-    mode="inline"
-    theme="dark"
     v-if="layout == 'vertical'"
-    :inline-collapsed="collapse"
     v-model:openKeys="openKeys"
     v-model:selectedKeys="selectedKeys"
+    mode="inline"
+    theme="dark"
+    :inline-collapsed="collapse"
     @click="handleClick"
     @select="handleSelect"
     @openChange="onOpenChange"
   >
     <template v-for="route in routes">
       <template v-if="handleChildren(route.children).length == 0">
-        <menu-item
-          v-if="!route.meta.hidden"
-          :route="route"
-          :key="route.path"
-        ></menu-item>
+        <menu-item v-if="!route.meta.hidden" :key="route.path" :route="route" />
       </template>
       <template
         v-else-if="
@@ -27,34 +23,30 @@
       >
         <menu-item
           v-if="!route.meta.hidden"
-          :route="handleChildren(route.children)[0]"
           :key="route.path"
-        ></menu-item>
+          :route="handleChildren(route.children)[0]"
+        />
       </template>
       <template v-else>
         <!-- <Submenu :route="route"></Submenu> -->
-        <Submenu :route="route" :key="route.path" />
+        <Submenu :key="route.path" :route="route" />
       </template>
     </template>
   </a-menu>
   <!-- 横向导航 -->
   <a-menu
-    :mode="layout"
-    theme="dark"
     v-else
     v-model:openKeys="openKeys"
     v-model:selectedKeys="selectedKeys"
+    :mode="layout"
+    theme="dark"
     @click="handleClick"
     @select="handleSelect"
     @openChange="onOpenChange"
   >
     <template v-for="route in routes">
       <template v-if="handleChildren(route.children).length == 0">
-        <menu-item
-          v-if="!route.meta.hidden"
-          :route="route"
-          :key="route.path"
-        ></menu-item>
+        <menu-item v-if="!route.meta.hidden" :key="route.path" :route="route" />
       </template>
       <template
         v-else-if="
@@ -64,15 +56,15 @@
       >
         <menu-item
           v-if="!route.meta.hidden"
-          :route="handleChildren(route.children)[0]"
           :key="route.path"
-        ></menu-item>
+          :route="handleChildren(route.children)[0]"
+        />
       </template>
       <Submenu
-        :route="route"
         v-else
-        style="mix-width: 160px"
         :key="route.path"
+        :route="route"
+        style="mix-width: 160px"
       />
     </template>
   </a-menu>
@@ -97,41 +89,53 @@ import {
 } from "vue";
 export default {
   name: "ApaMenu",
+  components: {
+    AMenu: Menu,
+    MenuItem,
+    Submenu,
+  },
   props: {
     layout: {
       type: String,
       default: "vertical",
     },
   },
-  components: {
-    AMenu: Menu,
-    MenuItem,
-    Submenu,
-  },
   setup() {
-    onBeforeMount(() => {}); //挂载前
+    onBeforeMount(() => {}); // 挂载前
 
-    onMounted(() => {}); //挂载完成之后调用
+    onMounted(() => {}); // 挂载完成之后调用
 
-    onBeforeUpdate(() => {}); //DOM数据更新前调用
+    onBeforeUpdate(() => {}); // DOM数据更新前调用
 
-    onUpdated(() => {}); //DOM数据更新完成调用
+    onUpdated(() => {}); // DOM数据更新完成调用
 
-    onBeforeUnmount(() => {}); //实例销毁之前
+    onBeforeUnmount(() => {}); // 实例销毁之前
 
-    onUnmounted(() => {}); //实例销毁后
+    onUnmounted(() => {}); // 实例销毁后
 
     const state = reactive({
       selectedKeys: ["/system"],
-      openKeys: ["/system", "/"],
-      preOpenKeys: ["/system", "/"],
+      openKeys: computed({
+        get() {
+          return store.state.settings.menuOpenKeys;
+        },
+        set(value) {
+          store.commit("settings/toggleMenuOpenKeys", value);
+        },
+      }),
+      preOpenKeys: computed({
+        get() {
+          return store.state.settings.menuPreOpenKeys;
+        },
+        set(value) {
+          store.commit("settings/toggleMenuPreOpenKeys", value);
+        },
+      }),
       collapse: computed(() => store.state.settings.collapse),
     });
     watch(
       () => state.openKeys,
       (val, oldVal) => {
-        console.log("oldVal", oldVal);
-        console.log("val", Object.values(oldVal));
         state.preOpenKeys = oldVal;
       }
     );
@@ -139,13 +143,7 @@ export default {
     watch(
       () => state.collapse,
       (val) => {
-        if (val) {
-          state.openKeys = [];
-        } else {
-          state.openKeys = state.preOpenKeys;
-        }
-        console.log("被改变", val);
-        console.log("被改变", state.preOpenKeys);
+        state.openKeys = val ? [] : state.preOpenKeys;
       }
     );
 
@@ -182,7 +180,7 @@ export default {
       // openKeys.value = latestOpenKey.value ? [latestOpenKey] : [];
       console.log("openKey", openKey);
     }
-    //这里存放返回数据
+    // 这里存放返回数据
     return {
       handleChildren,
       ...toRefs(filterRoutes),

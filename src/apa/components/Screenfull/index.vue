@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import screenfull from "screenfull"; //FullscreenOutlined, FullscreenExitOutlined,
+import screenfull from "screenfull"; // FullscreenOutlined, FullscreenExitOutlined,
 import {
   FullscreenOutlined,
   FullscreenExitOutlined,

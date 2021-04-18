@@ -141,7 +141,7 @@ const router = createRouter({
 
 export default router;
 
-//写一个重置路由的方法，切换用户后，或者退出时清除动态加载的路由
+// 写一个重置路由的方法，切换用户后，或者退出时清除动态加载的路由
 export function resetRouter() {
   const newRouter = createRouter({
     history: createWebHashHistory(),
