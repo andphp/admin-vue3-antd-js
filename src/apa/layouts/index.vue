@@ -2,7 +2,6 @@
   <div :class="classObj" class="apa-wrapper">
     <component
       :is="layout"
-      :collapse="collapse"
       :fixed-header="fixedHeader"
       :show-tabs-bar="showTabsBar"
       :device="device"
@@ -22,7 +21,6 @@ import {
   nextTick,
 } from "vue";
 import store from "@/store";
-// import { tokenName } from "@/config";
 import { tokenName } from "@/config";
 export default {
   name: "Layout",
@@ -35,7 +33,6 @@ export default {
       width: 0,
       layout: computed(() => store.state.settings.layout),
       showTabsBar: computed(() => store.state.settings.showTabsBar),
-      collapse: computed(() => store.state.settings.collapse),
       fixedHeader: computed(() => store.state.settings.fixedHeader),
       device: computed(() => store.state.settings.device),
       classObj: computed(() => {

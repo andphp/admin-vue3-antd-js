@@ -3,25 +3,16 @@
   <div class="layout-container-horizontal">
     <a-layout>
       <TopBar
-        :collapse="collapse"
         :device="device"
         layout="horizontal"
         @showThemeDrawer="showThemeDrawer"
       ></TopBar>
-
+      <tabs-bar />
       <ThemeDrawer
-        :collapse="collapse"
         :visible="visible"
         @closeThemeDrawer="closeThemeDrawer"
       ></ThemeDrawer>
-      <a-layout-content
-        :style="{
-          margin: '24px 16px',
-          padding: '24px',
-          background: '#fff',
-          minHeight: '280px',
-        }"
-      >
+      <a-layout-content>
         <apa-main />
       </a-layout-content>
     </a-layout>
@@ -32,8 +23,9 @@ import { Layout } from "ant-design-vue";
 
 import ThemeDrawer from "@/apa/components/ThemeDrawer";
 import TopBar from "@/apa/components/TopBar";
+import TabsBar from "@/apa/components/TabsBar";
 import ApaMain from "@/apa/components/ApaMain";
-import { provide, ref } from "vue";
+import { ref } from "vue";
 // import ApaMenu from "@/apa/components/ApaMenu";
 
 export default {
@@ -44,14 +36,9 @@ export default {
     ThemeDrawer,
     TopBar,
     ApaMain,
+    TabsBar,
   },
   props: {
-    collapse: {
-      type: Boolean,
-      default() {
-        return false;
-      },
-    },
     fixedHeader: {
       type: Boolean,
       default() {
@@ -71,17 +58,7 @@ export default {
       },
     },
   },
-  setup(props) {
-    // console.log("props==", props);
-    provide("collapse", props.collapse);
-    // console.log("fixedHeader==", props.fixedHeader);
-    provide("fixedHeader", props.fixedHeader);
-    // console.log("showTabsBar==", props.showTabsBar);
-    provide("showTabsBar", props.showTabsBar);
-    // console.log("device==", props.device);
-    provide("device", props.device);
-    provide("layout", "horizontal");
-
+  setup() {
     // 全局主题设置
     const visible = ref(false);
     const showThemeDrawer = () => {
@@ -99,4 +76,53 @@ export default {
   },
 };
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.layout-container-horizontal {
+  position: relative;
+
+  &.fixed {
+    padding-top: (@base-top-bar-height + @base-tabs-bar-height) !important;
+  }
+
+  &.fixed.no-tabs-bar {
+    padding-top: @base-top-bar-height !important;
+  }
+
+  ::v-deep {
+    .vab-main {
+      width: 88% !important;
+      margin: auto;
+    }
+
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: @base-z-index - 2;
+      width: 100%;
+      overflow: hidden;
+      transition: @base-transition;
+    }
+
+    .tag-bar-horizontal {
+      background: @base-color-white;
+      box-shadow: @base-box-shadow;
+    }
+
+    .nav-bar-container {
+      .fold-unfold {
+        display: none;
+      }
+    }
+
+    .main-padding {
+      .app-main-container {
+        margin-top: @base-padding;
+        margin-bottom: @base-padding;
+        background: @base-color-white;
+      }
+    }
+  }
+}
+</style>

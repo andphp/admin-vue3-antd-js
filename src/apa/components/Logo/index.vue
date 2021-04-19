@@ -75,7 +75,7 @@ export default {
   overflow: hidden;
   overflow: hidden;
   font-size: 15px;
-  color: #fff;
+  color: @apa-color-blue;
   text-overflow: ellipsis;
   white-space: nowrap;
 }

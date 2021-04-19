@@ -2,33 +2,18 @@
   <div class="layout-container-vertical">
     <a-layout>
       <!-- side-bar start -->
-      <!-- <a-drawer
-        v-if="device == 'mobile'"
-        placement="left"
-        :closable="false"
-        :visible="!collapse"
-        :bodyStyle="{ padding: '0px' }"
-        @close="toggleCollapse"
-      >
-        <side-bar></side-bar>
-      </a-drawer> -->
       <div
         v-if="device === 'mobile' && !collapse"
         class="apa-mask"
         @click="toggleCollapse"
       ></div>
-      <side-bar
-        class="apa-sider"
-        :class="classObj"
-        :collapse="collapse"
-      ></side-bar>
+      <side-bar class="apa-sider" :class="classObj"></side-bar>
       <!-- side-bar end -->
       <a-layout
         class="apa-layout"
         :class="'mobile' == device ? 'apa-mobile-layout' : ''"
       >
         <TopBar
-          :collapse="collapse"
           layout="vertical"
           :device="device"
           @showThemeDrawer="showThemeDrawer"
@@ -36,7 +21,6 @@
         ></TopBar>
         <tabs-bar />
         <ThemeDrawer
-          :collapse="collapse"
           :visible="visible"
           @closeThemeDrawer="closeThemeDrawer"
         ></ThemeDrawer>
@@ -49,7 +33,6 @@
           }"
         >
           <apa-main />
-          ================================== {{ collapse }}
         </a-layout-content>
       </a-layout>
     </a-layout>
@@ -64,7 +47,7 @@ import ThemeDrawer from "@/apa/components/ThemeDrawer";
 import TopBar from "@/apa/components/TopBar";
 import TabsBar from "@/apa/components/TabsBar";
 import ApaMain from "@/apa/components/ApaMain";
-import { provide, ref, reactive, computed, toRefs } from "vue";
+import { ref, reactive, computed, toRefs } from "vue";
 import store from "@/store";
 // import ApaMenu from "@/apa/components/ApaMenu";
 
@@ -81,12 +64,6 @@ export default {
     ApaMain,
   },
   props: {
-    collapse: {
-      type: Boolean,
-      default() {
-        return false;
-      },
-    },
     fixedHeader: {
       type: Boolean,
       default() {
@@ -107,16 +84,6 @@ export default {
     },
   },
   setup(props) {
-    // console.log("collapse==", props.collapse);
-    provide("collapse", props.collapse);
-    // console.log("fixedHeader==", props.fixedHeader);
-    provide("fixedHeader", props.fixedHeader);
-    // console.log("showTabsBar==", props.showTabsBar);
-    provide("showTabsBar", props.showTabsBar);
-    // console.log("device==", props.device);
-    provide("device", props.device);
-    provide("layout", "vertical");
-
     // 全局主题设置
     const visible = ref(false);
     const showThemeDrawer = () => {
@@ -136,8 +103,16 @@ export default {
       classObj: computed(() => {
         return {
           "apa-mobile": props.device === "mobile",
-          "apa-collapse": props.collapse,
+          "apa-collapse": computedData.collapse,
         };
+      }),
+      collapse: computed({
+        get() {
+          return store.state.settings.collapse;
+        },
+        set() {
+          store.dispatch("settings/toggleCollapse");
+        },
       }),
     });
     return {
@@ -225,9 +200,9 @@ export default {
     padding: 0;
     background: #fff;
     .ant-col + .ant-col {
-      display: flex;
+      // display: flex;
       justify-content: flex-end;
-      padding: 0 @apa-padding;
+      // padding: 0 @apa-padding;
     }
     .trigger {
       height: @apa-header-height;

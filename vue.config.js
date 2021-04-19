@@ -42,6 +42,19 @@ process.env.VUE_APP_TITLE = title || "admin-vue-antd";
 process.env.VUE_APP_AUTHOR = author || "AndPHP";
 process.env.VUE_APP_UPDATE_TIME = time;
 process.env.VUE_APP_VERSION = version;
+
+function addStyleResource(rule) {
+  rule
+    .use("style-resource")
+    .loader("style-resources-loader")
+    .options({
+      // 需要引入的公共文件
+      patterns: [
+        path.resolve(__dirname, "./src/apa/styles/apa.less"),
+        path.resolve(__dirname, "./src/styles/main.less"),
+      ],
+    });
+}
 // vue.config.js
 module.exports = {
   runtimeCompiler: true,
@@ -160,11 +173,17 @@ module.exports = {
         lessOptions: {
           javascriptEnabled: true,
           modifyVars: {
-            "apa-color-blue": "#1890ff",
-            "current-color": "#1890ff",
-            "apa-margin": "20px",
-            "apa-padding": "20px",
-            "apa-header-height": "65px",
+            // "apa-color-blue": "#1890ff",
+            // "current-color": "#1890ff",
+            // "apa-margin": "20px",
+            // "apa-padding": "20px",
+            // "apa-header-height": "65px",
+          },
+          globalVars: {
+            hack: `true; @import "${path.resolve(
+              __dirname,
+              "./src/apa/styles/apa.less"
+            )}"`,
           },
         },
       },

@@ -16,9 +16,10 @@
 <script>
 import { Drawer } from "ant-design-vue";
 import { useI18n } from "vue-i18n";
+import store from "@/store";
 import {
   reactive,
-  // computed,
+  computed,
   toRefs,
   onBeforeMount,
   onMounted,
@@ -33,12 +34,6 @@ export default {
     ADrawer: Drawer,
   },
   props: {
-    collapse: {
-      type: Boolean,
-      default() {
-        return false;
-      },
-    },
     visible: {
       type: Boolean,
       default() {
@@ -68,6 +63,7 @@ export default {
         parent.emit("closeThemeDrawer");
       },
       themeTitle: t("主题配置标题"),
+      collapse: computed(() => store.state.settings.collapse),
     });
     // 这里存放返回数据
 

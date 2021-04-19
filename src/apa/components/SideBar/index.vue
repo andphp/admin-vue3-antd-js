@@ -36,14 +36,6 @@ export default {
     ApaMenu,
     Logo,
   },
-  props: {
-    collapse: {
-      type: Boolean,
-      default() {
-        return false;
-      },
-    },
-  },
   setup() {
     onBeforeMount(() => {}); // 挂载前
 
@@ -56,12 +48,13 @@ export default {
     onBeforeUnmount(() => {}); // 实例销毁之前
 
     onUnmounted(() => {}); // 实例销毁后
-    const routesData = reactive({
+    const reactiveData = reactive({
       routes: computed(() => store.state.routes.routes),
+      collapse: computed(() => store.state.settings.collapse),
     });
     // 这里存放返回数据
     return {
-      ...toRefs(routesData),
+      ...toRefs(reactiveData),
     };
   },
 };

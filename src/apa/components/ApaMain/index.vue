@@ -1,16 +1,46 @@
 <!-- ApaMain -->
 <template>
-  <div>
-    <p>this is a content</p>
-    <router-view />
-  </div>
+  <a-row type="flex" justify="center">
+    <a-col v-if="layout === 'horizontal'" :sm="{ span: 22 }" :md="{ span: 22 }">
+      <div
+        :style="{
+          margin: '24px 16px',
+          padding: '24px',
+          background: '#fff',
+          minHeight: '280px',
+        }"
+      >
+        <p>this is a content</p>
+        <router-view v-slot="{ Component }">
+          <keep-alive>
+            <component :is="Component" v-if="$route.meta.keepAlive" />
+          </keep-alive>
+          <component :is="Component" v-if="!$route.meta.keepAlive" />
+        </router-view></div
+    ></a-col>
+    <a-col v-else :sm="{ span: 24 }" :md="{ span: 24 }">
+      <div
+        :style="{
+          padding: '24px',
+          background: '#fff',
+          minHeight: '280px',
+        }"
+      >
+        <router-view v-slot="{ Component }">
+          <keep-alive>
+            <component :is="Component" v-if="$route.meta.keepAlive" />
+          </keep-alive>
+          <component :is="Component" v-if="!$route.meta.keepAlive" />
+        </router-view></div
+    ></a-col>
+  </a-row>
 </template>
 
 <script>
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  reactive,
+  computed,
+  toRefs,
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
@@ -18,9 +48,11 @@ import {
   onBeforeUnmount,
   onUnmounted,
 } from "vue";
+import { Row, Col } from "ant-design-vue";
+import store from "@/store";
 export default {
   name: "ApaMain",
-  components: {},
+  components: { ARow: Row, ACol: Col },
   setup() {
     onBeforeMount(() => {}); // 挂载前
 
@@ -33,10 +65,13 @@ export default {
     onBeforeUnmount(() => {}); // 实例销毁之前
 
     onUnmounted(() => {}); // 实例销毁后
+    const reactiveData = reactive({
+      layout: computed(() => store.state.settings.layout),
+    });
 
     // 这里存放返回数据
 
-    return {};
+    return { ...toRefs(reactiveData) };
   },
 };
 </script>

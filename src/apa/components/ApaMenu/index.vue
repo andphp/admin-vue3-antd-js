@@ -40,9 +40,6 @@
     v-model:selectedKeys="selectedKeys"
     :mode="layout"
     theme="dark"
-    @click="handleClick"
-    @select="handleSelect"
-    @openChange="onOpenChange"
   >
     <template v-for="route in routes">
       <template v-if="handleChildren(route.children).length == 0">

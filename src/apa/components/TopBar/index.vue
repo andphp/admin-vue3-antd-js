@@ -2,32 +2,46 @@
 <template>
   <div class="top-bar-container">
     <a-layout-header>
-      <a-row>
+      <!-- // 横向头部 -->
+      <a-row
+        style="background-color: #001529"
+        type="flex"
+        justify="center"
+        v-if="layout === 'horizontal'"
+        align="middle"
+      >
+        <!-- logo -->
+        <a-col :span="5">
+          <logo :collapse="false"></logo>
+        </a-col>
+        <!-- meun导航 -->
+        <a-col :span="10">
+          <apa-menu layout="horizontal"></apa-menu>
+        </a-col>
+        <!-- 右边 -->
+        <a-col :span="7">
+          <avatar></avatar>
+          <screenfull></screenfull>
+          <div class="top-bar-right-padding">
+            <BgColorsOutlined @click="onShow" />
+          </div>
+        </a-col>
+      </a-row>
+      <!-- // 纵向头部 -->
+      <a-row v-if="layout === 'vertical'">
         <a-col :xs="4" :sm="12" :md="12">
           <!-- 折叠按钮 -->
           <div style="float: left">
-            <div v-if="layout === 'horizontal'">
-              <logo :collapse="false"></logo>
-            </div>
-            <div v-else>
-              <template v-if="!collapse">
-                <MenuFoldOutlined class="trigger" @click="toggleCollapse" />
-              </template>
-              <template v-else>
-                <MenuUnfoldOutlined class="trigger" @click="toggleCollapse" />
-              </template>
-            </div>
+            <template v-if="!collapse">
+              <MenuFoldOutlined class="trigger" @click="toggleCollapse" />
+            </template>
+            <template v-else>
+              <MenuUnfoldOutlined class="trigger" @click="toggleCollapse" />
+            </template>
           </div>
           <div v-if="device !== 'mobile'">
-            <!-- 横向菜单 -->
-            <div
-              v-if="layout === 'horizontal'"
-              style="float: left; padding-top: 20px"
-            >
-              <apa-menu :collapse="collapse" layout="horizontal"></apa-menu>
-            </div>
             <!-- 纵向面包屑 -->
-            <div v-else style="float: left; padding-top: 20px">
+            <div style="float: left; padding-top: 20px">
               <a-breadcrumb>
                 <a-breadcrumb-item>Home</a-breadcrumb-item>
                 <a-breadcrumb-item
@@ -40,11 +54,11 @@
           </div>
         </a-col>
         <a-col :xs="20" :sm="12" :md="12">
+          <avatar></avatar>
           <screenfull></screenfull>
           <div class="top-bar-right-padding">
             <BgColorsOutlined @click="onShow" />
           </div>
-          <avatar></avatar>
         </a-col>
       </a-row>
     </a-layout-header>
@@ -122,10 +136,10 @@ export default {
     const routesData = reactive({
       routes: computed(() => ctx.$router.getRoutes()),
     });
-    console.log(
-      "store",
-      ctx.$router.getRoutes().filter((item) => item.name)
-    );
+    // console.log(
+    //   "store",
+    //   ctx.$router.getRoutes().filter((item) => item.name)
+    // );
     const computedData = reactive({
       activeMenu: computed(() => {
         const { meta, path } = ctx.$router.currentRoute.value;
@@ -136,39 +150,15 @@ export default {
       }),
       collapse: computed({
         set: () => {
-          // if (val) {
-          //   store.dispatch(
-          //     "settings/toggleMenuPreOpenKeys",
-          //     store.state.settings.menuOpenKeys
-          //   );
-          //   store.dispatch("settings/toggleMenuOpenKeys", []);
-          // } else {
-          //   const preOpenKeys = store.state.settings.menuPreOpenKeys;
-          //   console.log("store.sta88723423", preOpenKeys);
-          //   console.log("store.sta88723423", Object.values(preOpenKeys));
-          //   // store.commit(
-          //   //   "settings/toggleMenuPreOpenKeys",
-          //   //   Object.values(preOpenKeys)
-          //   // );
-          // }
-          // store.dispatch("settings/toggleMenuPreOpenKeys", val);
-          // console.log("typeof", typeof computedData.preOpenKeys);
-          // const preOpenKeysArray =
-          //   typeof computedData.preOpenKeys !== "undefined" && !val
-          //     ? Object.values(computedData.preOpenKeys)
-          //     : [];
-          // console.log("preOpenKeysArray", preOpenKeysArray);
-          // store.commit("settings/toggleMenuOpenKeys", preOpenKeysArray);
           store.dispatch("settings/toggleCollapse");
         },
         get: () => {
-          console.log("==222==11", store.state.settings.collapse);
           return store.state.settings.collapse;
         },
       }),
     });
-    // console.log("activeMenu", computedData.activeMenu);
-    console.log("matched", matched);
+    // console.log("device", props.device);
+    // console.log("store.state.settings.layout", store.state.settings.layout);
     // function handleFoldSideBar() {
     //   store.dispatch("settings/foldSideBar");
     //   console.log("settings/collapse1", store.getters["settings/collapse"]);
@@ -178,34 +168,11 @@ export default {
     //   console.log("settings/collapse2", store.getters["settings/collapse"]);
     // }
     function toggleCollapse() {
-      // store.dispatch("settings/toggleCollapse");
       computedData.collapse = !computedData.collapse;
-      // const preOpenKeys = computedData.preOpenKeys;
-      // const collapsed = props.collapse;
-      // if (!props.collapse) {
-      //   store.dispatch("settings/toggleMenuOpenKeys", []);
-      // } else {
-      //   store.dispatch("settings/toggleMenuOpenKeys", preOpenKeys);
-      // }
     }
     function onShow() {
       parent.emit("showThemeDrawer");
     }
-    // 面包屑数据
-    // function getBreadcrumb() {
-    //   let matched = this.$route.matched.filter(item => item.name);
-    //   const first = matched[0];
-    //   if (
-    //     first &&
-    //     first.name.trim().toLocaleLowerCase() !==
-    //       "Dashboard".toLocaleLowerCase()
-    //   ) {
-    //     matched = [{ path: "/dashboard", meta: { title: "dashboard" } }].concat(
-    //       matched
-    //     );
-    //   }
-    //   this.levelList = matched;
-    // }
 
     // 这里存放返回数据
     return {

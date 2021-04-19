@@ -1,17 +1,26 @@
 <!-- Avatar -->
 <template>
-  <a-dropdown>
-    <span class="ant-dropdown-link">
-      <a-avatar :src="avatar" />
-      {{ nickname }}
-      <DownOutlined />
-    </span>
-    <template v-slot:overlay>
-      <a-menu>
-        <a-menu-item key="logout">退出登录</a-menu-item>
-      </a-menu>
-    </template>
-  </a-dropdown>
+  <div style="float: right; padding-right: 20px">
+    <a-dropdown>
+      <span class="ant-dropdown-link">
+        <a-avatar :src="avatar" />
+        {{ nickname }}
+        <DownOutlined />
+      </span>
+      <template v-slot:overlay>
+        <a-menu class="ant-pro-drop-down">
+          <a-menu-item key="settings">
+            <svg-icon iconName="caidanlan-kehu-kehuguanli"></svg-icon>
+            个人设置
+          </a-menu-item>
+          <a-menu-divider />
+          <a-menu-item key="logout"
+            ><svg-icon iconName="exit"></svg-icon> 退出登录</a-menu-item
+          >
+        </a-menu>
+      </template>
+    </a-dropdown>
+  </div>
 </template>
 
 <script>
@@ -29,6 +38,7 @@ import {
 import { Avatar, Dropdown, Menu } from "ant-design-vue";
 import { DownOutlined } from "@ant-design/icons-vue";
 import { toRefs, reactive } from "vue";
+import SvgIcon from "@/apa/components/Icons/SvgIcon";
 export default {
   name: "Avatar",
   components: {
@@ -37,6 +47,8 @@ export default {
     ADropdown: Dropdown,
     AMenu: Menu,
     AMenuItem: Menu.Item,
+    AMenuDivider: Menu.Divider,
+    SvgIcon,
   },
   setup() {
     onBeforeMount(() => {}); // 挂载前
@@ -72,4 +84,16 @@ export default {
 //     cursor: pointer;
 //   }
 // }
+.ant-pro-drop-down {
+  top: 15px;
+  /deep/ .action {
+    margin-right: 8px;
+  }
+  /deep/ .ant-dropdown-menu-item {
+    min-width: 160px;
+  }
+}
+.ant-dropdown-link {
+  color: @apa-color-blue;
+}
 </style>
