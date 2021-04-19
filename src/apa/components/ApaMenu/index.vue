@@ -1,5 +1,8 @@
 <!-- 菜单/主导航 -->
 <template>
+  <!--    @click="handleClick"
+    @select="handleSelect"
+    @openChange="onOpenChange" -->
   <a-menu
     v-if="layout == 'vertical'"
     v-model:openKeys="openKeys"
@@ -7,9 +10,6 @@
     mode="inline"
     theme="dark"
     :inline-collapsed="collapse"
-    @click="handleClick"
-    @select="handleSelect"
-    @openChange="onOpenChange"
   >
     <template v-for="route in routes">
       <template v-if="handleChildren(route.children).length == 0">
@@ -75,6 +75,7 @@ import { Menu } from "ant-design-vue";
 import MenuItem from "./components/MenuItem";
 import Submenu from "./components/Submenu";
 import store from "@/store";
+
 import {
   reactive,
   computed,
@@ -120,7 +121,7 @@ export default {
           return store.state.settings.menuOpenKeys;
         },
         set(value) {
-          store.commit("settings/toggleMenuOpenKeys", value);
+          store.dispatch("settings/toggleMenuOpenKeys", value);
         },
       }),
       preOpenKeys: computed({
@@ -128,7 +129,7 @@ export default {
           return store.state.settings.menuPreOpenKeys;
         },
         set(value) {
-          store.commit("settings/toggleMenuPreOpenKeys", value);
+          store.dispatch("settings/toggleMenuPreOpenKeys", value);
         },
       }),
       collapse: computed(() => store.state.settings.collapse),
@@ -160,35 +161,31 @@ export default {
       if (children === null) return [];
       return children.filter((item) => item.meta.hidden !== true);
     }
-    // console.log("filterRoutes.routes==", filterRoutes.routes);
-    const handleClick = ({ item, key, keyPath }) => {
-      console.log("clickitem", item);
-      console.log("clickkey", key);
-      console.log("clickkeyPath", keyPath);
-    };
-    const handleSelect = ({ item, key, keyPath }) => {
-      console.log("Selectitem", item);
-      console.log("Selectkey", key);
-      console.log("cSelectkeyPath", keyPath);
-    };
-    // const latestOpenKey = ref("/index");
-    // 打开/折叠 侧边栏 二级菜单
-    function onOpenChange(openKey) {
-      // latestOpenKey.value = openKey.find(
-      //   key => openKeys.value.indexOf(key) === -1
-      // );
-      // openKeys.value = latestOpenKey.value ? [latestOpenKey] : [];
-      console.log("openKey", openKey);
-    }
+
+    // const handleClick = ({ item, key, keyPath }) => {
+    //   console.log("clickitem", item);
+    //   console.log("clickkey", key);
+    //   console.log("clickkeyPath", keyPath);
+    // };
+    // const handleSelect = ({ item, key, keyPath }) => {
+    //   console.log("Selectitem", item);
+    //   console.log("Selectkey", key);
+    //   console.log("cSelectkeyPath", keyPath);
+    // };
+    // // 打开/折叠 侧边栏 二级菜单
+    // function onOpenChange(openKey) {
+    //   console.log("openKey", openKey);
+    // }
+
     // 这里存放返回数据
     return {
       handleChildren,
       ...toRefs(filterRoutes),
       ...toRefs(layoutData),
       ...toRefs(state),
-      handleClick,
-      handleSelect,
-      onOpenChange,
+      // handleClick,
+      // handleSelect,
+      // onOpenChange,
     };
   },
 };

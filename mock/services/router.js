@@ -19,6 +19,7 @@
     affix:true                        当前路由是否固定多标签页
     badge:"New"                       badge小标签（只支持子级）
     tagHidden:true                    当前路由是否不显示多标签页
+    target                            是否连接跳转
    }
  */
 const data = [
@@ -29,7 +30,7 @@ const data = [
     meta: {
       title: "首页",
       remixIcon: "home-4-line",
-      affix: true
+      affix: true,
     },
     children: [
       {
@@ -39,10 +40,10 @@ const data = [
         meta: {
           title: "首页",
           remixIcon: "home-4-line",
-          affix: true
-        }
-      }
-    ]
+          affix: true,
+        },
+      },
+    ],
   },
   {
     path: "/vab",
@@ -52,7 +53,7 @@ const data = [
     alwaysShow: true,
     meta: {
       title: "组件",
-      remixIcon: "code-box-line"
+      remixIcon: "code-box-line",
     },
     children: [
       {
@@ -62,8 +63,8 @@ const data = [
         meta: {
           title: "角色权限控制",
           remixIcon: "user-3-line",
-          badge: "New"
-        }
+          badge: "New",
+        },
       },
       {
         path: "icon",
@@ -72,7 +73,7 @@ const data = [
         redirect: "/vab/icon/remixIcon",
         meta: {
           title: "图标",
-          remixIcon: "remixicon-line"
+          remixIcon: "remixicon-line",
         },
         children: [
           {
@@ -80,26 +81,26 @@ const data = [
             name: "RemixIcon",
             component: "@/views/vab/icon/remixIcon",
             meta: {
-              title: "小清新图标"
-            }
+              title: "小清新图标",
+            },
           },
           {
             path: "colorfulIcon",
             name: "ColorfulIcon",
             component: "@/views/vab/icon/colorfulIcon",
             meta: {
-              title: "多彩图标"
-            }
+              title: "多彩图标",
+            },
           },
           {
             path: "iconSelector",
             name: "IconSelector",
             component: "@/views/vab/icon/iconSelector",
             meta: {
-              title: "图标选择器"
-            }
-          }
-        ]
+              title: "图标选择器",
+            },
+          },
+        ],
       },
       {
         path: "table",
@@ -110,9 +111,9 @@ const data = [
           title: "表格",
           roles: {
             role: ["editor"],
-            mode: "except"
+            mode: "except",
           },
-          remixIcon: "table-2"
+          remixIcon: "table-2",
         },
         children: [
           {
@@ -120,8 +121,8 @@ const data = [
             name: "ComprehensiveTable",
             component: "@/views/vab/table/comprehensiveTable",
             meta: {
-              title: "综合表格"
-            }
+              title: "综合表格",
+            },
           },
           {
             path: "inlineEditTable",
@@ -129,8 +130,8 @@ const data = [
             component: "@/views/vab/table/inlineEditTable",
             meta: {
               title: "行内编辑表格",
-              noKeepAlive: true
-            }
+              noKeepAlive: true,
+            },
           },
           {
             path: "customTable",
@@ -138,10 +139,10 @@ const data = [
             component: "@/views/vab/table/customTable",
             meta: {
               title: "自定义表格",
-              badge: "New"
-            }
-          }
-        ]
+              badge: "New",
+            },
+          },
+        ],
       },
       {
         path: "form",
@@ -150,7 +151,7 @@ const data = [
         meta: {
           title: "表单",
           roles: ["admin"],
-          remixIcon: "file-list-2-line"
+          remixIcon: "file-list-2-line",
         },
         children: [
           {
@@ -158,18 +159,18 @@ const data = [
             name: "ComprehensiveForm",
             component: "@/views/vab/form/comprehensiveForm",
             meta: {
-              title: "综合表单"
-            }
+              title: "综合表单",
+            },
           },
           {
             path: "stepForm",
             name: "StepForm",
             component: "@/views/vab/form/stepForm",
             meta: {
-              title: "分步表单"
-            }
-          }
-        ]
+              title: "分步表单",
+            },
+          },
+        ],
       },
       {
         path: "dynamicTitle",
@@ -178,8 +179,8 @@ const data = [
         meta: {
           title: "动态标题",
           roles: ["admin"],
-          remixIcon: "function-line"
-        }
+          remixIcon: "function-line",
+        },
       },
       {
         path: "dynamicSegment",
@@ -189,7 +190,7 @@ const data = [
         meta: {
           title: "动态路径参数",
           roles: ["admin"],
-          remixIcon: "arrow-left-right-line"
+          remixIcon: "arrow-left-right-line",
         },
         children: [
           {
@@ -199,24 +200,24 @@ const data = [
             meta: {
               title: "动态路径参数",
               roles: ["admin"],
-              remixIcon: "arrow-left-right-line"
-            }
+              remixIcon: "arrow-left-right-line",
+            },
           },
           {
             path: "test1/:id",
             name: "Test1",
             component: "@/views/vab/dynamicSegment/test1",
             meta: { title: "动态路径参数-test1" },
-            hidden: true
+            hidden: true,
           },
           {
             path: "test2",
             name: "Test2",
             component: "@/views/vab/dynamicSegment/test2",
             meta: { title: "动态路径参数-test2" },
-            hidden: true
-          }
-        ]
+            hidden: true,
+          },
+        ],
       },
       {
         path: "drag",
@@ -226,7 +227,7 @@ const data = [
         meta: {
           title: "拖拽",
           roles: ["admin"],
-          remixIcon: "drag-drop-line"
+          remixIcon: "drag-drop-line",
         },
         children: [
           {
@@ -234,26 +235,26 @@ const data = [
             name: "DialogDrag",
             component: "@/views/vab/drag/dialogDrag",
             meta: {
-              title: "弹窗拖拽"
-            }
+              title: "弹窗拖拽",
+            },
           },
           {
             path: "cardDrag",
             name: "CardDrag",
             component: "@/views/vab/drag/cardDrag",
             meta: {
-              title: "卡片拖拽"
-            }
+              title: "卡片拖拽",
+            },
           },
           {
             path: "flowsheetDrag",
             name: "FlowsheetDrag",
             component: "@/views/vab/drag/flowsheetDrag",
             meta: {
-              title: "流程图拖拽"
-            }
-          }
-        ]
+              title: "流程图拖拽",
+            },
+          },
+        ],
       },
       {
         path: "contextmenu",
@@ -263,8 +264,8 @@ const data = [
           title: "右键菜单",
           roles: ["admin"],
           remixIcon: "menu-2-fill",
-          badge: "New"
-        }
+          badge: "New",
+        },
       },
       {
         path: "card",
@@ -274,8 +275,8 @@ const data = [
           title: "卡片",
           roles: ["admin"],
           remixIcon: "inbox-line",
-          badge: "New"
-        }
+          badge: "New",
+        },
       },
       {
         path: "editor",
@@ -284,7 +285,7 @@ const data = [
         meta: {
           title: "编辑器",
           roles: ["admin"],
-          remixIcon: "edit-2-line"
+          remixIcon: "edit-2-line",
         },
         children: [
           {
@@ -293,8 +294,8 @@ const data = [
             component: "@/views/vab/editor/richTextEditor",
             meta: {
               title: "富文本编辑器",
-              roles: ["admin"]
-            }
+              roles: ["admin"],
+            },
           },
           {
             path: "markdownEditor",
@@ -302,10 +303,10 @@ const data = [
             component: "@/views/vab/editor/markdownEditor",
             meta: {
               title: "Markdown编辑器",
-              roles: ["admin"]
-            }
-          }
-        ]
+              roles: ["admin"],
+            },
+          },
+        ],
       },
       {
         path: "menu1",
@@ -316,7 +317,7 @@ const data = [
         meta: {
           title: "嵌套路由1",
           roles: ["admin"],
-          remixIcon: "route-line"
+          remixIcon: "route-line",
         },
         children: [
           {
@@ -326,20 +327,20 @@ const data = [
             component: "@/views/vab/nested/menu1/menu1-1",
             redirect: "/vab/menu1/menu1-1/menu1-1-1",
             meta: {
-              title: "嵌套路由1-1"
+              title: "嵌套路由1-1",
             },
             children: [
               {
                 path: "menu1-1-1",
                 name: "Menu1-1-1",
                 meta: {
-                  title: "嵌套路由1-1-1"
+                  title: "嵌套路由1-1-1",
                 },
-                component: "@/views/vab/nested/menu1/menu1-1/menu1-1-1"
-              }
-            ]
-          }
-        ]
+                component: "@/views/vab/nested/menu1/menu1-1/menu1-1-1",
+              },
+            ],
+          },
+        ],
       },
       {
         path: "loading",
@@ -348,8 +349,8 @@ const data = [
         meta: {
           title: "加载",
           roles: ["admin"],
-          remixIcon: "loader-line"
-        }
+          remixIcon: "loader-line",
+        },
       },
       {
         path: "player",
@@ -358,8 +359,8 @@ const data = [
         meta: {
           title: "视频播放器",
           roles: ["admin"],
-          remixIcon: "video-line"
-        }
+          remixIcon: "video-line",
+        },
       },
       {
         path: "upload",
@@ -368,8 +369,8 @@ const data = [
         meta: {
           title: "上传",
           roles: ["admin"],
-          remixIcon: "chat-upload-line"
-        }
+          remixIcon: "chat-upload-line",
+        },
       },
       {
         path: "log",
@@ -378,8 +379,8 @@ const data = [
         meta: {
           title: "错误日志模拟",
           roles: ["admin"],
-          remixIcon: "error-warning-line"
-        }
+          remixIcon: "error-warning-line",
+        },
       },
       {
         path: "cssfx",
@@ -389,8 +390,8 @@ const data = [
           title: "Css动画",
           roles: ["admin"],
           remixIcon: "css3-line",
-          badge: "New"
-        }
+          badge: "New",
+        },
       },
       {
         path: "social",
@@ -400,8 +401,8 @@ const data = [
           title: "第三方登录",
           roles: ["admin"],
           remixIcon: "github-fill",
-          badge: "New"
-        }
+          badge: "New",
+        },
       },
       {
         path:
@@ -412,10 +413,10 @@ const data = [
           target: "_blank",
           roles: {
             role: ["admin", "editor"],
-            mode: "oneOf"
+            mode: "oneOf",
           },
-          remixIcon: "external-link-line"
-        }
+          remixIcon: "external-link-line",
+        },
       },
       {
         path: "excel",
@@ -425,7 +426,7 @@ const data = [
         meta: {
           title: "Excel",
           roles: ["admin"],
-          remixIcon: "file-excel-2-line"
+          remixIcon: "file-excel-2-line",
         },
         children: [
           {
@@ -433,28 +434,28 @@ const data = [
             name: "ExportExcel",
             component: "@/views/vab/excel/exportExcel",
             meta: {
-              title: "导出Excel"
-            }
+              title: "导出Excel",
+            },
           },
           {
             path: "exportSelectedExcel",
             name: "SelectExcel",
             component: "@/views/vab/excel/exportSelectExcel",
             meta: {
-              title: "导出选中行Excel"
-            }
+              title: "导出选中行Excel",
+            },
           },
           {
             path: "exportMergeHeaderExcel",
             name: "MergeHeaderExcel",
             component: "@/views/vab/excel/exportMergeHeaderExcel",
             meta: {
-              title: "导出合并Excel"
-            }
-          }
-        ]
-      }
-    ]
+              title: "导出合并Excel",
+            },
+          },
+        ],
+      },
+    ],
   },
   {
     path: "/mall",
@@ -464,7 +465,7 @@ const data = [
     meta: {
       title: "物料源",
       remixIcon: "apps-line",
-      roles: ["admin"]
+      roles: ["admin"],
     },
     children: [
       {
@@ -473,10 +474,10 @@ const data = [
         component: "@/views/mall/goods",
         meta: {
           title: "物料市场",
-          remixIcon: "shopping-cart-line"
-        }
-      }
-    ]
+          remixIcon: "shopping-cart-line",
+        },
+      },
+    ],
   },
   {
     path: "/setting",
@@ -486,7 +487,7 @@ const data = [
     meta: {
       title: "配置",
       remixIcon: "user-settings-line",
-      roles: ["admin"]
+      roles: ["admin"],
     },
     children: [
       {
@@ -495,8 +496,8 @@ const data = [
         component: "@/views/setting/userManagement",
         meta: {
           title: "用户管理",
-          remixIcon: "user-3-line"
-        }
+          remixIcon: "user-3-line",
+        },
       },
       {
         path: "roleManagement",
@@ -504,8 +505,8 @@ const data = [
         component: "@/views/setting/roleManagement",
         meta: {
           title: "角色管理",
-          remixIcon: "admin-line"
-        }
+          remixIcon: "admin-line",
+        },
       },
       {
         path: "departmentManagement",
@@ -513,8 +514,8 @@ const data = [
         component: "@/views/setting/departmentManagement",
         meta: {
           title: "部门管理",
-          remixIcon: "group-line"
-        }
+          remixIcon: "group-line",
+        },
       },
       {
         path: "menuManagement",
@@ -523,10 +524,10 @@ const data = [
         meta: {
           title: "菜单管理",
           badge: "New",
-          remixIcon: "menu-2-fill"
-        }
-      }
-    ]
+          remixIcon: "menu-2-fill",
+        },
+      },
+    ],
   },
   {
     path: "/error",
@@ -535,7 +536,7 @@ const data = [
     redirect: "/error/403",
     meta: {
       title: "错误页",
-      remixIcon: "error-warning-line"
+      remixIcon: "error-warning-line",
     },
     children: [
       {
@@ -544,8 +545,8 @@ const data = [
         component: "@/views/403",
         meta: {
           title: "403",
-          remixIcon: "error-warning-line"
-        }
+          remixIcon: "error-warning-line",
+        },
       },
       {
         path: "404",
@@ -553,11 +554,11 @@ const data = [
         component: "@/views/404",
         meta: {
           title: "404",
-          remixIcon: "error-warning-line"
-        }
-      }
-    ]
-  }
+          remixIcon: "error-warning-line",
+        },
+      },
+    ],
+  },
 ];
 module.exports = [
   {
@@ -567,8 +568,8 @@ module.exports = [
       return {
         code: 200,
         msg: "success",
-        data
+        data,
       };
-    }
-  }
+    },
+  },
 ];

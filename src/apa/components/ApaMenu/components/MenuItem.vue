@@ -11,7 +11,7 @@
 <script>
 import { Menu } from "ant-design-vue";
 import SvgIcon from "@/apa/components/Icons/SvgIcon";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { isExternal } from "@/utils/validate";
 import {
   // reactive,
@@ -45,24 +45,19 @@ export default {
     onUpdated(() => {}); // DOM数据更新完成调用
     onBeforeUnmount(() => {}); // 实例销毁之前
     onUnmounted(() => {}); // 实例销毁后
-
+    const route = useRoute(); // 当前路由信息
     const router = useRouter();
     function handleLink() {
+      // console.log("route", route);
       const routePath = props.route.path;
       const target = props.route.meta.target;
-      console.log("menu.router", router);
-      console.log("menu.routePath", routePath);
-      console.log("menu.target", target);
       if (target === "_blank") {
         if (isExternal(routePath)) window.open(routePath);
+        else if (route.path !== routePath) window.open(routePath.href);
+      } else {
+        if (isExternal(routePath)) window.location.href = routePath;
+        else if (route.path !== routePath) router.push(routePath);
       }
-      // if (target === "_blank") {
-      //   if (isExternal(routePath)) window.open(routePath);
-      //   else if (this.$route.path !== routePath) window.open(routePath.href);
-      // } else {
-      //   if (isExternal(routePath)) window.location.href = routePath;
-      //   else if (this.$route.path !== routePath) router.push(routePath);
-      // }
     }
     // 这里存放返回数据
     return { handleLink };

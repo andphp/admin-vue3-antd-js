@@ -34,7 +34,7 @@
           @showThemeDrawer="showThemeDrawer"
           class="apa-header"
         ></TopBar>
-
+        <tabs-bar />
         <ThemeDrawer
           :collapse="collapse"
           :visible="visible"
@@ -48,7 +48,6 @@
             minHeight: '280px',
           }"
         >
-          <!-- <tabs-bar /> -->
           <apa-main />
           ================================== {{ collapse }}
         </a-layout-content>
@@ -63,7 +62,7 @@ import { Layout } from "ant-design-vue";
 import SideBar from "@/apa/components/SideBar";
 import ThemeDrawer from "@/apa/components/ThemeDrawer";
 import TopBar from "@/apa/components/TopBar";
-// import TabsBar from "@/apa/components/TabsBar";
+import TabsBar from "@/apa/components/TabsBar";
 import ApaMain from "@/apa/components/ApaMain";
 import { provide, ref, reactive, computed, toRefs } from "vue";
 import store from "@/store";
@@ -78,7 +77,7 @@ export default {
     SideBar,
     ThemeDrawer,
     TopBar,
-    // TabsBar,
+    TabsBar,
     ApaMain,
   },
   props: {
