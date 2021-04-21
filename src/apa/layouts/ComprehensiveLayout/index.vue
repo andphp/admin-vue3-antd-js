@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-container-vertical">
+  <div class="layout-container-comprehensive">
     <a-layout>
       <!-- side-bar start -->
       <div
@@ -14,16 +14,12 @@
         :class="'mobile' == device ? 'apa-mobile-layout' : ''"
       >
         <TopBar
-          layout="vertical"
+          layout="comprehensive"
           :device="device"
-          @showThemeDrawer="showThemeDrawer"
           class="apa-header"
         ></TopBar>
         <tabs-bar />
-        <ThemeDrawer
-          :visible="visible"
-          @closeThemeDrawer="closeThemeDrawer"
-        ></ThemeDrawer>
+        <ThemeDrawer></ThemeDrawer>
         <a-layout-content
           :style="{
             margin: '24px 16px',
@@ -47,11 +43,11 @@ import ThemeDrawer from "@/apa/components/ThemeDrawer";
 import TopBar from "./components/TopBar";
 import TabsBar from "./components/TabsBar";
 import MainContent from "./components/MainContent";
-import { ref, reactive, computed, toRefs } from "vue";
+import { reactive, computed, toRefs } from "vue";
 import store from "@/store";
 
 export default {
-  name: "Vertical",
+  name: "Comprehensive",
   components: {
     ALayout: Layout,
     ALayoutContent: Layout.Content,
@@ -83,14 +79,6 @@ export default {
     },
   },
   setup(props) {
-    // 全局主题设置
-    const visible = ref(false);
-    const showThemeDrawer = () => {
-      visible.value = true;
-    };
-    const closeThemeDrawer = () => {
-      visible.value = false;
-    };
     // function handleFoldSideBar() {
     //   store.dispatch("settings/foldSideBar");
     // }
@@ -115,9 +103,6 @@ export default {
       }),
     });
     return {
-      visible,
-      showThemeDrawer,
-      closeThemeDrawer,
       toggleCollapse,
       ...toRefs(computedData),
     };
@@ -126,7 +111,7 @@ export default {
 </script>
 
 <style lang="less">
-.layout-container-vertical {
+.layout-container-comprehensive {
   .apa-sider {
     position: fixed;
     left: 0;

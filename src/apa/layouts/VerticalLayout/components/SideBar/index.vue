@@ -30,7 +30,7 @@ import {
   onUnmounted,
 } from "vue";
 export default {
-  name: "SideBar",
+  name: "SideBarVertical",
   components: {
     ALayoutSider: Layout.Sider,
     ApaMenu,

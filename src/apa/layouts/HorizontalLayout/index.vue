@@ -13,7 +13,7 @@
         @closeThemeDrawer="closeThemeDrawer"
       ></ThemeDrawer>
       <a-layout-content>
-        <apa-main />
+        <main-content />
       </a-layout-content>
     </a-layout>
   </div>
@@ -22,9 +22,9 @@
 import { Layout } from "ant-design-vue";
 
 import ThemeDrawer from "@/apa/components/ThemeDrawer";
-import TopBar from "@/apa/components/TopBar";
-import TabsBar from "@/apa/components/TabsBar";
-import ApaMain from "@/apa/components/ApaMain";
+import TopBar from "./components/TopBar";
+import TabsBar from "./components/TabsBar";
+import MainContent from "./components/MainContent";
 import { ref } from "vue";
 // import ApaMenu from "@/apa/components/ApaMenu";
 
@@ -35,7 +35,7 @@ export default {
     ALayoutContent: Layout.Content,
     ThemeDrawer,
     TopBar,
-    ApaMain,
+    MainContent,
     TabsBar,
   },
   props: {

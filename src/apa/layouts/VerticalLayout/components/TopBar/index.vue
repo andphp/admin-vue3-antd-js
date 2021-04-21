@@ -2,33 +2,8 @@
 <template>
   <div class="top-bar-container">
     <a-layout-header>
-      <!-- // 横向头部 -->
-      <a-row
-        style="background-color: #001529"
-        type="flex"
-        justify="center"
-        v-if="layout === 'horizontal'"
-        align="middle"
-      >
-        <!-- logo -->
-        <a-col :span="5">
-          <logo :collapse="false"></logo>
-        </a-col>
-        <!-- meun导航 -->
-        <a-col :span="10">
-          <apa-menu layout="horizontal"></apa-menu>
-        </a-col>
-        <!-- 右边 -->
-        <a-col :span="7">
-          <avatar></avatar>
-          <screenfull></screenfull>
-          <div class="top-bar-right-padding">
-            <BgColorsOutlined @click="onShow" />
-          </div>
-        </a-col>
-      </a-row>
       <!-- // 纵向头部 -->
-      <a-row v-if="layout === 'vertical'">
+      <a-row>
         <a-col :xs="4" :sm="12" :md="12">
           <!-- 折叠按钮 -->
           <div style="float: left">
@@ -72,12 +47,10 @@ import {
   MenuUnfoldOutlined,
   BgColorsOutlined,
 } from "@ant-design/icons-vue";
-import ApaMenu from "../ApaMenu";
-import Avatar from "../Avatar";
-import Screenfull from "../Screenfull";
+import Avatar from "@/apa/components/Avatar";
+import Screenfull from "@/apa/components/Screenfull";
 import { useRoute } from "vue-router";
 import store from "@/store";
-import Logo from "@/apa/components/Logo";
 import {
   reactive,
   computed,
@@ -91,7 +64,7 @@ import {
   getCurrentInstance,
 } from "vue";
 export default {
-  name: "TopBar",
+  name: "TopBarVertical",
   props: {
     layout: {
       type: String,
@@ -110,11 +83,9 @@ export default {
     ACol: Col,
     ABreadcrumb: Breadcrumb,
     ABreadcrumbItem: Breadcrumb.Item,
-    ApaMenu,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     BgColorsOutlined,
-    Logo,
     Avatar,
     Screenfull,
   },

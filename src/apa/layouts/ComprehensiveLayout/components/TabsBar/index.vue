@@ -1,54 +1,7 @@
 <!-- 标签切换 -->
 <template>
   <a-row class="apa-tabs" type="flex" justify="center" align="bottom">
-    <a-col
-      v-if="layout === 'horizontal'"
-      :xs="0"
-      :sm="{ span: 22 }"
-      :md="{ span: 22 }"
-    >
-      <div class="apa-tabs-left-panel">
-        <a-tabs
-          @tab-click="handleTabClick"
-          @edit="handleTabRemove"
-          v-model:activeKey="tabActive"
-          hide-add
-          type="line"
-        >
-          <a-tab-pane
-            v-for="item in visitedRoutes"
-            :key="item.fullPath"
-            :closable="!isAffix(item)"
-            :tab="item.meta.title"
-          ></a-tab-pane>
-        </a-tabs>
-      </div>
-      <div class="apa-tabs-right-panel">
-        <a-dropdown>
-          <template v-slot:overlay>
-            <a-menu @click="handleClick">
-              <a-menu-item key="closeOthersTabs">
-                <a>关闭其他</a>
-              </a-menu-item>
-              <a-menu-item key="closeLeftTabs">
-                <a>关闭左侧</a>
-              </a-menu-item>
-              <a-menu-item key="closeRightTabs">
-                <a>关闭右侧</a>
-              </a-menu-item>
-              <a-menu-item key="closeAllTabs">
-                <a>关闭全部</a>
-              </a-menu-item>
-            </a-menu>
-          </template>
-          <a-button style="margin-left: 8px">
-            更多
-            <DownOutlined />
-          </a-button>
-        </a-dropdown>
-      </div>
-    </a-col>
-    <a-col v-else :xs="0" :sm="{ span: 24 }" :md="{ span: 24 }">
+    <a-col :xs="0" :sm="{ span: 24 }" :md="{ span: 24 }">
       <div class="apa-tabs-left-panel">
         <a-tabs
           @tab-click="handleTabClick"
@@ -111,7 +64,7 @@ import { DownOutlined } from "@ant-design/icons-vue";
 import store from "@/store";
 import { useRoute, useRouter } from "vue-router";
 export default {
-  name: "TabsBar",
+  name: "TabsBarComprehensive",
   components: {
     DownOutlined,
     ATabs: Tabs,

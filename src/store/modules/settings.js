@@ -23,7 +23,6 @@ const {
 
 const getLocalStorage = (key) => {
   const value = localStorage.getItem(key);
-  console.log("==sdfsa====", value);
   if (isJson(value)) {
     return JSON.parse(value);
   } else {
@@ -38,6 +37,7 @@ const { menuOpenKeys } = getLocalStorage("admin-vue-antd-js-menu-open-keys");
 const { menuPreOpenKeys } = getLocalStorage(
   "admin-vue-antd-js-menu-pre-open-keys"
 );
+const { showThemeChange } = getLocalStorage("admin-vue-antd-js-show-theme");
 const toggleBoolean = (key) => {
   return typeof theme[key] !== "undefined" ? theme[key] : key;
 };
@@ -58,7 +58,7 @@ const state = {
   showLanguage: toggleBoolean(showLanguage),
   showRefresh: toggleBoolean(showRefresh),
   showSearch: toggleBoolean(showSearch),
-  showTheme: toggleBoolean(showTheme),
+  showTheme: toggleBoolean(showThemeChange) || toggleBoolean(showTheme),
   showNotice: toggleBoolean(showNotice),
   showFullScreen: toggleBoolean(showFullScreen),
 };
@@ -156,6 +156,16 @@ const mutations = {
   foldSideBar(state) {
     state.collapse = true;
   },
+  saveTheme(state) {
+    const obj = {
+      layout: state.layout,
+    };
+    localStorage.setItem("admin-vue-antd-js-theme", JSON.stringify(obj));
+  },
+  reseTheme() {
+    const obj = {};
+    localStorage.setItem("admin-vue-antd-js-theme", JSON.stringify(obj));
+  },
 };
 const actions = {
   toggleMenuOpenKeys({ commit }, openKeys) {
@@ -208,6 +218,12 @@ const actions = {
   },
   foldSideBar({ commit }) {
     commit("foldSideBar");
+  },
+  saveTheme({ commit }) {
+    commit("saveTheme");
+  },
+  resetTheme({ commit }) {
+    commit("resetTheme");
   },
 };
 export default { state, getters, mutations, actions };

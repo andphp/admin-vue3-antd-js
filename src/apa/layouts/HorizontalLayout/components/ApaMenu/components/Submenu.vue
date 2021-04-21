@@ -55,7 +55,7 @@ import {
 } from "vue";
 
 export default {
-  name: "Submenu",
+  name: "SubmenuHorizontal",
   components: {
     ASubMenu: Menu.SubMenu,
     SvgIcon,

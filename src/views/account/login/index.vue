@@ -109,7 +109,7 @@
 import { toRefs, reactive } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import { Form, Input, Card, Button } from "ant-design-vue";
-import SliderVerifyCode from "@/apa/components/SliderVerifyCode/SliderVerifyCode.vue";
+import SliderVerifyCode from "@/apa/components/SliderVerifyCode";
 import SvgIcon from "@/apa/components/Icons/SvgIcon";
 import { useRouter } from "vue-router";
 import store from "@/store";

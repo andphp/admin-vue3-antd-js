@@ -1,24 +1,7 @@
 <!-- ApaMain -->
 <template>
   <a-row type="flex" justify="center">
-    <a-col v-if="layout === 'horizontal'" :sm="{ span: 22 }" :md="{ span: 22 }">
-      <div
-        :style="{
-          margin: '24px 16px',
-          padding: '24px',
-          background: '#fff',
-          minHeight: '280px',
-        }"
-      >
-        <p>this is a content</p>
-        <router-view v-slot="{ Component }">
-          <keep-alive>
-            <component :is="Component" v-if="$route.meta.keepAlive" />
-          </keep-alive>
-          <component :is="Component" v-if="!$route.meta.keepAlive" />
-        </router-view></div
-    ></a-col>
-    <a-col v-else :sm="{ span: 24 }" :md="{ span: 24 }">
+    <a-col :sm="{ span: 24 }" :md="{ span: 24 }">
       <div
         :style="{
           padding: '24px',
@@ -51,7 +34,7 @@ import {
 import { Row, Col } from "ant-design-vue";
 import store from "@/store";
 export default {
-  name: "ApaMain",
+  name: "MainContent",
   components: { ARow: Row, ACol: Col },
   setup() {
     onBeforeMount(() => {}); // 挂载前

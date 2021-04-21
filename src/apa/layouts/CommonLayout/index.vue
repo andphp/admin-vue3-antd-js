@@ -1,9 +1,7 @@
 <!--  -->
 <template>
   <a-layout id="common-layout">
-    <a-layout-header class="header">
-      <top-bar layout="common"></top-bar>
-    </a-layout-header>
+    <a-layout-header class="header"> </a-layout-header>
     <a-layout>
       <a-layout-sider width="200" style="background: #fff">
         <a-menu
@@ -69,7 +67,6 @@ import {
   NotificationOutlined,
 } from "@ant-design/icons-vue";
 import { Layout, Menu, Breadcrumb } from "ant-design-vue";
-import TopBar from "@/apa/components/TopBar";
 import {
   // reactive,
   // computed,
@@ -96,7 +93,6 @@ export default {
     ASubMenu: Menu.SubMenu,
     ABreadcrumb: Breadcrumb,
     ABreadcrumbItem: Breadcrumb.Item,
-    TopBar,
   },
   data() {
     return {

@@ -4,7 +4,6 @@
     @select="handleSelect"
     @openChange="onOpenChange" -->
   <a-menu
-    v-if="layout == 'vertical'"
     v-model:openKeys="openKeys"
     v-model:selectedKeys="selectedKeys"
     mode="inline"
@@ -33,38 +32,6 @@
       </template>
     </template>
   </a-menu>
-  <!-- 横向导航 -->
-  <a-menu
-    v-else
-    v-model:openKeys="openKeys"
-    v-model:selectedKeys="selectedKeys"
-    :mode="layout"
-    theme="dark"
-  >
-    <template v-for="route in routes">
-      <template v-if="handleChildren(route.children).length == 0">
-        <menu-item v-if="!route.meta.hidden" :key="route.path" :route="route" />
-      </template>
-      <template
-        v-else-if="
-          handleChildren(route.children).length === 1 &&
-          route.meta.alwaysShow !== true
-        "
-      >
-        <menu-item
-          v-if="!route.meta.hidden"
-          :key="route.path"
-          :route="handleChildren(route.children)[0]"
-        />
-      </template>
-      <Submenu
-        v-else
-        :key="route.path"
-        :route="route"
-        style="mix-width: 160px"
-      />
-    </template>
-  </a-menu>
 </template>
 
 <script>
@@ -86,7 +53,7 @@ import {
   watch,
 } from "vue";
 export default {
-  name: "ApaMenu",
+  name: "ApaMenuVertical",
   components: {
     AMenu: Menu,
     MenuItem,
