@@ -2,16 +2,9 @@
 <template>
   <div class="layout-container-horizontal">
     <a-layout>
-      <TopBar
-        :device="device"
-        layout="horizontal"
-        @showThemeDrawer="showThemeDrawer"
-      ></TopBar>
+      <TopBar :device="device" layout="horizontal"></TopBar>
       <tabs-bar />
-      <ThemeDrawer
-        :visible="visible"
-        @closeThemeDrawer="closeThemeDrawer"
-      ></ThemeDrawer>
+      <ThemeDrawer></ThemeDrawer>
       <a-layout-content>
         <main-content />
       </a-layout-content>
@@ -25,7 +18,7 @@ import ThemeDrawer from "@/apa/components/ThemeDrawer";
 import TopBar from "./components/TopBar";
 import TabsBar from "./components/TabsBar";
 import MainContent from "./components/MainContent";
-import { ref } from "vue";
+
 // import ApaMenu from "@/apa/components/ApaMenu";
 
 export default {
@@ -59,20 +52,8 @@ export default {
     },
   },
   setup() {
-    // 全局主题设置
-    const visible = ref(false);
-    const showThemeDrawer = () => {
-      visible.value = true;
-    };
-    const closeThemeDrawer = () => {
-      visible.value = false;
-    };
     // 这里存放返回数据
-    return {
-      visible,
-      showThemeDrawer,
-      closeThemeDrawer,
-    };
+    return {};
   },
 };
 </script>

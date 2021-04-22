@@ -17,10 +17,10 @@
           <a-radio-button value="Comprehensive">综合</a-radio-button>
         </a-radio-group>
       </a-form-item>
-      <a-form-item label="Field A">
+      <a-form-item label="主题">
         <a-input placeholder="input placeholder" />
       </a-form-item>
-      <a-form-item label="Field B">
+      <a-form-item label="国际化">
         <a-input placeholder="input placeholder" />
       </a-form-item>
     </a-form>

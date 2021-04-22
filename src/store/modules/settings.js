@@ -23,6 +23,9 @@ const {
 
 const getLocalStorage = (key) => {
   const value = localStorage.getItem(key);
+  if (key == "admin-vue-antd-js-theme") {
+    console.log("key2", value);
+  }
   if (isJson(value)) {
     return JSON.parse(value);
   } else {
@@ -143,6 +146,13 @@ const mutations = {
   },
   handleShowTheme(state, showTheme) {
     state.showTheme = showTheme;
+    localStorage.setItem(
+      "admin-vue-antd-js-show-theme",
+      `{"showThemeChange":${showTheme}}`
+    );
+    if (showTheme == false) {
+      location.reload();
+    }
   },
   handleShowNotice(state, showNotice) {
     state.showNotice = showNotice;
@@ -162,9 +172,8 @@ const mutations = {
     };
     localStorage.setItem("admin-vue-antd-js-theme", JSON.stringify(obj));
   },
-  reseTheme() {
-    const obj = {};
-    localStorage.setItem("admin-vue-antd-js-theme", JSON.stringify(obj));
+  resetTheme() {
+    localStorage.setItem("admin-vue-antd-js-theme", "");
   },
 };
 const actions = {
@@ -221,9 +230,11 @@ const actions = {
   },
   saveTheme({ commit }) {
     commit("saveTheme");
+    commit("handleShowTheme", false);
   },
   resetTheme({ commit }) {
     commit("resetTheme");
+    commit("handleShowTheme", false);
   },
 };
 export default { state, getters, mutations, actions };

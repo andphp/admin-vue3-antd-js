@@ -76,11 +76,8 @@ export default {
     Avatar,
     Screenfull,
   },
-  emits: {
-    showThemeDrawer: null,
-  },
-  setup(props, context) {
-    const parent = { ...context };
+
+  setup() {
     const { ctx } = getCurrentInstance();
     const route = useRoute();
     const matched = computed(() => route.matched);
@@ -129,7 +126,7 @@ export default {
       computedData.collapse = !computedData.collapse;
     }
     function onShow() {
-      parent.emit("showThemeDrawer");
+      store.dispatch("settings/handleShowTheme", true);
     }
 
     // 这里存放返回数据
@@ -146,6 +143,9 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.top-bar-container {
+  color: @apa-color-blue;
+}
 .active-text-color {
   //菜单选中文字颜色变量导出
   color: red;

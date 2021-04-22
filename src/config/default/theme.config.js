@@ -19,7 +19,7 @@ const theme = {
   // 是否显示搜索组件
   showSearch: true,
   // 是否显示主题组件
-  showTheme: true,
+  showTheme: false,
   // 是否显示通知组件
   showNotice: true,
   // 是否显示全屏组件
