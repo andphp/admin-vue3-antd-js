@@ -83,21 +83,33 @@ export default {
     onUnmounted(() => {}); // 实例销毁后
 
     const state = reactive({
-      selectedKeys: [],
+      selectedKeys: computed({
+        set(value) {
+          console.log("value", value);
+          store.dispatch("menus/toggleSelectedTopMeun", value);
+        },
+        get() {
+          console.log(
+            "store.state.menus.selectedTopMeun",
+            store.state.menus.selectedTopMeun
+          );
+          return store.state.menus.selectedTopMeun;
+        },
+      }),
       openKeys: computed({
         get() {
-          return store.state.settings.menuOpenKeys;
+          return store.state.menus.menuOpenKeys;
         },
         set(value) {
-          store.dispatch("settings/toggleMenuOpenKeys", value);
+          store.dispatch("menus/toggleMenuOpenKeys", value);
         },
       }),
       preOpenKeys: computed({
         get() {
-          return store.state.settings.menuPreOpenKeys;
+          return store.state.menus.menuPreOpenKeys;
         },
         set(value) {
-          store.dispatch("settings/toggleMenuPreOpenKeys", value);
+          store.dispatch("menus/toggleMenuPreOpenKeys", value);
         },
       }),
       collapse: computed(() => store.state.settings.collapse),

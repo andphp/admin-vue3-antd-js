@@ -11,7 +11,10 @@ import {
   routesWhiteList,
 } from "@/config";
 
+import NProgress from "nprogress";
+
 router.beforeEach(async (to, from, next) => {
+  NProgress.start();
   let hasToken = store.getters["user/token"];
 
   if (!loginInterception) hasToken = true;
@@ -69,5 +72,6 @@ router.beforeEach(async (to, from, next) => {
   }
 });
 router.afterEach((to) => {
+  NProgress.done();
   document.title = getPageTitle(to.meta.title);
 });

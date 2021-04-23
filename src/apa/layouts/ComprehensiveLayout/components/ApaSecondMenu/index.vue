@@ -7,7 +7,6 @@
     v-model:openKeys="openKeys"
     v-model:selectedKeys="selectedKeys"
     mode="inline"
-    theme="dark"
     :inline-collapsed="collapse"
   >
     <template v-for="route in routes">
@@ -43,6 +42,7 @@ import { Menu } from "ant-design-vue";
 import SecondMenuItem from "./components/SecondMenuItem";
 import SecondSubmenu from "./components/SecondSubmenu";
 import store from "@/store";
+import { useRoute } from "vue-router";
 
 import {
   reactive,
@@ -81,23 +81,28 @@ export default {
     onBeforeUnmount(() => {}); // 实例销毁之前
 
     onUnmounted(() => {}); // 实例销毁后
-
+    const route = useRoute();
     const state = reactive({
-      selectedKeys: ["/system"],
+      selectedKeys: computed({
+        set() {},
+        get() {
+          return [route.path];
+        },
+      }),
       openKeys: computed({
         get() {
-          return store.state.settings.menuOpenKeys;
+          return store.state.menus.menuOpenKeys;
         },
         set(value) {
-          store.dispatch("settings/toggleMenuOpenKeys", value);
+          store.dispatch("menus/toggleMenuOpenKeys", value);
         },
       }),
       preOpenKeys: computed({
         get() {
-          return store.state.settings.menuPreOpenKeys;
+          return store.state.menus.menuPreOpenKeys;
         },
         set(value) {
-          store.dispatch("settings/toggleMenuPreOpenKeys", value);
+          store.dispatch("menus/toggleMenuPreOpenKeys", value);
         },
       }),
       collapse: computed(() => store.state.settings.collapse),

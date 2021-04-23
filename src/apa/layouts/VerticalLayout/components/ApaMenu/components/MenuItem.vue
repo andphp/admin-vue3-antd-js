@@ -26,7 +26,7 @@ import {
 } from "vue";
 
 export default {
-  name: "Menuitem",
+  name: "MenuitemVertical",
   components: {
     AMenuItem: Menu.Item,
     SvgIcon,

@@ -36,10 +36,6 @@ const getLocalStorage = (key) => {
 const theme = getLocalStorage("admin-vue-antd-js-theme");
 const { collapse } = getLocalStorage("admin-vue-antd-js-collapse");
 const { language } = getLocalStorage("admin-vue-antd-js-language");
-const { menuOpenKeys } = getLocalStorage("admin-vue-antd-js-menu-open-keys");
-const { menuPreOpenKeys } = getLocalStorage(
-  "admin-vue-antd-js-menu-pre-open-keys"
-);
 const { showThemeChange } = getLocalStorage("admin-vue-antd-js-show-theme");
 const toggleBoolean = (key) => {
   return typeof theme[key] !== "undefined" ? theme[key] : key;
@@ -47,8 +43,6 @@ const toggleBoolean = (key) => {
 
 const state = {
   collapse,
-  menuOpenKeys,
-  menuPreOpenKeys,
   device: "desktop",
   logo,
   title,
@@ -67,8 +61,6 @@ const state = {
 };
 const getters = {
   collapse: (state) => state.collapse,
-  menuOpenKeys: (state) => state.menuOpenKeys,
-  menuPreOpenKeys: (state) => state.menuPreOpenKeys,
   device: (state) => state.device,
   logo: (state) => state.logo,
   title: (state) => state.title,
@@ -86,26 +78,6 @@ const getters = {
   showFullScreen: (state) => state.showFullScreen,
 };
 const mutations = {
-  toggleMenuOpenKeys(state, openKeys) {
-    state.menuOpenKeys = openKeys;
-    const obj = {
-      menuOpenKeys: Array.isArray(openKeys) ? openKeys : [],
-    };
-    localStorage.setItem(
-      "admin-vue-antd-js-menu-open-keys",
-      JSON.stringify(obj)
-    );
-  },
-  toggleMenuPreOpenKeys(state, preOpenKeys) {
-    state.menuPreOpenKeys = preOpenKeys;
-    const obj = {
-      menuPreOpenKeys: Array.isArray(preOpenKeys) ? preOpenKeys : [],
-    };
-    localStorage.setItem(
-      "admin-vue-antd-js-menu-pre-open-keys",
-      JSON.stringify(obj)
-    );
-  },
   toggleCollapse(state) {
     state.collapse = !state.collapse;
     localStorage.setItem(
@@ -177,12 +149,6 @@ const mutations = {
   },
 };
 const actions = {
-  toggleMenuOpenKeys({ commit }, openKeys) {
-    commit("toggleMenuOpenKeys", openKeys);
-  },
-  toggleMenuPreOpenKeys({ commit }, openKeys) {
-    commit("toggleMenuPreOpenKeys", openKeys);
-  },
   toggleCollapse({ commit }) {
     commit("toggleCollapse");
   },

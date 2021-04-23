@@ -49,6 +49,7 @@
     "filemanager-webpack-plugin": "^4.0.0",
     "less": "^4.1.1",
     "less-loader": "7.x",
+    "nprogress": "^0.2.0",
     "prettier": "^2.2.1",
     "resize-detector": "^0.3.0",
     "style-resources-loader": "^1.4.1",

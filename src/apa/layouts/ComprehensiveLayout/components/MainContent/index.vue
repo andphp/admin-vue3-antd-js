@@ -34,7 +34,7 @@ import {
 import { Row, Col } from "ant-design-vue";
 import store from "@/store";
 export default {
-  name: "MainContent",
+  name: "MainContentComprehensive",
   components: { ARow: Row, ACol: Col },
   setup() {
     onBeforeMount(() => {}); // 挂载前
