@@ -29,6 +29,32 @@ export const constantRoutes = [
 
 export const asyncRoutes = [
   {
+    path: "/navigation",
+    name: "Navigation",
+    component: Layout,
+    redirect: "/index",
+    meta: {
+      title: "系统管理",
+      icon: "caidanlan-bangong",
+      hidden: true,
+      alwaysShow: false,
+    },
+    children: [
+      {
+        path: "index",
+        name: "NavigationCard",
+        component: () => import("@/views/navigation_card"),
+        meta: {
+          title: "系统管理菜d单",
+          icon: "caidanlan-bangong",
+          hidden: false,
+          alwaysShow: true,
+          tagHidden: true,
+        },
+      },
+    ],
+  },
+  {
     path: "/system",
     name: "system",
     component: Layout,
@@ -41,12 +67,12 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: "index",
-        name: "Index",
-        component: () => import("@/views/system/index"),
+        path: "meun_card",
+        name: "MeunCard",
+        component: () => import("@/views/system/meun_card"),
         meta: {
           title: "系统管理菜单",
-          icon: "",
+          icon: "caidanlan-bangong",
           hidden: false,
           alwaysShow: true,
         },

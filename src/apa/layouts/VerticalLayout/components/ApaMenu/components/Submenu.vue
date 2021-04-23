@@ -42,6 +42,7 @@ import { Menu } from "ant-design-vue";
 import SvgIcon from "@/apa/components/Icons/SvgIcon";
 import MenuItem from "./MenuItem";
 import Submenu from "./Submenu";
+import { useRouter } from "vue-router";
 import {
   // reactive,
   // computed,
@@ -75,12 +76,14 @@ export default {
     onUpdated(() => {}); // DOM数据更新完成调用
     onBeforeUnmount(() => {}); // 实例销毁之前
     onUnmounted(() => {}); // 实例销毁后
+    const router = useRouter();
     function handleChildren(children = []) {
       if (children === null) return [];
       return children.filter((item) => item.meta.hidden !== true);
     }
     const titleClick = (e) => {
-      console.log("titleClick", e);
+      console.log("titleClicks", e.key);
+      router.push("/navigation/index");
     };
     // 这里存放返回数据
     return { handleChildren, titleClick };

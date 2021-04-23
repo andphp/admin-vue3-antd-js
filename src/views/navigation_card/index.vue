@@ -1,6 +1,6 @@
 <!-- System -->
 <template>
-  <div>System</div>
+  <div>Systesdm</div>
 </template>
 
 <script>
@@ -16,7 +16,7 @@ import {
   onUnmounted,
 } from "vue";
 export default {
-  name: "System",
+  name: "Index",
   components: {},
   setup() {
     onBeforeMount(() => {}); // 挂载前
