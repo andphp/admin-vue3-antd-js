@@ -14,7 +14,9 @@ import {
   onUpdated,
   onBeforeUnmount,
   onUnmounted,
+  watch,
 } from "vue";
+import { useRoute } from "vue-router";
 export default {
   name: "Index",
   components: {},
@@ -30,7 +32,14 @@ export default {
     onBeforeUnmount(() => {}); // 实例销毁之前
 
     onUnmounted(() => {}); // 实例销毁后
-
+    const route = new useRoute();
+    watch(
+      () => route.params,
+      (val) => {
+        console.log("routePathval", val);
+      }
+    );
+    // console.log("routePath", route.params);
     // 这里存放返回数据
 
     return {};

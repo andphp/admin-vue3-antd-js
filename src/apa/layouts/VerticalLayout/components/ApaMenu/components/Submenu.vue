@@ -43,9 +43,10 @@ import SvgIcon from "@/apa/components/Icons/SvgIcon";
 import MenuItem from "./MenuItem";
 import Submenu from "./Submenu";
 import { useRouter } from "vue-router";
+import store from "@/store";
 import {
-  // reactive,
-  // computed,
+  reactive,
+  computed,
   // toRefs,
   onBeforeMount,
   onMounted,
@@ -76,14 +77,26 @@ export default {
     onUpdated(() => {}); // DOM数据更新完成调用
     onBeforeUnmount(() => {}); // 实例销毁之前
     onUnmounted(() => {}); // 实例销毁后
+    const _this = reactive({
+      routes: computed(() => store.state.routes.routes),
+      openKeys: computed(() => store.state.menus.menuOpenKeys),
+    });
     const router = useRouter();
     function handleChildren(children = []) {
       if (children === null) return [];
       return children.filter((item) => item.meta.hidden !== true);
     }
     const titleClick = (e) => {
-      console.log("titleClicks", e.key);
-      router.push("/navigation/index");
+      console.log("titleClicks", e);
+      const filterRoutes = _this.routes;
+      const filterRoute = filterRoutes.filter(
+        (item) => item.meta.hidden !== true
+      );
+      const isTopMenu =
+        filterRoute.map((item) => item.path == e.key).indexOf(true) > -1;
+      if (isTopMenu && _this.openKeys.indexOf(e.key) == -1) {
+        router.push({ name: "NavigationCard", params: { routePath: e.key } });
+      }
     };
     // 这里存放返回数据
     return { handleChildren, titleClick };

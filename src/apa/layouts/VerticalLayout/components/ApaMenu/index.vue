@@ -78,7 +78,12 @@ export default {
     onUnmounted(() => {}); // 实例销毁后
     const route = useRoute();
     const state = reactive({
-      selectedKeys: computed(() => [route.path]),
+      selectedKeys: computed({
+        set() {},
+        get() {
+          return [route.path];
+        },
+      }),
       openKeys: computed({
         get() {
           return store.state.menus.menuOpenKeys;
@@ -146,6 +151,7 @@ export default {
       ...toRefs(filterRoutes),
       ...toRefs(layoutData),
       ...toRefs(state),
+
       // handleClick,
       // handleSelect,
       // onOpenChange,
