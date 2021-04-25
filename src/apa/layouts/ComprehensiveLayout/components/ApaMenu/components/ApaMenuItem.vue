@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <a-menu-item :key="route.path" @click.capture="handleLink">
+  <a-menu-item :key="route.path" @click.capture="handleLink(route)">
     <span class="anticon">
       <svg-icon v-if="route.meta.icon" :iconName="route.meta.icon"></svg-icon>
     </span>
@@ -50,8 +50,8 @@ export default {
     const route = useRoute(); // 当前路由信息
     const router = useRouter();
 
-    function handleLink() {
-      // console.log("route", route);
+    function handleLink(e) {
+      // console.log("route", route.path);
       const routePath = props.route.path;
       const target = props.route.meta.target;
       if (target === "_blank") {
@@ -61,7 +61,11 @@ export default {
         if (isExternal(routePath)) window.location.href = routePath;
         else if (route.path !== routePath) {
           store.dispatch("routes/setPartialRoutes", props.route.children);
-          router.push(routePath);
+          // meun-card
+          router.push({
+            name: "NavigationCard",
+            params: { routePath: e.path },
+          });
         }
       }
     }

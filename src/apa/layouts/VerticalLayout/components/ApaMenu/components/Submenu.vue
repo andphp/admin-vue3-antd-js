@@ -94,7 +94,9 @@ export default {
       );
       const isTopMenu =
         filterRoute.map((item) => item.path == e.key).indexOf(true) > -1;
+
       if (isTopMenu && _this.openKeys.indexOf(e.key) == -1) {
+        // console.log("sssa");
         router.push({ name: "NavigationCard", params: { routePath: e.key } });
       }
     };

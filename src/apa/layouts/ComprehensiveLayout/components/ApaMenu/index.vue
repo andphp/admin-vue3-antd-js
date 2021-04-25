@@ -85,14 +85,14 @@ export default {
     const state = reactive({
       selectedKeys: computed({
         set(value) {
-          console.log("value", value);
+          // console.log("value", value);
           store.dispatch("menus/toggleSelectedTopMeun", value);
         },
         get() {
-          console.log(
-            "store.state.menus.selectedTopMeun",
-            store.state.menus.selectedTopMeun
-          );
+          // console.log(
+          //   "store.state.menus.selectedTopMeun",
+          //   store.state.menus.selectedTopMeun
+          // );
           return store.state.menus.selectedTopMeun;
         },
       }),

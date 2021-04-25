@@ -67,11 +67,12 @@ export const asyncRoutes = [
     },
     children: [
       {
-        path: "meun_card",
-        name: "MeunCard",
-        component: () => import("@/views/system/meun_card"),
+        path: "meuns",
+        name: "Meuns",
+        component: () => import("@/views/system/meuns"),
         meta: {
           title: "系统管理菜单",
+          description: "系统管理菜单 描述详情",
           icon: "caidanlan-bangong",
           hidden: false,
           alwaysShow: true,
@@ -83,6 +84,7 @@ export const asyncRoutes = [
         component: () => import("@/views/system/apis"),
         meta: {
           title: "接口管理",
+          description: "接口管理 描述详情",
           icon: "caidanlan-xiaoshou-xiangmuguanli",
           hidden: false,
           alwaysShow: true,
@@ -94,6 +96,7 @@ export const asyncRoutes = [
         component: () => import("@/views/system/meuns"),
         meta: {
           title: "菜单管理",
+          description: "菜单管理 描述详情",
           icon: "caidanlan-kucun-kucunchanpinliebiao",
           hidden: false,
           alwaysShow: true,

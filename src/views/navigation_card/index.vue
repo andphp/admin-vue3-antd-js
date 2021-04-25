@@ -1,25 +1,46 @@
 <!-- System -->
 <template>
-  <div>Systesdm</div>
+  <div v-if="menus.children && menus.children.length >= 1">
+    <a-divider orientation="left">
+      <svg-icon v-if="menus.meta.icon" :iconName="menus.meta.icon"></svg-icon>
+      {{ menus.meta.title }}</a-divider
+    >
+    <a-row :gutter="16" justify="space-around">
+      <menu-card
+        v-for="itemMenu in menus.children"
+        :key="itemMenu.path"
+        :menu="itemMenu"
+      ></menu-card>
+    </a-row>
+  </div>
+  <div v-else>dsfds</div>
 </template>
 
 <script>
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  reactive,
+  computed,
+  toRefs,
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
   onUpdated,
   onBeforeUnmount,
   onUnmounted,
-  watch,
 } from "vue";
 import { useRoute } from "vue-router";
+import MenuCard from "./components/MenuCard";
+import { Divider, Row } from "ant-design-vue";
+import store from "@/store";
+import SvgIcon from "@/apa/components/Icons/SvgIcon";
 export default {
   name: "Index",
-  components: {},
+  components: {
+    ADivider: Divider,
+    ARow: Row,
+    MenuCard: MenuCard,
+    SvgIcon,
+  },
   setup() {
     onBeforeMount(() => {}); // 挂载前
 
@@ -32,17 +53,25 @@ export default {
     onBeforeUnmount(() => {}); // 实例销毁之前
 
     onUnmounted(() => {}); // 实例销毁后
-    const route = new useRoute();
-    watch(
-      () => route.params,
-      (val) => {
-        console.log("routePathval", val);
-      }
-    );
+
+    const _this = reactive({
+      route: computed(() => new useRoute()),
+      menus: computed(() => {
+        for (let item of store.state.routes.routes) {
+          if (item.path == _this.route.params.routePath) {
+            return item;
+          }
+        }
+        return [];
+      }),
+    });
+
     // console.log("routePath", route.params);
     // 这里存放返回数据
 
-    return {};
+    return {
+      ...toRefs(_this),
+    };
   },
 };
 </script>
