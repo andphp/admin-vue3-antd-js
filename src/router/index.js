@@ -25,6 +25,32 @@ export const constantRoutes = [
       hidden: true,
     },
   },
+  {
+    path: "/dashboard",
+    name: "dashboard",
+    component: Layout,
+    redirect: "/welcome",
+    meta: {
+      title: "仪表盘",
+      icon: "caidanlan-bangong",
+      hidden: true,
+      alwaysShow: false,
+    },
+    children: [
+      {
+        path: "welcome",
+        name: "Welcome",
+        component: () => import("@/views/dashboard/welcome"),
+        meta: {
+          title: "欢迎页",
+          icon: "caidanlan-bangong",
+          hidden: false,
+          alwaysShow: true,
+          affix: true,
+        },
+      },
+    ],
+  },
 ];
 
 export const asyncRoutes = [
@@ -150,15 +176,6 @@ export const asyncRoutes = [
         },
       },
     ],
-  },
-  {
-    path: "/welcome",
-    component: () => import("@/views/welcome"),
-    meta: {
-      title: "欢迎",
-      icon: "user",
-      hidden: false,
-    },
   },
 ];
 const routes = new Set([...constantRoutes, ...asyncRoutes]);
