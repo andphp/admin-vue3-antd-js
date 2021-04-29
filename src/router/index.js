@@ -26,35 +26,6 @@ export const constantRoutes = [
     },
   },
   {
-    path: "/dashboard",
-    name: "dashboard",
-    component: Layout,
-    redirect: "/welcome",
-    meta: {
-      title: "仪表盘",
-      icon: "caidanlan-bangong",
-      hidden: true,
-      alwaysShow: false,
-    },
-    children: [
-      {
-        path: "welcome",
-        name: "Welcome",
-        component: () => import("@/views/dashboard/welcome"),
-        meta: {
-          title: "欢迎页",
-          icon: "caidanlan-bangong",
-          hidden: false,
-          alwaysShow: true,
-          affix: true,
-        },
-      },
-    ],
-  },
-];
-
-export const asyncRoutes = [
-  {
     path: "/navigation",
     name: "Navigation",
     component: Layout,
@@ -76,6 +47,35 @@ export const asyncRoutes = [
           hidden: false,
           alwaysShow: true,
           tagHidden: true,
+        },
+      },
+    ],
+  },
+];
+
+export const asyncRoutes = [
+  {
+    path: "/",
+    name: "dashboard",
+    component: Layout,
+    redirect: "/welcome",
+    meta: {
+      title: "仪表盘",
+      icon: "caidanlan-bangong",
+      hidden: false,
+      alwaysShow: true,
+    },
+    children: [
+      {
+        path: "welcome",
+        name: "Welcome",
+        component: () => import("@/views/dashboard/welcome"),
+        meta: {
+          title: "欢迎页",
+          icon: "caidanlan-bangong",
+          hidden: false,
+          alwaysShow: true,
+          affix: true,
         },
       },
     ],
@@ -126,53 +126,6 @@ export const asyncRoutes = [
           icon: "caidanlan-kucun-kucunchanpinliebiao",
           hidden: false,
           alwaysShow: true,
-        },
-      },
-    ],
-  },
-  {
-    path: "/",
-    name: "home",
-    component: Layout,
-    redirect: "/index",
-    meta: {
-      title: "首页",
-      icon: "home",
-      hidden: false,
-      alwaysShow: false,
-    },
-    children: [
-      {
-        path: "index",
-        name: "Index",
-        component: () => import("@/views/index/index"),
-        meta: {
-          title: "首页1",
-          icon: "home",
-          hidden: false,
-          alwaysShow: true,
-        },
-        children: [
-          {
-            path: "index11",
-            name: "Index11",
-            component: () => import("@/views/index/index"),
-            meta: {
-              title: "首页11",
-              icon: "home",
-              hidden: false,
-            },
-          },
-        ],
-      },
-      {
-        path: "index1",
-        name: "Index1",
-        component: () => import("@/views/index/index"),
-        meta: {
-          title: "首页2",
-          icon: "home",
-          hidden: false,
         },
       },
     ],

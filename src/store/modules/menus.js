@@ -13,9 +13,9 @@ const { menuPreOpenKeys } = getLocalStorage(
 );
 const { selectedTopMeun } = getLocalStorage("admin-vue-antd-js-menu-top-meun");
 const state = {
-  menuOpenKeys: menuOpenKeys || [],
-  selectedTopMeun: selectedTopMeun || [],
-  menuPreOpenKeys: menuPreOpenKeys || [],
+  menuOpenKeys: menuOpenKeys || ["/"],
+  selectedTopMeun: selectedTopMeun || ["/"],
+  menuPreOpenKeys: menuPreOpenKeys || ["/"],
 };
 const getters = {
   menuOpenKeys: (state) => state.menuOpenKeys,

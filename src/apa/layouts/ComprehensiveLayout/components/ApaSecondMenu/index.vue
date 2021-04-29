@@ -123,7 +123,15 @@ export default {
 
     const filterRoutes = reactive({
       routes: computed(() => {
-        return store.state.routes.partialRoutes;
+        if (store.state.routes.partialRoutes.length > 0) {
+          return store.state.routes.partialRoutes;
+        } else {
+          const selectedTopMeun = store.state.menus.selectedTopMeun;
+          // console.log("openKeys", selectedTopMeun[0]);
+          return store.state.routes.routes.filter(
+            (item) => item.path === selectedTopMeun[0]
+          )[0].children;
+        }
       }),
     });
     const layoutData = reactive({
