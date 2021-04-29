@@ -5,7 +5,7 @@
       <svg-icon v-if="menus.meta.icon" :iconName="menus.meta.icon"></svg-icon>
       {{ menus.meta.title }}</a-divider
     >
-    <a-row :gutter="16" justify="space-around">
+    <a-row :gutter="16">
       <menu-card
         v-for="itemMenu in menus.children"
         :key="itemMenu.path"

@@ -1,6 +1,6 @@
 <!-- ApaMain -->
 <template>
-  <a-row type="flex" justify="center">
+  <a-row>
     <a-col :sm="{ span: 24 }" :md="{ span: 24 }">
       <div
         :style="{
