@@ -184,7 +184,7 @@ const actions = {
    * @description 设置token
    */
   setToken({ commit }, token) {
-    commit("setToken", token);
+    commit("SetToken", token);
   },
 };
 export default { state, getters, mutations, actions };

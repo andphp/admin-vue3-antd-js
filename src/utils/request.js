@@ -44,6 +44,7 @@ const handleData = ({ config, data, status, statusText }) => {
   // 若code属于操作正常code，则status修改为200
   if (codeVerificationArray.includes(code)) {
     code = process.env.VUE_APP_SUCCESS_CODE;
+    return data;
   }
   // 若data.msg存在，覆盖默认提醒消息
   const msg = !data
@@ -52,17 +53,9 @@ const handleData = ({ config, data, status, statusText }) => {
     ? `后端接口 ${config.url} 异常 ${code}：${statusText}`
     : data.msg;
 
+  console.log("codeerr", code);
   switch (code) {
-    case process.env.VUE_APP_SUCCESS_CODE:
-      // 业务层级错误处理，以下是假定restful有一套统一输出格式（指不管成功与否都有相应的数据格式）情况下进行处理
-      // 例如响应内容：
-      //  错误内容：{ status: 1, msg: '非法参数' }
-      //  正确内容：{ status: 200, data: {  }, msg: '操作正常' }
-      // 修改返回内容为 `data` 内容，对于绝大多数场景已经无须再关心业务状态码(code)和消息(msg)
-      // return data.data
-      // 或者依然保持完整的格式
-      return data;
-    case 401:
+    case 422:
       message.error(msg || "登录失效");
       store.dispatch("user/resetAll").catch(() => {});
       break;
