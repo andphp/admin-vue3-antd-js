@@ -43,39 +43,87 @@ export default {
 
     const columns = [
       {
-        title: "Name",
+        title: "路由name",
         dataIndex: "name",
-        slots: { customRender: "name" },
+        key: "name",
       },
       {
-        title: "Cash Assets",
-        className: "column-money",
-        dataIndex: "money",
+        title: "路由path",
+        dataIndex: "path",
+        key: "path",
       },
       {
-        title: "Address",
-        dataIndex: "address",
+        title: "组件",
+        dataIndex: "component",
+        key: "component",
       },
+      {
+        title: "跳转",
+        dataIndex: "redirect",
+        key: "redirect",
+      },
+      {
+        title: "标题",
+        dataIndex: "title",
+        key: "title",
+      },
+      {
+        title: "介绍",
+        dataIndex: "description",
+        key: "description",
+      },
+      {
+        title: "图标",
+        dataIndex: "icon",
+        key: "icon",
+      },
+      {
+        title: "角色",
+        dataIndex: "roles",
+        key: "roles",
+      },
+      // {
+      //   title: "是否隐藏",
+      //   dataIndex: "hidden",
+      //   key: "hidden",
+      // },
+      // {
+      //   title: "子集单行显示",
+      //   dataIndex: "alwaysShow",
+      //   key: "alwaysShow",
+      // },
     ];
 
     const data = [
       {
         key: "1",
         name: "John Brown",
-        money: "￥300,000.00",
-        address: "New York No. 1 Lake Park",
+        path: "￥300,000.00",
+        redirect: "New York No. 1 Lake Park",
+        title: "New York No. 1 Lake Park",
+        description: "New York No. 1 Lake Park",
+        icon: "New York No. 1 Lake Park",
+        roles: "New York No. 1 Lake Park",
       },
       {
         key: "2",
         name: "Jim Green",
-        money: "￥1,256,000.00",
-        address: "London No. 1 Lake Park",
+        path: "￥300,000.00",
+        redirect: "New York No. 1 Lake Park",
+        title: "New York No. 1 Lake Park",
+        description: "New York No. 1 Lake Park",
+        icon: "New York No. 1 Lake Park",
+        roles: "New York No. 1 Lake Park",
       },
       {
         key: "3",
         name: "Joe Black",
-        money: "￥120,000.00",
-        address: "Sidney No. 1 Lake Park",
+        path: "￥300,000.00",
+        redirect: "New York No. 1 Lake Park",
+        title: "New York No. 1 Lake Park",
+        description: "New York No. 1 Lake Park",
+        icon: "New York No. 1 Lake Park",
+        roles: "New York No. 1 Lake Park",
       },
     ];
     return {
