@@ -20,7 +20,7 @@ import { Col, Card } from "ant-design-vue";
 import { useRouter } from "vue-router";
 import SvgIcon from "@/apa/components/Icons/SvgIcon";
 export default {
-  name: "MenuCard",
+  name: "menu-card",
   components: {
     ACard: Card,
     ACardMeta: Card.Meta,

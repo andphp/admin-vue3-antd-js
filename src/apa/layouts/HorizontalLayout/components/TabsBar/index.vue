@@ -64,7 +64,7 @@ import { DownOutlined } from "@ant-design/icons-vue";
 import store from "@/store";
 import { useRoute, useRouter } from "vue-router";
 export default {
-  name: "TabsBarHorizontal",
+  name: "tabs-bar-horizontal",
   components: {
     DownOutlined,
     ATabs: Tabs,
@@ -174,8 +174,9 @@ export default {
           break;
         case "closeAllTabs":
           store.dispatch("tagsBar/delAllVisitedRoutes");
-          if (_this.affixTabs.some((tag) => tag.path === toThisTag().path))
+          if (_this.affixTabs.some((tag) => tag.path === toThisTag().path)) {
             return;
+          }
           toLastTag();
           break;
       }

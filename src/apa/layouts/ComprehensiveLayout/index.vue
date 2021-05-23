@@ -45,7 +45,7 @@ import { reactive, computed, toRefs } from "vue";
 import store from "@/store";
 
 export default {
-  name: "Comprehensive",
+  name: "comprehensive",
   components: {
     ALayout: Layout,
     ALayoutContent: Layout.Content,
@@ -77,9 +77,9 @@ export default {
     },
   },
   setup(props) {
-    // function handleFoldSideBar() {
-    //   store.dispatch("settings/foldSideBar");
-    // }
+    /* function handleFoldSideBar() {
+         store.dispatch("settings/foldSideBar");
+       } */
     function toggleCollapse() {
       store.dispatch("settings/toggleCollapse");
     }

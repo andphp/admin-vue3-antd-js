@@ -25,7 +25,7 @@ import {
   onUnmounted,
 } from "vue";
 export default {
-  name: "Logo",
+  name: "logo",
   components: {
     SvgIcon,
   },

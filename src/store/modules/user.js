@@ -13,7 +13,7 @@ const state = () => ({
   uuid: "",
   nickname: "",
   username: "",
-  avatar: "",
+  avatar: ""
 });
 const getters = {
   token: (state) => state.token,
@@ -21,7 +21,7 @@ const getters = {
   username: (state) => state.username,
   avatar: (state) => state.avatar,
   uuid: (state) => state.uuid,
-  id: (state) => state.id,
+  id: (state) => state.id
 };
 const mutations = {
   /**
@@ -86,7 +86,7 @@ const mutations = {
     state.nickname = "";
     sessionStorage.clear();
     window.location.reload();
-  },
+  }
 };
 const actions = {
   /**
@@ -109,22 +109,22 @@ const actions = {
   async login({ commit }, userInfo) {
     const result = await login(userInfo);
     // console.log("login", result["data"]);
-    if (result["data"] && result["data"][tokenName]) {
-      commit("SetToken", result["data"][tokenName]);
+    if (result.data && result.data[tokenName]) {
+      commit("SetToken", result.data[tokenName]);
       const hour = new Date().getHours();
       const thisTime =
-        hour < 8
-          ? "早上好"
-          : hour <= 11
-          ? "上午好"
-          : hour <= 13
-          ? "中午好"
-          : hour < 18
-          ? "下午好"
-          : "晚上好";
+        hour < 8 ?
+          "早上好" :
+          hour <= 11 ?
+            "上午好" :
+            hour <= 13 ?
+              "中午好" :
+              hour < 18 ?
+                "下午好" :
+                "晚上好";
       notification.open({
         message: `欢迎登录${title}`,
-        description: `${thisTime}！`,
+        description: `${thisTime}！`
       });
     }
     return result;
@@ -137,7 +137,7 @@ const actions = {
   async getUserInfo({ commit, dispatch }) {
     const { data } = await getUserInfo();
     if (!data) {
-      message.error(`验证失败，请重新登录...`);
+      message.error("验证失败，请重新登录...");
       return false;
     }
 
@@ -162,11 +162,11 @@ const actions = {
    * @param {*} { dispatch }
    */
   async logout({ commit, dispatch }) {
-    const res = await logout(state.token);
-    if (res.code == process.env.VUE_APP_SUCCESS_CODE) {
-      await dispatch("resetAll");
-      commit("LoginOut");
-    }
+    /* const res = await logout(state.token);
+       if (res.code == process.env.VUE_APP_SUCCESS_CODE) { */
+    await dispatch("resetAll");
+    commit("LoginOut");
+    // }
   },
   /**
    * @description 重置token、roles、ability、router等
@@ -185,6 +185,6 @@ const actions = {
    */
   setToken({ commit }, token) {
     commit("SetToken", token);
-  },
+  }
 };
 export default { state, getters, mutations, actions };

@@ -14,9 +14,9 @@ import SvgIcon from "@/apa/components/Icons/SvgIcon";
 import { useRoute, useRouter } from "vue-router";
 import { isExternal } from "@/utils/validate";
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  /* reactive,
+     computed,
+     toRefs, */
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
@@ -26,7 +26,7 @@ import {
 } from "vue";
 
 export default {
-  name: "MenuitemVertical",
+  name: "menuitem-vertical",
   components: {
     AMenuItem: Menu.Item,
     SvgIcon,
@@ -51,6 +51,7 @@ export default {
       // console.log("route", route);
       const routePath = props.route.path;
       const target = props.route.meta.target;
+      console.log("routePath", routePath);
       if (target === "_blank") {
         if (isExternal(routePath)) window.open(routePath);
         else if (route.path !== routePath) window.open(routePath.href);

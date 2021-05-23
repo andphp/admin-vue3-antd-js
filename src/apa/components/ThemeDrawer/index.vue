@@ -61,7 +61,7 @@ import {
   onUnmounted,
 } from "vue";
 export default {
-  name: "ThemeDrawer",
+  name: "theme-drawer",
   components: {
     ADrawer: Drawer,
     AForm: Form,

@@ -15,12 +15,11 @@ export default {
   components: {
     AConfigProvider: ConfigProvider,
   },
-  computed: {},
   setup() {
     // UI控件 国际多语言
     const store = useStore();
-    // setLang("zh_CN");
-    // console.log("store.state.settings.language", store.state.settings.language);
+    /* setLang("zh_CN");
+       console.log("store.state.settings.language", store.state.settings.language); */
     setLang(store.state.settings.language);
     const language = reactive({
       locale: computed(() => getLangLocale()),
@@ -30,7 +29,10 @@ export default {
       ...toRefs(language),
     };
   },
+  computed: {},
 };
 </script>
 
-<style lang="less"></style>
+<style lang="less">
+@import "@/styles/main.less";
+</style>

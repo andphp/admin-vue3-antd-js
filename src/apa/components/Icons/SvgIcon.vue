@@ -12,7 +12,7 @@
 <script>
 import { computed, reactive, toRefs } from "vue";
 export default {
-  name: "SvgIcon",
+  name: "svg-icon",
   props: {
     iconName: { type: String, required: true }, // icon名称
     className: { type: String, default: "" }, // 自定义class类名

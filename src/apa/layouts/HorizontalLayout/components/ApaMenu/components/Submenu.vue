@@ -43,9 +43,9 @@ import SvgIcon from "@/apa/components/Icons/SvgIcon";
 import MenuItem from "./MenuItem";
 import Submenu from "./Submenu";
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  /* reactive,
+     computed,
+     toRefs, */
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
@@ -55,7 +55,7 @@ import {
 } from "vue";
 
 export default {
-  name: "SubmenuHorizontal",
+  name: "submenu-horizontal",
   components: {
     ASubMenu: Menu.SubMenu,
     SvgIcon,

@@ -68,9 +68,9 @@ import {
 } from "@ant-design/icons-vue";
 import { Layout, Menu, Breadcrumb } from "ant-design-vue";
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  /* reactive,
+     computed,
+     toRefs, */
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
@@ -79,7 +79,7 @@ import {
   onUnmounted,
 } from "vue";
 export default {
-  name: "Common",
+  name: "common",
   components: {
     UserOutlined,
     LaptopOutlined,
@@ -93,14 +93,6 @@ export default {
     ASubMenu: Menu.SubMenu,
     ABreadcrumb: Breadcrumb,
     ABreadcrumbItem: Breadcrumb.Item,
-  },
-  data() {
-    return {
-      selectedKeys1: ["2"],
-      selectedKeys2: ["1"],
-      collapsed: false,
-      openKeys: ["sub1"],
-    };
   },
   setup() {
     onBeforeMount(() => {}); // 挂载前
@@ -118,6 +110,14 @@ export default {
     // 这里存放返回数据
 
     return {};
+  },
+  data() {
+    return {
+      selectedKeys1: ["2"],
+      selectedKeys2: ["1"],
+      collapsed: false,
+      openKeys: ["sub1"],
+    };
   },
 };
 </script>

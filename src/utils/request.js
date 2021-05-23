@@ -11,13 +11,14 @@ import qs from "qs";
 import router from "@/router";
 import { isArray } from "@/utils/validate";
 import { message } from "ant-design-vue";
+import { humpToUnderline } from "@/utils/index";
 
 let loadingInstance;
 
 // 操作正常Code数组
-const codeVerificationArray = isArray(successCode)
-  ? [...successCode]
-  : [...[successCode]];
+const codeVerificationArray = isArray(successCode) ?
+  [...successCode] :
+  [...[successCode]];
 
 const CODE_MESSAGE = {
   200: "服务器成功返回请求数据",
@@ -38,7 +39,6 @@ const CODE_MESSAGE = {
 
 const handleData = ({ config, data, status, statusText }) => {
   if (loadingInstance) loadingInstance.close();
-
   // 若data.code存在，覆盖默认code
   let code = data && data.code ? data.code : status;
   // 若code属于操作正常code，则status修改为200
@@ -46,25 +46,27 @@ const handleData = ({ config, data, status, statusText }) => {
     code = process.env.VUE_APP_SUCCESS_CODE;
     return data;
   }
+
   // 若data.msg存在，覆盖默认提醒消息
-  const msg = !data
-    ? `后端接口 ${config.url} 异常 ${code}：${CODE_MESSAGE[code]}`
-    : !data.msg
-    ? `后端接口 ${config.url} 异常 ${code}：${statusText}`
-    : data.msg;
+  const msg = !data ?
+    `后端接口 ${config.url} 异常 ${code}：${CODE_MESSAGE[code]}` :
+    !data.msg ?
+    `后端接口 ${config.url} 异常 ${code}：${statusText}` :
+      data.msg;
 
   console.log("codeerr", code);
   switch (code) {
-    case 422:
-      message.error(msg || "登录失效");
-      store.dispatch("user/resetAll").catch(() => {});
-      break;
-    case 403:
-      router.push({ path: "/403" }).catch(() => {});
-      break;
-    default:
-      message.error(msg || "error");
-      break;
+  case 401:
+  case 422:
+    message.error(msg || "登录失效");
+    store.dispatch("user/resetAll").catch(() => {});
+    break;
+  case 403:
+    router.push({ path: "/403" }).catch(() => {});
+    break;
+  default:
+    message.error(msg || "error");
+    break;
   }
   return data;
 };
@@ -86,7 +88,15 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     if (store.getters["user/token"]) {
-      config.headers["Authorization"] = "Bearer " + store.getters["user/token"];
+      config.headers.Authorization = "Bearer " + store.getters["user/token"];
+    }
+    if (config.data) {
+      // 驼峰转下划线
+      let tempData = {};
+      Object.keys(config.data).forEach((v) => {
+        tempData[humpToUnderline(v)] = config.data[v];
+      });
+      config.data = tempData;
     }
     if (
       config.data &&

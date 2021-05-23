@@ -14,7 +14,7 @@
             个人设置
           </a-menu-item>
           <a-menu-divider />
-          <a-menu-item key="logout"
+          <a-menu-item key="logout" @click="logout"
             ><svg-icon iconName="exit"></svg-icon> 退出登录</a-menu-item
           >
         </a-menu>
@@ -25,9 +25,9 @@
 
 <script>
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  /* reactive,
+     computed,
+     toRefs, */
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
@@ -37,10 +37,11 @@ import {
 } from "vue";
 import { Avatar, Dropdown, Menu } from "ant-design-vue";
 import { DownOutlined } from "@ant-design/icons-vue";
-import { toRefs, reactive } from "vue";
+import { toRefs, reactive,getCurrentInstance } from "vue";
+import store from "@/store";
 import SvgIcon from "@/apa/components/Icons/SvgIcon";
 export default {
-  name: "Avatar",
+  name: "avatar",
   components: {
     DownOutlined,
     AAvatar: Avatar,
@@ -53,7 +54,9 @@ export default {
   setup() {
     onBeforeMount(() => {}); // 挂载前
 
-    onMounted(() => {}); // 挂载完成之后调用
+    onMounted(() => {
+    
+    }); // 挂载完成之后调用
 
     onBeforeUpdate(() => {}); // DOM数据更新前调用
 
@@ -63,12 +66,27 @@ export default {
 
     onUnmounted(() => {}); // 实例销毁后
 
+    const { proxy } = getCurrentInstance();
     // 这里存放返回数据
     const data = reactive({
       nickname: "daxiong",
       avatar: "https://i.gtimg.cn/club/item/face/img/2/16022_100.gif",
     });
-    return { ...toRefs(data) };
+    const logout = () => {
+      store
+        .dispatch("user/logout")
+        .then((res) => {
+          // if (res["code"] == 0) {
+            // router.push("/");
+          // }
+        })
+        .catch((err) => proxy.$message.error(err.message));
+    };
+
+    return {
+      ...toRefs(data),
+      logout,
+    };
   },
 };
 </script>

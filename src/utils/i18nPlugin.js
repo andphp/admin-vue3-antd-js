@@ -6,7 +6,7 @@ const createI18n = (config) => ({
   messages: config.messages,
   $t(key) {
     return this.messages[this.locale.value][key];
-  },
+  }
 });
 
 const i18nSymbol = Symbol();

@@ -34,7 +34,7 @@ import {
 import { Row, Col } from "ant-design-vue";
 import store from "@/store";
 export default {
-  name: "MainContentVertical",
+  name: "main-content-vertical",
   components: { ARow: Row, ACol: Col },
   setup() {
     onBeforeMount(() => {}); // 挂载前

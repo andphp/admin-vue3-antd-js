@@ -15,9 +15,9 @@ import { useRoute, useRouter } from "vue-router";
 import { isExternal } from "@/utils/validate";
 import store from "@/store";
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  /* reactive,
+     computed,
+     toRefs, */
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
@@ -27,7 +27,7 @@ import {
 } from "vue";
 
 export default {
-  name: "ApaMenuitemComprehensive",
+  name: "apa-menuitem-comprehensive",
   components: {
     AMenuItem: Menu.Item,
     SvgIcon,

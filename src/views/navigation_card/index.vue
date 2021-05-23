@@ -34,7 +34,7 @@ import { Divider, Row } from "ant-design-vue";
 import store from "@/store";
 import SvgIcon from "@/apa/components/Icons/SvgIcon";
 export default {
-  name: "Index",
+  name: "index",
   components: {
     ADivider: Divider,
     ARow: Row,
@@ -66,8 +66,8 @@ export default {
       }),
     });
 
-    // console.log("routePath", route.params);
-    // 这里存放返回数据
+    /* console.log("routePath", route.params);
+       这里存放返回数据 */
 
     return {
       ...toRefs(_this),

@@ -23,7 +23,7 @@ import {
 import store from "@/store";
 import { tokenName } from "@/config";
 export default {
-  name: "Layout",
+  name: "layout",
   components: {
     ABackTop: BackTop,
   },
@@ -31,7 +31,7 @@ export default {
     const initData = reactive({
       oldLayout: store.state.settings.layout,
       width: 0,
-      layout: computed(() => store.state.settings.layout),
+      layout: computed(() => store.state.settings.layout.toLowerCase()),
       showTabsBar: computed(() => store.state.settings.showTabsBar),
       fixedHeader: computed(() => store.state.settings.fixedHeader),
       device: computed(() => store.state.settings.device),

@@ -113,11 +113,11 @@ import SliderVerifyCode from "@/apa/components/SliderVerifyCode";
 import SvgIcon from "@/apa/components/Icons/SvgIcon";
 import { useRouter } from "vue-router";
 import store from "@/store";
-// import { useI18n } from "vue-i18n";
-// import { setLang, getLang } from "@/language";
+/* import { useI18n } from "vue-i18n";
+   import { setLang, getLang } from "@/language"; */
 
 export default {
-  name: "Login",
+  name: "login",
   components: {
     AForm: Form,
     AFormItem: Form.Item,
@@ -137,7 +137,7 @@ export default {
     // setLang("en_US");
     const formData = reactive({
       account: {
-        username: "admin",
+        username: "caogang",
         password: "123456",
       },
       signUpMode: false,
@@ -166,7 +166,7 @@ export default {
     function loginSubmit() {
       formData.signUpMode = !formData.signUpMode;
       const params = {
-        account: formData.account.username,
+        username: formData.account.username,
         password: formData.account.password,
       };
       setTimeout(function () {

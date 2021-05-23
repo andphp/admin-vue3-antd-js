@@ -58,7 +58,7 @@ import {
   watch,
 } from "vue";
 export default {
-  name: "ApaMenuComprehensive",
+  name: "apa-menu-comprehensive",
   components: {
     AMenu: Menu,
     ApaMenuItem,
@@ -89,10 +89,10 @@ export default {
           store.dispatch("menus/toggleSelectedTopMeun", value);
         },
         get() {
-          // console.log(
-          //   "store.state.menus.selectedTopMeun",
-          //   store.state.menus.selectedTopMeun
-          // );
+          /* console.log(
+               "store.state.menus.selectedTopMeun",
+               store.state.menus.selectedTopMeun
+             ); */
           return store.state.menus.selectedTopMeun;
         },
       }),
@@ -142,20 +142,20 @@ export default {
       return children.filter((item) => item.meta.hidden !== true);
     }
 
-    // const handleClick = ({ item, key, keyPath }) => {
-    //   console.log("clickitem", item);
-    //   console.log("clickkey", key);
-    //   console.log("clickkeyPath", keyPath);
-    // };
-    // const handleSelect = ({ item, key, keyPath }) => {
-    //   console.log("Selectitem", item);
-    //   console.log("Selectkey", key);
-    //   console.log("cSelectkeyPath", keyPath);
-    // };
-    // // 打开/折叠 侧边栏 二级菜单
-    // function onOpenChange(openKey) {
-    //   console.log("openKey", openKey);
-    // }
+    /* const handleClick = ({ item, key, keyPath }) => {
+         console.log("clickitem", item);
+         console.log("clickkey", key);
+         console.log("clickkeyPath", keyPath);
+       };
+       const handleSelect = ({ item, key, keyPath }) => {
+         console.log("Selectitem", item);
+         console.log("Selectkey", key);
+         console.log("cSelectkeyPath", keyPath);
+       };
+       // 打开/折叠 侧边栏 二级菜单
+       function onOpenChange(openKey) {
+         console.log("openKey", openKey);
+       } */
 
     // 这里存放返回数据
     return {
@@ -163,9 +163,9 @@ export default {
       ...toRefs(filterRoutes),
       ...toRefs(layoutData),
       ...toRefs(state),
-      // handleClick,
-      // handleSelect,
-      // onOpenChange,
+      /* handleClick,
+         handleSelect,
+         onOpenChange, */
     };
   },
 };

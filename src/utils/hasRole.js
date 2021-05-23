@@ -1,26 +1,28 @@
 import store from "@/store";
 
 export function hasRole(value) {
-  if (store.getters["acl/admin"]) return true;
+
+  if (store.getters["acl/admin"]) return true;// 是否超级管理员
+
   if (value instanceof Array && value.length > 0) {
     return can(store.getters["acl/role"], {
       role: value,
-      mode: "oneOf",
+      mode: "oneOf"
     });
   }
   let mode = "oneOf";
-  if (Object.prototype.hasOwnProperty.call(value, "mode")) mode = value["mode"];
+  if (Object.prototype.hasOwnProperty.call(value, "mode")) mode = value.mode;
   let result = true;
   if (Object.prototype.hasOwnProperty.call(value, "role")) {
     result =
-      result && can(store.getters["acl/role"], { role: value["role"], mode });
+      result && can(store.getters["acl/role"], { role: value.role, mode });
   }
   if (result && Object.prototype.hasOwnProperty.call(value, "ability")) {
     result =
       result &&
       can(store.getters["acl/ability"], {
-        role: value["ability"],
-        mode,
+        role: value.ability,
+        mode
       });
   }
   return result;

@@ -18,7 +18,7 @@ const {
   showSearch,
   showTheme,
   showNotice,
-  showFullScreen,
+  showFullScreen
 } = defaultSettings;
 
 const getLocalStorage = (key) => {
@@ -57,7 +57,7 @@ const state = {
   showSearch: toggleBoolean(showSearch),
   showTheme: toggleBoolean(showThemeChange) || toggleBoolean(showTheme),
   showNotice: toggleBoolean(showNotice),
-  showFullScreen: toggleBoolean(showFullScreen),
+  showFullScreen: toggleBoolean(showFullScreen)
 };
 const getters = {
   collapse: (state) => state.collapse,
@@ -75,7 +75,7 @@ const getters = {
   showSearch: (state) => state.showSearch,
   showTheme: (state) => state.showTheme,
   showNotice: (state) => state.showNotice,
-  showFullScreen: (state) => state.showFullScreen,
+  showFullScreen: (state) => state.showFullScreen
 };
 const mutations = {
   toggleCollapse(state) {
@@ -140,13 +140,13 @@ const mutations = {
   },
   saveTheme(state) {
     const obj = {
-      layout: state.layout,
+      layout: state.layout
     };
     localStorage.setItem("admin-vue-antd-js-theme", JSON.stringify(obj));
   },
   resetTheme() {
     localStorage.setItem("admin-vue-antd-js-theme", "");
-  },
+  }
 };
 const actions = {
   toggleCollapse({ commit }) {
@@ -201,6 +201,6 @@ const actions = {
   resetTheme({ commit }) {
     commit("resetTheme");
     commit("handleShowTheme", false);
-  },
+  }
 };
 export default { state, getters, mutations, actions };

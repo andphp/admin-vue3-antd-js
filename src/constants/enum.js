@@ -1,11 +1,12 @@
-/** enum.js
+/**
+ * enum.js
  * 枚举工具类的定义
  * 可以全局使用this.$enum.getDescByValue()等等...
  */
 import { createApp } from "vue";
 const EnumUtil = {};
 
-EnumUtil.install = function (data) {
+EnumUtil.install = function(data) {
   const constantInfo = data || {};
   const Enum = { ...data };
   const app = createApp();
@@ -15,7 +16,7 @@ EnumUtil.install = function (data) {
    * @param {*} value         枚举值
    * @param {*} desc          枚举值所对应的描述
    */
-  Enum.getDescByValue = function (constantName, value) {
+  Enum.getDescByValue = function(constantName, value) {
     if (!Object.prototype.hasOwnProperty.call(constantInfo, constantName)) {
       return "";
     }

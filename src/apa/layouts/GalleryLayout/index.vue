@@ -6,9 +6,9 @@
 
 <script>
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  /* reactive,
+     computed,
+     toRefs, */
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
@@ -18,7 +18,7 @@ import {
 } from "vue";
 
 export default {
-  name: "Gallery",
+  name: "gallery",
   setup() {
     onBeforeMount(() => {}); // 挂载前
     onMounted(() => {}); // 挂载完成之后调用

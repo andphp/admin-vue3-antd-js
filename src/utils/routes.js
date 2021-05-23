@@ -1,8 +1,22 @@
-import router from "@/router";
 import path from "path";
 import { rolesControl } from "@/config";
 import { isExternal } from "@/utils/validate";
 import { hasRole } from "@/utils/hasRole";
+import Layout from "@/apa/layouts";
+import Empty from "@/views/empty";
+/*
+ * 获取组件的方法
+ * const _import = require("@/router/_import_" + process.env.NODE_ENV);
+ */
+const loadView = (view) => {
+  // if (process.env.NODE_ENV !== "development") {
+  return () => import(`@/${view}`);
+  /*
+   * } else {
+   * return (resolve) => require([`@/${view}`], resolve);
+   * }
+   */
+};
 
 /**
  * @description all模式渲染后端返回路由,支持包含views路径的所有页面
@@ -11,14 +25,22 @@ import { hasRole } from "@/utils/hasRole";
  */
 export function convertRouter(asyncRoutes) {
   return asyncRoutes.map((route) => {
-    if (route.component) {
-      if (route.component === "Layout") {
-        route.component = (resolve) => require(["@/apa/layouts"], resolve);
-      } else {
-        const index = route.component.indexOf("views");
-        const path =
-          index > 0 ? route.component.slice(index) : `views/${route.component}`;
-        route.component = (resolve) => require([`@/${path}`], resolve);
+    if (route.component && typeof route.component === "string") {
+      try {
+        if (route.component.toLowerCase() == "layout") {
+          route.component = Layout;
+        } else if (route.component.toLowerCase() == "empty") {
+          route.component = Empty;
+        } else {
+          const index = route.component.indexOf("views");
+          const path =
+            index > 0 ?
+              route.component.slice(index) :
+              `views/${route.component}`;
+          route.component = loadView(path);
+        }
+      } catch (error) {
+        console.error(error);
       }
     }
     if (route.children && route.children.length) {

@@ -13,7 +13,7 @@ files.keys().forEach((key) => {
 
 export function mockXHR() {
   Mock.XHR.prototype.proxy_send = Mock.XHR.prototype.send;
-  Mock.XHR.prototype.send = function () {
+  Mock.XHR.prototype.send = function() {
     if (this.custom.xhr) {
       this.custom.xhr.withCredentials = this.withCredentials || false;
 
@@ -25,14 +25,14 @@ export function mockXHR() {
   };
 
   function XHRHttpRequst(respond) {
-    return function (options) {
+    return function(options) {
       let result;
       if (respond instanceof Function) {
         const { body, type, url } = options;
         result = respond({
           method: type,
           body: JSON.parse(body),
-          query: paramObj(url),
+          query: paramObj(url)
         });
       } else {
         result = respond;
@@ -40,7 +40,6 @@ export function mockXHR() {
       return Mock.mock(result);
     };
   }
-
   mocks.forEach((item) => {
     new RegExp(item.url);
     Mock.mock(

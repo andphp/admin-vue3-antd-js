@@ -14,9 +14,9 @@ import SvgIcon from "@/apa/components/Icons/SvgIcon";
 import { useRoute, useRouter } from "vue-router";
 import { isExternal } from "@/utils/validate";
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  /* reactive,
+     computed,
+     toRefs, */
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
@@ -26,7 +26,7 @@ import {
 } from "vue";
 
 export default {
-  name: "SecondMenuitemComprehensive",
+  name: "second-menuitem-comprehensive",
   components: {
     AMenuItem: Menu.Item,
     SvgIcon,

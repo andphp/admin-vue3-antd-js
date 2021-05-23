@@ -22,7 +22,7 @@ import MainContent from "./components/MainContent";
 // import ApaMenu from "@/apa/components/ApaMenu";
 
 export default {
-  name: "Horizontal",
+  name: "horizontal",
   components: {
     ALayout: Layout,
     ALayoutContent: Layout.Content,

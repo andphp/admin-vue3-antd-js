@@ -17,7 +17,7 @@
 <script>
 import { onMounted, ref } from "vue";
 export default {
-  name: "SliderVerifyCode",
+  name: "slider-verify-code",
   props: {
     options: {
       type: Object,
@@ -66,8 +66,8 @@ export default {
       background = slider_background.value;
       // 4、获取文本dom元素
       content = slider_content.value;
-      // 6、初始化
-      // wrap.style.position = "relative";
+      /* 6、初始化
+         wrap.style.position = "relative"; */
       wrap.style.height = options.height + "px";
       wrap.style.lineHeight = options.height + "px";
       wrap.style.background = options.backgroud;

@@ -43,9 +43,9 @@ import SvgIcon from "@/apa/components/Icons/SvgIcon";
 import SecondMenuItem from "./SecondMenuItem";
 import SecondSubmenu from "./SecondSubmenu";
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  /* reactive,
+     computed,
+     toRefs, */
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
@@ -55,7 +55,7 @@ import {
 } from "vue";
 
 export default {
-  name: "SecondSubmenuComprehensive",
+  name: "second-submenu-comprehensive",
   components: {
     ASubMenu: Menu.SubMenu,
     SvgIcon,

@@ -5,9 +5,9 @@
 
 <script>
 import {
-  // reactive,
-  // computed,
-  // toRefs,
+  /* reactive,
+     computed,
+     toRefs, */
   onBeforeMount,
   onMounted,
   onBeforeUpdate,
@@ -16,7 +16,7 @@ import {
   onUnmounted,
 } from "vue";
 export default {
-  name: "Configs",
+  name: "configs",
   components: {},
   setup() {
     onBeforeMount(() => {}); // 挂载前

@@ -59,7 +59,18 @@ import {
   getCurrentInstance,
 } from "vue";
 export default {
-  name: "TopBarComprehensive",
+  name: "top-bar-comprehensive",
+  components: {
+    ALayoutHeader: Layout.Header,
+    ARow: Row,
+    ACol: Col,
+    ApaMenu,
+    MenuFoldOutlined,
+    MenuUnfoldOutlined,
+    BgColorsOutlined,
+    Avatar,
+    Screenfull,
+  },
   props: {
     layout: {
       type: String,
@@ -71,17 +82,6 @@ export default {
         return "desktop";
       },
     },
-  },
-  components: {
-    ALayoutHeader: Layout.Header,
-    ARow: Row,
-    ACol: Col,
-    ApaMenu,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    BgColorsOutlined,
-    Avatar,
-    Screenfull,
   },
   setup() {
     const { ctx } = getCurrentInstance();
@@ -97,10 +97,10 @@ export default {
     const routesData = reactive({
       routes: computed(() => ctx.$router.getRoutes()),
     });
-    // console.log(
-    //   "store",
-    //   ctx.$router.getRoutes().filter((item) => item.name)
-    // );
+    /* console.log(
+         "store",
+         ctx.$router.getRoutes().filter((item) => item.name)
+       ); */
     const computedData = reactive({
       activeMenu: computed(() => {
         const { meta, path } = ctx.$router.currentRoute.value;
@@ -118,16 +118,16 @@ export default {
         },
       }),
     });
-    // console.log("device", props.device);
-    // console.log("store.state.settings.layout", store.state.settings.layout);
-    // function handleFoldSideBar() {
-    //   store.dispatch("settings/foldSideBar");
-    //   console.log("settings/collapse1", store.getters["settings/collapse"]);
-    // }
-    // function handleUnFoldSideBar() {
-    //   store.dispatch("settings/openSideBar");
-    //   console.log("settings/collapse2", store.getters["settings/collapse"]);
-    // }
+    /* console.log("device", props.device);
+       console.log("store.state.settings.layout", store.state.settings.layout);
+       function handleFoldSideBar() {
+         store.dispatch("settings/foldSideBar");
+         console.log("settings/collapse1", store.getters["settings/collapse"]);
+       }
+       function handleUnFoldSideBar() {
+         store.dispatch("settings/openSideBar");
+         console.log("settings/collapse2", store.getters["settings/collapse"]);
+       } */
     function toggleCollapse() {
       computedData.collapse = !computedData.collapse;
     }
@@ -139,8 +139,8 @@ export default {
     return {
       ...toRefs(computedData),
       routesData,
-      // handleFoldSideBar,
-      // handleUnFoldSideBar,
+      /* handleFoldSideBar,
+         handleUnFoldSideBar, */
       toggleCollapse,
       onShow,
       matched,

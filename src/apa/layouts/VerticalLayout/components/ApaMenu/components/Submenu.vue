@@ -57,7 +57,7 @@ import {
 } from "vue";
 
 export default {
-  name: "SubmenuVertical",
+  name: "submenu-vertical",
   components: {
     ASubMenu: Menu.SubMenu,
     SvgIcon,

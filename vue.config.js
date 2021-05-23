@@ -29,20 +29,21 @@ const FileManagerPlugin = require("filemanager-webpack-plugin");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const productionGzipExtensions = ["html", "js", "css", "svg"];
 
-// mockjs
-// const mockServer = () => {
-//   if (process.env.NODE_ENV === "development") {
-//     return require("./mock/mockServer.js");
-//   } else {
-//     return "";
-//   }
-// };
+/* mockjs
+   const mockServer = () => {
+     if (process.env.NODE_ENV === "development") {
+       return require("./mock/mockServer.js");
+     } else {
+       return "";
+     }
+   }; */
 
 process.env.VUE_APP_TITLE = title || "admin-vue-antd";
 process.env.VUE_APP_AUTHOR = author || "AndPHP";
 process.env.VUE_APP_UPDATE_TIME = time;
 process.env.VUE_APP_VERSION = version;
 
+// eslint-disable-next-line no-unused-vars
 function addStyleResource(rule) {
   rule
     .use("style-resource")
@@ -64,9 +65,9 @@ module.exports = {
   outputDir,
   transpileDependencies,
   lintOnSave,
-  // configureWebpack: {
-  //   devtool: "source-map"
-  // },
+  /* configureWebpack: {
+       devtool: "source-map"
+     }, */
   configureWebpack() {
     return {
       devtool: "source-map",
@@ -134,9 +135,7 @@ module.exports = {
           {
             filename: "[path][base].gz",
             algorithm: "gzip",
-            test: new RegExp(
-              "\\.(" + productionGzipExtensions.join("|") + ")$"
-            ),
+            test: new RegExp("\\.(" + productionGzipExtensions.join("|") + ")$"),
             threshold: 8192,
             minRatio: 0.8,
           },
@@ -173,11 +172,11 @@ module.exports = {
         lessOptions: {
           javascriptEnabled: true,
           modifyVars: {
-            // "apa-color-blue": "#1890ff",
-            // "current-color": "#1890ff",
-            // "apa-margin": "20px",
-            // "apa-padding": "20px",
-            // "apa-header-height": "65px",
+            /* "apa-color-blue": "#1890ff",
+               "current-color": "#1890ff",
+               "apa-margin": "20px",
+               "apa-padding": "20px",
+               "apa-header-height": "65px", */
           },
           globalVars: {
             hack: `true; @import "${path.resolve(
@@ -191,11 +190,12 @@ module.exports = {
   },
   devServer: {
     port: devPort,
-    // before: mockServer()
-    // 注释掉的地方是前端配置代理访问后端的示例
+    /* before: mockServer()
+       注释掉的地方是前端配置代理访问后端的示例 */
     proxy: {
       "/mock-server": {
-        target: `http://lamange.test/api`,
+        target: "http://yshk.test:9501",
+        // target: "http://192.168.31.203:9501",
         ws: true,
         changeOrigin: true,
         pathRewrite: {

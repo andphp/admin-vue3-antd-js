@@ -1,5 +1,6 @@
 const accessTokens = {
   admin: "admin-accessToken",
+  caogang: "admin-accessToken",
   editor: "editor-accessToken",
   test: "test-accessToken",
 };
@@ -21,11 +22,14 @@ module.exports = [
     },
   },
   {
-    url: "/login",
+    // url: "/login",
+    url: "/sys/sign_in",
     type: "post",
     response(config) {
       const { username } = config.body;
       const accessToken = accessTokens[username];
+      /* const { account } = config.body;
+         const accessToken = accessTokens[account]; */
       if (!accessToken) {
         return {
           code: 500,
@@ -33,7 +37,8 @@ module.exports = [
         };
       }
       return {
-        code: 200,
+        // code: 200,
+        code: 0,
         data: {
           user: {
             ID: 1,
@@ -57,7 +62,7 @@ module.exports = [
             },
             authorityId: "888",
           },
-          accessToken: accessToken,
+          accessToken,
           expiresAt: 1615462376000,
         },
         msg: "登录成功",
@@ -65,7 +70,7 @@ module.exports = [
     },
   },
   {
-    url: "/socialLogin", //社交 登录
+    url: "/socialLogin", // 社交 登录
     type: "post",
     response(config) {
       const { code } = config.body;
@@ -78,7 +83,7 @@ module.exports = [
       return {
         code: 200,
         msg: "success",
-        data: { accessToken: accessTokens["admin"] },
+        data: { accessToken: accessTokens.admin },
       };
     },
   },
@@ -93,10 +98,12 @@ module.exports = [
     },
   },
   {
+    // url: "/manage/user/info",
     url: "/userInfo",
     type: "post",
     response(config) {
-      const { accessToken } = config.body;
+      const { access_token } = config.body;
+      const accessToken = access_token;
       let roles = ["admin"];
       let ability = ["READ"];
       let username = "admin";

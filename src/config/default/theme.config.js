@@ -23,6 +23,6 @@ const theme = {
   // 是否显示通知组件
   showNotice: true,
   // 是否显示全屏组件
-  showFullScreen: true,
+  showFullScreen: true
 };
 module.exports = theme;

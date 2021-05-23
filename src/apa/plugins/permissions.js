@@ -13,7 +13,7 @@ import {
 
 import NProgress from "nprogress";
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async(to, from, next) => {
   NProgress.start();
   let hasToken = store.getters["user/token"];
 
@@ -37,19 +37,28 @@ router.beforeEach(async (to, from, next) => {
             // loginInterception为false（关闭登录拦截时）时，创建虚拟角色
             await store.dispatch("user/setVirtualRoles");
           }
-
           let accessRoutes = [];
-          if (authentication === "intelligence") {
-            accessRoutes = await store.dispatch("routes/setRoutes");
-          } else if (authentication === "all") {
-            accessRoutes = await store.dispatch("routes/setAllRoutes");
-          }
+
+          /*
+           * if (authentication === 'intelligence') {
+           *   accessRoutes = await store.dispatch('routes/setRoutes');
+           * } else if (authentication === 'all') {
+           *   accessRoutes = await store.dispatch('routes/setAllRoutes');
+           * }
+           */
+
+          accessRoutes = await store.dispatch(
+            "routes/setRoutes",
+            authentication
+          );
+          // console.log(router.getRoutes());
           accessRoutes.forEach((item) => {
             router.addRoute(item);
           });
 
           next({ ...to, replace: true });
-        } catch {
+        } catch (err) {
+          console.log(err);
           await store.dispatch("user/resetAll");
           if (recordRoute) {
             next({

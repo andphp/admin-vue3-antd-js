@@ -28,7 +28,7 @@ export function parseTime(time, cFormat) {
     h: date.getHours(),
     i: date.getMinutes(),
     s: date.getSeconds(),
-    a: date.getDay(),
+    a: date.getDay()
   };
   return format.replace(/{([ymdhisa])+}/g, (result, key) => {
     let value = formatObj[key];
@@ -96,15 +96,13 @@ export function paramObj(url) {
   if (!search) {
     return {};
   }
-  return JSON.parse(
-    '{"' +
+  return JSON.parse("{\"" +
       decodeURIComponent(search)
-        .replace(/"/g, '\\"')
-        .replace(/&/g, '","')
-        .replace(/=/g, '":"')
+        .replace(/"/g, "\\\"")
+        .replace(/&/g, "\",\"")
+        .replace(/=/g, "\":\"")
         .replace(/\+/g, " ") +
-      '"}'
-  );
+      "\"}");
 }
 
 /**
@@ -113,12 +111,8 @@ export function paramObj(url) {
  * @returns {*}
  */
 export function translateDataToTree(data) {
-  const parent = data.filter(
-    (value) => value.parentId === "undefined" || value.parentId == null
-  );
-  const children = data.filter(
-    (value) => value.parentId !== "undefined" && value.parentId != null
-  );
+  const parent = data.filter((value) => value.parentId === "undefined" || value.parentId == null);
+  const children = data.filter((value) => value.parentId !== "undefined" && value.parentId != null);
   const translator = (parent, children) => {
     parent.forEach((parent) => {
       children.forEach((current, index) => {
@@ -126,9 +120,9 @@ export function translateDataToTree(data) {
           const temp = JSON.parse(JSON.stringify(children));
           temp.splice(index, 1);
           translator([current], temp);
-          typeof parent.children !== "undefined"
-            ? parent.children.push(current)
-            : (parent.children = [current]);
+          typeof parent.children !== "undefined" ?
+            parent.children.push(current) :
+            (parent.children = [current]);
         }
       });
     });
@@ -149,7 +143,7 @@ export function translateTreeToData(data) {
       result.push({
         id: data.id,
         name: data.name,
-        parentId: data.parentId,
+        parentId: data.parentId
       });
       const child = data.children;
       if (child) {
@@ -233,8 +227,8 @@ export function random(m, n) {
  * @description addEventListener
  * @type {function(...[*]=)}
  */
-export const on = (function () {
-  return function (element, event, handler, useCapture = false) {
+export const on = (function() {
+  return function(element, event, handler, useCapture = false) {
     if (element && event && handler) {
       element.addEventListener(event, handler, useCapture);
     }
@@ -245,10 +239,14 @@ export const on = (function () {
  * @description removeEventListener
  * @type {function(...[*]=)}
  */
-export const off = (function () {
-  return function (element, event, handler, useCapture = false) {
+export const off = (function() {
+  return function(element, event, handler, useCapture = false) {
     if (element && event) {
       element.removeEventListener(event, handler, useCapture);
     }
   };
 })();
+
+export function humpToUnderline(str) {
+  return str.replace(/([A-Z])/g, "_$1").toLowerCase();
+}

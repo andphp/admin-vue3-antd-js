@@ -20,32 +20,34 @@ export const i18n = createI18n({
   messages: {
     [ENUM_LANG.enUS]: {
       ...customEnUS,
-      ...enUS,
+      ...enUS
     },
     [ENUM_LANG.zhCN]: {
       ...customZhCN,
-      ...zhCN,
+      ...zhCN
     },
     [ENUM_LANG.zhTW]: {
       ...customZhTW,
-      ...zhTW,
-    },
+      ...zhTW
+    }
   },
-  silentTranslationWarn: true,
+  silentTranslationWarn: true
 });
-// const store = useStore();
-// 切换语言
+/*
+ * const store = useStore();
+ * 切换语言
+ */
 export const setLang = (lang) => {
   // 设置组件国际化
   switch (lang) {
-    case ENUM_LANG.enUS:
-      moment.locale(enUS.locale);
-      break;
-    case ENUM_LANG.zhTW:
-      moment.locale(zhTW.locale);
-      break;
-    default:
-      moment.locale(zhCN.locale);
+  case ENUM_LANG.enUS:
+    moment.locale(enUS.locale);
+    break;
+  case ENUM_LANG.zhTW:
+    moment.locale(zhTW.locale);
+    break;
+  default:
+    moment.locale(zhCN.locale);
   }
   // 当前语言
   store.dispatch("settings/changeLanguage", lang);
@@ -63,14 +65,14 @@ export const getLangLocale = () => {
   const language = getLang();
   let locale = "";
   switch (language) {
-    case ENUM_LANG.enUS:
-      locale = enUS;
-      break;
-    case ENUM_LANG.zhTW:
-      locale = zhTW;
-      break;
-    default:
-      locale = zhCN;
+  case ENUM_LANG.enUS:
+    locale = enUS;
+    break;
+  case ENUM_LANG.zhTW:
+    locale = zhTW;
+    break;
+  default:
+    locale = zhCN;
   }
   return locale;
 };

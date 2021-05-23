@@ -3,10 +3,10 @@
  */
 
 const state = () => ({
-  visitedRoutes: [],
+  visitedRoutes: []
 });
 const getters = {
-  visitedRoutes: (state) => state.visitedRoutes,
+  visitedRoutes: (state) => state.visitedRoutes
 };
 const mutations = {
   /**
@@ -41,9 +41,7 @@ const mutations = {
    * @returns
    */
   delOthersVisitedRoutes(state, route) {
-    state.visitedRoutes = state.visitedRoutes.filter(
-      (item) => item.meta.affix || item.path === route.path
-    );
+    state.visitedRoutes = state.visitedRoutes.filter((item) => item.meta.affix || item.path === route.path);
   },
   /**
    * @description 删除当前标签页左边全部多标签页
@@ -79,7 +77,7 @@ const mutations = {
    */
   delAllVisitedRoutes(state) {
     state.visitedRoutes = state.visitedRoutes.filter((item) => item.meta.affix);
-  },
+  }
 };
 const actions = {
   /**
@@ -128,6 +126,6 @@ const actions = {
    */
   delAllVisitedRoutes({ commit }) {
     commit("delAllVisitedRoutes");
-  },
+  }
 };
 export default { state, getters, mutations, actions };

@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: 403,
+  name: "403",
 };
 </script>
 
