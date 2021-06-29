@@ -1,9 +1,7 @@
 <template>
   <div>
     <p>this is index</p>
-    <a-button type="primary">
-      Primary
-    </a-button>
+    <a-button type="primary"> Primary </a-button>
   </div>
 </template>
 
@@ -12,7 +10,7 @@ export default {
   setup() {
     console.log("haha");
     return {};
-  }
+  },
 };
 </script>
 

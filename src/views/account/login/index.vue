@@ -6,14 +6,19 @@
         <!-- 登录 -->
         <div class="signin">
           <a-card
-            :title="signUpMode ? $t('login.loading') : $t('login.title')"
+            :title="signUpMode ? $t('登录加载') : $t('后台标题')"
             bordered
             hoverable
             class="a-card"
             headStyle="text-align: center;font-size: 24px;color: #1890ff;"
             :loading="signUpMode"
           >
-            <a-form class="sign-in-form" :model="account" :rules="rules" @finish="loginSubmit">
+            <a-form
+              class="sign-in-form"
+              :model="account"
+              :rules="rules"
+              @finish="loginSubmit"
+            >
               <a-form-item name="username">
                 <a-input
                   size="large"
@@ -22,12 +27,12 @@
                   v-model:value="account.username"
                 >
                   <template #prefix>
-                    <UserOutlined style="color:#1890ff" />
+                    <UserOutlined style="color: #1890ff" />
                   </template>
                 </a-input>
               </a-form-item>
               <a-form-item name="password">
-                <div style="border-radius: 8px 8px;">
+                <div style="border-radius: 8px 8px">
                   <a-input-password
                     size="large"
                     autocomplete="on"
@@ -35,7 +40,7 @@
                     v-model:value="account.password"
                   >
                     <template #prefix>
-                      <LockOutlined style="color:#1890ff" />
+                      <LockOutlined style="color: #1890ff" />
                     </template>
                   </a-input-password>
                 </div>
@@ -48,14 +53,28 @@
                   :options="sliderVerifyCodeOptions"
                 >
                   <template #icon>
-                    <svg-icon v-if="sliderVerifyCodeOptions.icon && isSuccess" icon-class="slider-success" class-name="v-success v-large"></svg-icon>
-                    <svg-icon v-else icon-class="slider" class-name="v-black v-large"></svg-icon>
+                    <svg-icon
+                      v-if="sliderVerifyCodeOptions.icon && isSuccess"
+                      icon-name="slider-success"
+                      class-name="v-success v-large"
+                    ></svg-icon>
+                    <svg-icon
+                      v-else
+                      icon-name="slider"
+                      class-name="v-black v-large"
+                    ></svg-icon>
                   </template>
                 </slider-verify-code>
               </a-form-item>
               <a-form-item :wrapper-col="{ span: 24 }">
-                <a-button size="large" type="primary" html-type="submit" class="login-button" block>
-                  {{ $t("login.btn_title") }}
+                <a-button
+                  size="large"
+                  type="primary"
+                  class="login-button"
+                  @click="loginSubmit"
+                  block
+                >
+                  {{ $t("登录标签") }}
                 </a-button>
               </a-form-item>
             </a-form>
@@ -90,12 +109,15 @@
 import { toRefs, reactive } from "vue";
 import { UserOutlined, LockOutlined } from "@ant-design/icons-vue";
 import { Form, Input, Card, Button } from "ant-design-vue";
-import SliderVerifyCode from "@/components/SliderVerifyCode/SliderVerifyCode.vue";
-import SvgIcon from "@/components/Icons/SvgIcon";
-// import { useRouter } from "vue-router";
+import SliderVerifyCode from "@/apa/components/SliderVerifyCode";
+import SvgIcon from "@/apa/components/Icons/SvgIcon";
+import { useRouter } from "vue-router";
+import store from "@/store";
+/* import { useI18n } from "vue-i18n";
+   import { setLang, getLang } from "@/language"; */
 
 export default {
-  name: "Login",
+  name: "login",
   components: {
     AForm: Form,
     AFormItem: Form.Item,
@@ -106,15 +128,17 @@ export default {
     UserOutlined: UserOutlined,
     LockOutlined: LockOutlined,
     SliderVerifyCode: SliderVerifyCode,
-    SvgIcon: SvgIcon
+    SvgIcon: SvgIcon,
   },
   setup() {
-    // const router = useRouter();
+    // const { t } = useI18n({ useScope: "global" });
 
+    const router = useRouter();
+    // setLang("en_US");
     const formData = reactive({
       account: {
         username: "admin",
-        password: "123456"
+        password: "123456",
       },
       signUpMode: false,
       sliderVerifyCodeOptions: {
@@ -127,37 +151,49 @@ export default {
         color: "#fff", // 初始化的字体颜色
         backgroud: "#cfd3ce", // 背景颜色
         fontSize: 12, // 字体大小
-        icon: true // 是否使用自定义的图标文件
+        icon: true, // 是否使用自定义的图标文件
       },
-      isSuccess: false
+      isSuccess: false,
     });
-
-    //验证规则
-    let rules = reactive({
-      username: [
-        { required: true, message: "请输入用户名", trigger: "blur" }
-      ],
+    // 验证规则
+    const rules = reactive({
+      username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
       password: [
-        { required: true, min: 6, message: "密码最少六位", trigger: "blur" }
-      ]
+        { required: true, min: 6, message: "密码最少六位", trigger: "change" },
+      ],
     });
 
     function loginSubmit() {
       formData.signUpMode = !formData.signUpMode;
+      const params = {
+        username: formData.account.username,
+        password: formData.account.password,
+      };
+      setTimeout(function () {
+        store
+          .dispatch("user/login", params)
+          .then((res) => {
+            if (res["code"] == 0) {
+              router.push("/");
+            }
+          })
+          .catch((err) => alert(err.message));
+        // router.push("/");
+      }, 3000);
     }
 
     const success = (e) => {
       formData.isSuccess = e;
     };
     const data = toRefs(formData);
-
-    return { loginSubmit, ...data, success, rules };
-  }
+    const columns = [];
+    return { columns, loginSubmit, ...data, success, rules, router };
+  },
 };
 </script>
 
 <style lang="less" scoped>
-@import "../../styles/login";
+@import "@/styles/login.less";
 
 .ant-input,
 .ant-input-affix-wrapper,
@@ -183,7 +219,6 @@ export default {
 }
 
 .login-button {
-  margin-top: 30px;
   border-radius: 5px 5px;
 }
 </style>
