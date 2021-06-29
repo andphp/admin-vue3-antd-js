@@ -1,0 +1,93 @@
+/**
+ * @description 海洋之心主题
+ */
+.theme-ocean {
+  @base-cloer: #0bf876;
+  .layout-container-vertical .trigger:hover {
+    color: @base-cloer !important;
+  }
+
+  .ant-layout-header {
+    background-color: #fff;
+    padding: 0px;
+  }
+  .trigger {
+    font-size: 18px;
+    line-height: 64px;
+    padding: 0 24px;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+  .trigger:hover {
+    color: red;
+  }
+  .side-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    // background: #f5f7f9 url(../../../assets/admin_menu_bg.jpg) center center no-repeat !important;
+    background: #2f414f;
+    background-size: cover !important;
+    z-index: 2;
+  }
+  .ant-layout-sider {
+    // background: transparent;
+    background: #2f414f;
+    .ant-menu {
+      color: #ffffff;
+      // background-color: rgba(255, 255, 255, 0.66) !important;
+      background: #2f414f;
+    }
+  }
+  .ant-menu-vertical .ant-menu-item::after,
+  .ant-menu-vertical-left .ant-menu-item::after,
+  .ant-menu-vertical-right .ant-menu-item::after,
+  .ant-menu-inline .ant-menu-item::after {
+    border: 0;
+  }
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background: #2b5a76;
+    color: #ffffff;
+  }
+  .ant-menu-submenu-title{
+    color: #ffffff;
+  }
+  .ant-menu-item-active,
+  .ant-menu-submenu-active {
+    background: #2b5a76;
+    color: #ffffff;
+  }
+  .ant-menu-submenu-arrow {
+    color: #ffffff;
+  }
+  .ant-menu-submenu-vertical
+    > .ant-menu-submenu-title
+    .ant-menu-submenu-arrow::before,
+  .ant-menu-submenu-vertical-left
+    > .ant-menu-submenu-title
+    .ant-menu-submenu-arrow::before,
+  .ant-menu-submenu-vertical-right
+    > .ant-menu-submenu-title
+    .ant-menu-submenu-arrow::before,
+  .ant-menu-submenu-inline
+    > .ant-menu-submenu-title
+    .ant-menu-submenu-arrow::before,
+  .ant-menu-submenu-vertical
+    > .ant-menu-submenu-title
+    .ant-menu-submenu-arrow::after,
+  .ant-menu-submenu-vertical-left
+    > .ant-menu-submenu-title
+    .ant-menu-submenu-arrow::after,
+  .ant-menu-submenu-vertical-right
+    > .ant-menu-submenu-title
+    .ant-menu-submenu-arrow::after,
+  .ant-menu-submenu-inline
+    > .ant-menu-submenu-title
+    .ant-menu-submenu-arrow::after {
+    background: linear-gradient(to right, #ffffff, #ffffff);
+  }
+  .ant-menu-inline, .ant-menu-vertical, .ant-menu-vertical-left{
+    border-right:1px solid #2b5a76;
+  }
+}

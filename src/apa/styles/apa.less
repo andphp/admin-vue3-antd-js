@@ -1,0 +1,59 @@
+/**
+ * @description 全局样式
+ */
+
+@import "./normalize.less";
+@import "./variables.less";
+@import "./transition.less";
+@import "./themes/glory.less";
+@import "./themes/green.less";
+@import "./themes/ocean.less";
+@import "./themes/white.less";
+
+html {
+  body {
+    * {
+      box-sizing: border-box;
+    }
+
+    /* ant-input-search搜索框 */
+    .ant-input-search {
+      max-width: 250px;
+    }
+
+    /* ant-pagination分页 */
+    .ant-pagination {
+      margin-top: @apa-margin;
+      text-align: center;
+
+      &.ant-table-pagination {
+        float: none !important;
+        margin-top: @apa-margin;
+      }
+    }
+  }
+}
+
+.side-bar {
+  .ant-layout-sider {
+    height: 100vh;
+  }
+}
+
+.top-bar-right-padding {
+  float: right;
+  padding-right: 15px;
+}
+
+.meun-icon-nav {
+  font-size: 24px;
+  padding-top: 10px;
+}
+
+.apa-sider {
+  .ant-menu {
+    .svg-icon {
+      fill: #fff !important;
+    }
+  }
+}

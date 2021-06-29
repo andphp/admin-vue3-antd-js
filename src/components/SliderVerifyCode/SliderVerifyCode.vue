@@ -11,12 +11,12 @@
 <script>
 import { onMounted, ref } from "vue";
 export default {
-  name: "SliderVerifyCode",
+  name: "slider-verify-code",
   props: {
     options: {
       type: Object,
       required: true,
-      default: function() {
+      default: function () {
         return {
           text: "请向右滑动验证",
           successText: "验证成功", // 验证成功文字
@@ -60,8 +60,8 @@ export default {
       background = slider_background.value;
       // 4、获取文本dom元素
       content = slider_content.value;
-      // 6、初始化
-      // wrap.style.position = "relative";
+      /* 6、初始化
+         wrap.style.position = "relative"; */
       wrap.style.height = options.height + "px";
       wrap.style.lineHeight = options.height + "px";
       wrap.style.background = options.backgroud;
@@ -71,7 +71,7 @@ export default {
       // 设置滑块的属性
       slider.style.background = options.sliderColor; // 滑块颜色
 
-      !options.icon ? slider.innerHTML = "&gt;&gt;" : ''; // 滑块文字
+      !options.icon ? (slider.innerHTML = "&gt;&gt;") : ""; // 滑块文字
 
       slider.style.transition = null;
       slider.style.height = options.height - 2 + "px"; // 滑块高度
@@ -120,7 +120,7 @@ export default {
             content.innerHTML = options.successText; // 成功文本
             slider.style.color = options.sliderTextColor; // 滑块文本颜色
 
-            !options.icon ? slider.innerHTML = "✔" : ''; // 滑块图标
+            !options.icon ? (slider.innerHTML = "✔") : ""; // 滑块图标
             isSuccess = true;
             // 2、成功后，清除掉鼠标按下事件和移动事件
             slider.onmousedown = null;
@@ -152,9 +152,9 @@ export default {
       slider_icon,
       slider_wrap,
       slider_content,
-      slider_background
+      slider_background,
     };
-  }
+  },
 };
 </script>
 
@@ -189,5 +189,6 @@ export default {
   border-radius: 4px;
   box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.29),
     2px 2px 2px rgba(255, 255, 255, 0.44) inset;
-}</style
->>
+}
+</style>
+>
